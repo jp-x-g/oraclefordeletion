@@ -537,20 +537,20 @@ for incr in range(0,numberOfDays):
 			ind[7] = str(float(100*(ind[7] / clCount)))[0:5]
 		else:
 			# Avoid the classic meme "I JUST DIVIDED BY ZERO OH SHI-"
-			ind[5] = "style: \"background: " + indGrayed + "\" | 0"
-			ind[6] = "style: \"background: " + indGrayed + "\" | 0"
-			ind[7] = "style: \"background: " + indGrayed + "\" | 0"
+			ind[5] = "style=\"background: " + indGrayed + "\" | 0"
+			ind[6] = "style=\"background: " + indGrayed + "\" | 0"
+			ind[7] = "style=\"background: " + indGrayed + "\" | 0"
 		# Calculate stuff for the index. Many things stay the same. 
 		top = top + "\n|-"
 		top = top + "\n| " + "[[#" + str(ind[0]) + "|" + str(ind[0]) + "]]"
 		if (ind[1] == 0):
-			top = top + "\n| style: \"background:" + indGrayed + "\" | 0"
+			top = top + "\n| style=\"background:" + indGrayed + "\" | 0"
 		else:
 			top = top + "\n| " + str(ind[1])
 		top = top + "\n| " + str(ind[2])
 		top = top + "\n| " + str(ind[3])
 		if (ind[4] == 0):
-			top = top + "\n| style: \"background:" + indGrayed + "\" | 0"
+			top = top + "\n| style=\"background:" + indGrayed + "\" | 0"
 		else:
 			top = top + "\n| " + str(ind[4])
 		top = top + "\n| " + str(ind[5])
