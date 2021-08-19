@@ -167,6 +167,7 @@ delta = (curTime - lastTime).total_seconds()
 # Might use these later, but probably won't.
 
 aLog("Running Oracle for Deletion (AfD parser), version " + version + ", at " + datetime.now(timezone.utc).isoformat() + " UTC, local time " + datetime.now().isoformat())
+aLog("Arguments: " + str(args))
 
 if verbose:
 	aLog("File name  : " + __file__)

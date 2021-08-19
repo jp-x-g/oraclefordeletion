@@ -71,7 +71,7 @@ parser.add_argument("-i", "--input", metavar="blahblah.txt", help="Input file to
 parser.add_argument("-o", "--output", metavar="User:JohnDoe/OfD", help="Wikipedia page to post the file to. Default is " + pagename + ". Be careful with this one, because it is easy to do something stupid.", default=pagename)
 parser.add_argument("-u", "--username", metavar="JohnDoe@OfD_poster", help="Specify username to authenticate with. Default is to read from " + os.getcwd() + "/" + configname + "/" + logindeets + ".", default = "Didn't specify one.")
 parser.add_argument("-p", "--password", metavar="hunter2", help="Specify password to authenticate with. Default is to read from " + os.getcwd() + "/" + configname + "/" + logindeets + ".", default = "Didn't specify one.")
-parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
+#parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay before executing the script. Not very useful. Default is 0.5.", default=0.5)
 #parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.", default=0)
 parser.add_argument("-d", "--dryrun", help="Run the script without actually editing the page.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
@@ -107,7 +107,8 @@ if args.dryrun:
 #	maxQueriesToMake = args.max
 
 #numberOfDays = int(args.back)
-sleepTime = float(args.sleep)
+sleepTime = 0.01
+#sleepTime = float(args.sleep)
 
 if args.output:
 	pagename = args.output

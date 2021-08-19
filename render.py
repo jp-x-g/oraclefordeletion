@@ -64,9 +64,12 @@ parser.add_argument("-l", "--latest", metavar="DATE", help="Date to parse back f
 #parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with detailed information. Wheee!", action="store_true")
 parser.add_argument("-c", "--configure", help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
+#parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay before executing the script. Not very useful. Default is 0.5.", default=0.5)
 #parser.add_argument("-s", "--sleep", metavar="SECS", help="Time in seconds to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
 args = parser.parse_args()
 today = datetime.fromisoformat(str(args.latest))
+
+cooldown = 0
 
 verbose = 0
 if args.verbose:
@@ -83,7 +86,7 @@ maxQueriesToMake = 69420
 #	maxQueriesToMake = args.max
 
 numberOfDays = int(args.back)
-sleepTime = 0.5
+sleepTime = 0.01
 #sleepTime = float(args.sleep)
 
 daysDelta = timedelta(days=numberOfDays)
