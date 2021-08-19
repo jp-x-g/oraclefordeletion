@@ -54,7 +54,6 @@ inputPage = "render.txt"
 pagename = "User:JPxG/sandbox66"
 apiBase = "https://en.wikipedia.org/w/api.php"
 
-
 dividerStart = "<!-- Everything below"
 # This is what the bot will interpret as the last line of header text on the page.
 
@@ -273,11 +272,36 @@ aLog("Login successful. Authenticated as " + l['login']['lgusername'])
 
 #############################################
 #	Grabbing the previous rev of the page
-#	and appending to it should go here.
+#	and slicing it at the divider so that
+#   we can retain some sort of header.
 #############################################
-
-
-
+"""r = requests.get(apiBase, data={
+	"action": "query",
+	"prop": "revisions",
+	"rvslots": "*",
+	"rvprop": "content",
+	"formatversion": "2",
+	"format": "json",
+	"titles": pagename
+	})"""
+	# Don't know why the heck this doesn't work.
+try:
+	r = requests.get("https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=*&rvprop=content&formatversion=2&format=json&titles=" + pagename)
+	# Actually hit the URL in this line, and get a page, which will be of type "Response"
+	r = r.text
+	#print(r)
+	# Make it so that "r" is the text of the response, not a "Response" of the response
+	r = json.loads(r)
+	# Make it so that "r" is the parsed JSON of "r", not text
+	r = r['query']['pages'][0]['revisions'][0]['slots']['main']['content']
+	# The MediaWiki API is so freakin' normal and cool. I love json!!!!!!!
+	startZone = 0
+	if (r.find(dividerStart) != -1):
+		startZone = r.find(dividerStart)
+	r = r[0:startZone]
+	#print(r)
+except:
+	r = divider
 
 t = s.get(editTokenUrl)
 ########## This line actually hits the API for an edit token.
@@ -291,8 +315,8 @@ try:
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	tmplist = tmptxt.split("\n")
 	#print(tmplist)
-	totalTime =	float(tmplist[0]) + float(tmplist[2]) + float(tmplist[4]) + float(tmplist[5]) + execTime 
-	totalQueries = float(tmplist[1]) + float(tmplist[3]) + float(tmplist[6]) + float(4)
+	totalTime =	float(tmplist[0]) + float(tmplist[2]) + float(tmplist[4]) + float(tmplist[6]) + execTime 
+	totalQueries = float(tmplist[1]) + float(tmplist[3]) + float(tmplist[5]) + float(4)
 	profile = "\n----\n<center>''Completed in " + str(round(totalTime,3)) + "s (" + str(int(totalQueries)) + " queries, " + str(round((totalTime / totalQueries),5)) + "s per query) · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
 	profile = profile + "\n<!-- Detailed profiling information:"
 	profile = profile + "\n main       : " + str(tmplist[0])
@@ -320,7 +344,7 @@ if forReal == 1:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": payload + profile,
+		"text": r + "\n" + payload + profile,
 		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
 		"format": "json"
 		})
@@ -334,7 +358,7 @@ else:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": payload + profile,
+		"text": r + "\n" + payload + profile,
 		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
 		"format": "json"
 		}
