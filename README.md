@@ -1,6 +1,6 @@
 ![The Oracle contemplating the haze of general notability guidelines.](/logo.jpg)
 
-This is a piece of software intended to provide a simple yet powerful utility to Wikipedia editors who participate in, monitor, and close deletion debates.
+This is a piece of software intended to provide a simple yet powerful utility to Wikipedia editors who participate in, monitor, and close discussions at [AfD](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion).
 
 Specifically, this is what it does:
 
