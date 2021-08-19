@@ -339,8 +339,25 @@ if (args.output != "insanely weird string that nobody would ever type in on purp
 
 outputstring = "\nLast updated: " + str(datetime.now(timezone.utc).strftime("%Y-%m-%d, %H:%M (UTC)")) + "\n"
 top = ""
+# Create blank template for output text of top index.
+top = top + "__NOTOC__\n"
+top = top + "{| class=\"wikitable sortable\""
+top = top + "\n|-"
+top = top + "\n! '''Contents'''"
+top = top + "\n! Total"
+top = top + "\n! Open"
+top = top + "\n! uncom-<br/>mented"
+top = top + "\n! Closed"
+top = top + "\n! (%k)"
+top = top + "\n! (%d)"
+top = top + "\n! (%m)"
+#print(top)
+
+totind = ["<span style=\"display:none\">!!!999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
+# Initialize empty array for total of all days.
+
 o = ""
-# Create blank template for output text.
+# Create blank template for output text of main tables.
 
 # grad = createGradient("#CCFFDD", "#FFCCDD", 16)
 # 16-step gradient between pale green and pale red.
@@ -383,7 +400,11 @@ for incr in range(0,numberOfDays):
 		# Initialize count for open AfDs
 		clCount = 0
 		# Initialize count for closed AfDs
-
+		ind = [dayDate,  0,  0,  0,  0,  0,  0,  0]
+		#         0      1   2   3   4   5   6   7
+		#               /   /   /     \   \   \   \
+		#	      total open uncom closed  %k  %d  %m
+		#print(ind)
 		#print(dlData["pgs"])
 		for page in dlData["pgs"]:
 			try:
@@ -397,17 +418,24 @@ for incr in range(0,numberOfDays):
 				cellcolor = defaultcl
 				sortkey = "!111"
 				if (d['afdinfo']['open'] != 1):
-					cellcolor = keepcl
-					sortkey = "!222"
-					# Default to dark green (i.e. keep) for closed AfDs.
 					if (d['pageinfo']['error'] != "0"):
+						ind[6] = ind[6] + 1
+						# Increment the "delete" counter in the day's index row.
 						cellcolor = delecl
 						sortkey = "!444"
 						# Dark red for closed AfDs where the article doesn't exist.
 					elif (d['pageinfo']['redirect'] != 0):
+						ind[7] = ind[7] + 1
+						# Increment the "merge" counter in the day's index row.
 						cellcolor = elsecl
 						sortkey = "!333"
 						# Dark yellow for closed AfDs where the article is a redirect.
+					else:
+						ind[5] = ind[5] + 1
+						# Increment the "keep" counter in the day's index row.
+						cellcolor = keepcl
+						sortkey = "!222"
+						# Dark green (i.e. keep) for closed AfDs.
 				try:
 					#print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
 					ratio = (d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) / d['afdinfo']['all']
@@ -448,8 +476,12 @@ for incr in range(0,numberOfDays):
 				try:
 					if (d['afdinfo']['all'] == 0):
 						sd = n + bnocomments + str(d['afdinfo']['all'])
+						# Add the background color for an uncommented AfD to the line.
+						ind[3] = ind[3] + 1
+						# Increment the "uncommented" counter.
 					else:
 						sd = n + b + str(d['afdinfo']['all'])
+						# Add normal background color for commented AfD to the line.
 					sd = sd + n + b + str(d['afdstats']['editors'])
 					sd = sd + n + b + str(d['afdinfo']['size'])
 					sd = sd + n + b + str(d['afdstats']['created_at'])[5:]
@@ -476,6 +508,40 @@ for incr in range(0,numberOfDays):
 				except:
 					aLog("Couldn't process a page, and couldn't even figure out what it was.")
 					o = o + "<!-- Couldn't process a page, and trying to tell what page it was failed. -->"
+		totind[1] = totind[1] + int(opCount + clCount) 
+		totind[2] = totind[2] + int(opCount)
+		totind[3] = totind[3] + int(ind[3])
+		totind[4] = totind[4] + int(clCount)
+		totind[5] = totind[5] + int(ind[5])
+		totind[6] = totind[6] + int(ind[6])
+		totind[7] = totind[7] + int(ind[7])
+		# Add all quantities to the "total" row in the index table
+		ind[0] = dayDate
+		ind[1] = int(opCount + clCount)
+		ind[2] = int(opCount)
+		ind[3] = int(ind[3])
+		ind[4] = int(clCount)
+		if(clCount != 0):
+			# If there are any freaking closes at all.
+			ind[5] = float(100*(ind[5] / clCount))
+			ind[6] = float(100*(ind[6] / clCount))
+			ind[7] = float(100*(ind[7] / clCount))
+		else:
+			# Avoid the classic meme "I JUST DIVIDED BY ZERO OH SHI-"
+			ind[5] = 0
+			ind[6] = 0
+			ind[7] = 0
+		# Calculate stuff for the index. Many things stay the same. 
+		top = top + "\n|-"
+		top = top + "\n| " + "[[#" + str(ind[0]) + "|" + str(ind[0]) + "]]"
+		top = top + "\n| " + str(ind[1])
+		top = top + "\n| " + str(ind[2])
+		top = top + "\n| " + str(ind[3])
+		top = top + "\n| " + str(ind[4])
+		top = top + "\n| " + str(ind[5])
+		top = top + "\n| " + str(ind[6])
+		top = top + "\n| " + str(ind[7])
+		# Add all the stuff to the index table for the top.
 
 		o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}" + "\n{{collapse top|Closed AfDs for " + dayDate + " (" + str(clCount) + ")}}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}\n{{collapse bottom}}"
 		#print(o)
@@ -485,7 +551,29 @@ for incr in range(0,numberOfDays):
 	except (KeyboardInterrupt):
 		aLog("ABORTING EXECUTION: KeyboardInterrupt")
 		quit()
+##### All days have now been processed, time to start compositing the output page.
+sort = "<span style=\"display:none\">!!!999</span>"
+top = top + "\n|-"
+top = top + "\n| " + sort + str(totind[0])
+top = top + "\n| " + sort + str(totind[1])
+top = top + "\n| " + sort + str(totind[2])
+top = top + "\n| " + sort + str(totind[3])
+top = top + "\n| " + sort + str(totind[4])
+if (totind[4] != 0):
+	# If there are any freaking closes at all.
+	top = top + "\n| " + sort + str(float(100*(totind[5] / totind[4])))
+	top = top + "\n| " + sort + str(float(100*(totind[6] / totind[4])))
+	top = top + "\n| " + sort + str(float(100*(totind[7] / totind[4])))
+else:
+	# Avoid the classic meme "I JUST DIVIDED BY ZERO OH SHI-"
+	top = top + "\n| " + sort + "0"
+	top = top + "\n| " + sort + "0"
+	top = top + "\n| " + sort + "0"
+top = top + "\n|}\n"
+# Composite table-of-contents index table with "total" row.
+
 outputstring = outputstring + top + o
+# Composite output string from beginning section, top index table, and day tables.
 try:
 	dayLogFile = open(dayLogPath, 'w')
 	dayLogFile.write(outputstring)
