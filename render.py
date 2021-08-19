@@ -240,6 +240,9 @@ afdbg = "#FFFFE6"
 # Background for AfD columns.
 afdnocomments = "#FFFF73"
 # Background for AfD comment cells with no comments on them yet.
+indGrayed = "#EAECF0"
+# Background for table-of-contents cells that are irrelevant.
+# Default is the default Wikitable header color, EAECF0.
 ""
 
 ########## Solarize that shizz.
@@ -508,6 +511,7 @@ for incr in range(0,numberOfDays):
 				except:
 					aLog("Couldn't process a page, and couldn't even figure out what it was.")
 					o = o + "<!-- Couldn't process a page, and trying to tell what page it was failed. -->"
+
 		totind[1] = totind[1] + int(opCount + clCount) 
 		totind[2] = totind[2] + int(opCount)
 		totind[3] = totind[3] + int(ind[3])
@@ -516,6 +520,11 @@ for incr in range(0,numberOfDays):
 		totind[6] = totind[6] + int(ind[6])
 		totind[7] = totind[7] + int(ind[7])
 		# Add all quantities to the "total" row in the index table
+
+		#    ind[  0      1   2   3   4   5   6   7 ]
+		#        date    /   /   /     \   \   \   \
+		#	        total open uncom closed  %k  %d %m
+
 		ind[0] = dayDate
 		ind[1] = int(opCount + clCount)
 		ind[2] = int(opCount)
@@ -523,24 +532,30 @@ for incr in range(0,numberOfDays):
 		ind[4] = int(clCount)
 		if(clCount != 0):
 			# If there are any freaking closes at all.
-			ind[5] = float(100*(ind[5] / clCount))
-			ind[6] = float(100*(ind[6] / clCount))
-			ind[7] = float(100*(ind[7] / clCount))
+			ind[5] = str(float(100*(ind[5] / clCount)))[0:5]
+			ind[6] = str(float(100*(ind[6] / clCount)))[0:5]
+			ind[7] = str(float(100*(ind[7] / clCount)))[0:5]
 		else:
 			# Avoid the classic meme "I JUST DIVIDED BY ZERO OH SHI-"
-			ind[5] = 0
-			ind[6] = 0
-			ind[7] = 0
+			ind[5] = "style: \"background: " + indGrayed + "\" | 0"
+			ind[6] = "style: \"background: " + indGrayed + "\" | 0"
+			ind[7] = "style: \"background: " + indGrayed + "\" | 0"
 		# Calculate stuff for the index. Many things stay the same. 
 		top = top + "\n|-"
 		top = top + "\n| " + "[[#" + str(ind[0]) + "|" + str(ind[0]) + "]]"
-		top = top + "\n| " + str(ind[1])
+		if (ind[1] == 0):
+			top = top + "\n| style: \"background:" + indGrayed + "\" | 0"
+		else:
+			top = top + "\n| " + str(ind[1])
 		top = top + "\n| " + str(ind[2])
 		top = top + "\n| " + str(ind[3])
-		top = top + "\n| " + str(ind[4])
-		top = top + "\n| " + str(ind[5])[0:5]
-		top = top + "\n| " + str(ind[6])[0:5]
-		top = top + "\n| " + str(ind[7])[0:5]
+		if (ind[4] == 0):
+			top = top + "\n| style: \"background:" + indGrayed + "\" | 0"
+		else:
+			top = top + "\n| " + str(ind[4])
+		top = top + "\n| " + str(ind[5])
+		top = top + "\n| " + str(ind[6])
+		top = top + "\n| " + str(ind[7])
 		# Add all the stuff to the index table for the top.
 
 		o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}" + "\n{{collapse top|Closed AfDs for " + dayDate + " (" + str(clCount) + ")}}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}\n{{collapse bottom}}"
