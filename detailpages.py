@@ -367,7 +367,7 @@ for incr in range(0,numberOfDays):
 											ptext = rp['revisions'][0]['slots']['main']['content']
 											ptextl = ptext.lower()
 											isopen = 1
-											if (ptext.find("<div class=\"boilerplate afd vfd xfd-closed\"") != -1):
+											if (ptext.find("<div class=\"") != -1) and (ptext.find("xfd-closed\"") != -1):
 												isopen = 0
 											delsorts = ptext.count("<small class=\"delsort-notice\">")
 											sigs = ptext.count("[[User")
