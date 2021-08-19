@@ -23,9 +23,9 @@ Basic and straightforward tasks (like scanning a range of days from the AfD logs
 Advanced or bizarre tasks (like scanning 100 days of nominations from the AfD logs, getting page stats for 28 of them, rendering a separate table for each week, and uploading them all to separate pages) should be done by running each component individually.
 > ``python3 main.py -b 100 -l 2020-12-31``
 
-> ``python3 detail.py -b 28``
+> ``python3 detail.py -b 28 -l 2020-12-31``
 
-> ``python3 detailpages.py -b 28``
+> ``python3 detailpages.py -b 28 -l 2020-12-31``
 
 > ``python3 render.py -b 7 -l 2020-12-31 -o render1.txt``
 
