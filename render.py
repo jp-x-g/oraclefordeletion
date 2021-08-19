@@ -538,9 +538,9 @@ for incr in range(0,numberOfDays):
 		top = top + "\n| " + str(ind[2])
 		top = top + "\n| " + str(ind[3])
 		top = top + "\n| " + str(ind[4])
-		top = top + "\n| " + str(ind[5])
-		top = top + "\n| " + str(ind[6])
-		top = top + "\n| " + str(ind[7])
+		top = top + "\n| " + str(ind[5])[0:5]
+		top = top + "\n| " + str(ind[6])[0:5]
+		top = top + "\n| " + str(ind[7])[0:5]
 		# Add all the stuff to the index table for the top.
 
 		o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}" + "\n{{collapse top|Closed AfDs for " + dayDate + " (" + str(clCount) + ")}}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}\n{{collapse bottom}}"
@@ -561,9 +561,9 @@ top = top + "\n| " + sort + str(totind[3])
 top = top + "\n| " + sort + str(totind[4])
 if (totind[4] != 0):
 	# If there are any freaking closes at all.
-	top = top + "\n| " + sort + str(float(100*(totind[5] / totind[4])))
-	top = top + "\n| " + sort + str(float(100*(totind[6] / totind[4])))
-	top = top + "\n| " + sort + str(float(100*(totind[7] / totind[4])))
+	top = top + "\n| " + sort + str(float(100*(totind[5] / totind[4])))[0:5]
+	top = top + "\n| " + sort + str(float(100*(totind[6] / totind[4])))[0:5]
+	top = top + "\n| " + sort + str(float(100*(totind[7] / totind[4])))[0:5]
 else:
 	# Avoid the classic meme "I JUST DIVIDED BY ZERO OH SHI-"
 	top = top + "\n| " + sort + "0"
