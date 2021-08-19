@@ -1,0 +1,10 @@
+# Gitignore (I'm making this manually), 2021 08 18
+
+# Folders 
+data/*
+pages-old/*
+cfg/*
+
+# Miscellaneous stuff
+notes.py
+test.py
