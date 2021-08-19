@@ -396,18 +396,18 @@ for incr in range(0,numberOfDays):
 				bnocomments = "style=\"background:" + afdnocomments + "\" | "
 				# Beginning for AfD data cells
 				cellcolor = defaultcl
-				sortkey = "111"
+				sortkey = "!111"
 				if (d['afdinfo']['open'] != 1):
 					cellcolor = keepcl
-					sortkey = "222"
+					sortkey = "!222"
 					# Default to dark green (i.e. keep) for closed AfDs.
 					if (d['pageinfo']['error'] != "0"):
 						cellcolor = delecl
-						sortkey = "444"
+						sortkey = "!444"
 						# Dark red for closed AfDs where the article doesn't exist.
 					elif (d['pageinfo']['redirect'] != 0):
 						cellcolor = elsecl
-						sortkey = "333"
+						sortkey = "!333"
 						# Dark yellow for closed AfDs where the article is a redirect.
 				try:
 					#print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
