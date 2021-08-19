@@ -10,4 +10,8 @@ Specifically, this is what it does:
 - Render a wikitext page in which this information is displayed in interactive, sortable tables
 - Authenticate to a bot account and upload the wikitext to a page on the project
 
-It contains five scripts, intended to be run in sequence. 
+It contains five scripts, intended to be run in sequence, and a shell script that does so. Both the shell script and the individual components take numerous command-line arguments, which are explained thoroughly by running them with the -h flag.
+
+Basic tasks (like scanning a range of days from the AfD logs, parsing the table and uploading it) should be done by running the shell script (run.sh) with appropriate flags.
+
+Advanced tasks (like scanning 100 days of nominations from the AfD logs, getting page stats for 28 of them, rendering a separate table for each week, and uploading them all to separate pages) should be done by running each component individually.
