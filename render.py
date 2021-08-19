@@ -487,8 +487,6 @@ for incr in range(0,numberOfDays):
 		aLog("ABORTING EXECUTION: KeyboardInterrupt")
 		quit()
 outputstring = outputstring + top + o
-execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
-outputstring = outputstring + "\n''Rendered in " + str(round(execTime,4)) + "s · Oracle for Deletion v" + version + "''"
 try:
 	dayLogFile = open(dayLogPath, 'w')
 	dayLogFile.write(outputstring)

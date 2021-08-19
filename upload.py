@@ -47,6 +47,7 @@ outfilename = "output.html"
 outprefix = "AfD-render-"
 jsonprefix = "AfD-log-"
 logindeets = "login.txt"
+tmpfilename = "tmp.txt"
 
 # Page names below.
 inputPage = "render.txt"
@@ -136,7 +137,7 @@ pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
 config = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
 tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-# Stupid kludge.
+tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
 pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
 logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
@@ -267,16 +268,59 @@ if ((l['login']['result']) != "Success"):
 	quit()
 aLog("Login successful. Authenticated as " + l['login']['lgusername'])
 
+
+
+
+#############################################
+#	Grabbing the previous rev of the page
+#	and appending to it should go here.
+#############################################
+
+
+
+
 t = s.get(editTokenUrl)
 ########## This line actually hits the API for an edit token.
 token = json.loads(t.text)['query']['tokens']['csrftoken']
+
+########## This stuff below is going to parse the profiling data from the temp file.
+try:
+	tmphandlePath = open(str(tmpfile), 'rb')
+	tmptxt = tmphandlePath.read().decode()
+	tmphandlePath.close()
+	tmphandle = open(str(tmpfile), 'w')
+	tmphandle.write("")
+	tmphandle.close()
+	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
+	tmplist = tmptxt.split("\n")
+	#print(tmplist)
+	totalTime =	float(tmplist[0]) + float(tmplist[2]) + float(tmplist[4]) + float(tmplist[5]) + execTime 
+	totalQueries = float(tmplist[1]) + float(tmplist[3]) + float(tmplist[6]) + float(4)
+	profile = "\n----\n<center>''Completed in " + str(round(totalTime,3)) + "s (" + str(int(totalQueries)) + " queries, " + str(round((totalTime / totalQueries),5)) + "s per query) · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
+	profile = profile + "\n<!-- Detailed profiling information:"
+	profile = profile + "\n main       : " + str(tmplist[0])
+	profile = profile + "\n  > queries : " + str(tmplist[1])
+	profile = profile + "\n  > per     : " + str(float(tmplist[0])/float(tmplist[1]))
+	profile = profile + "\n detail     : " + str(tmplist[2])
+	profile = profile + "\n  > queries : " + str(tmplist[3])
+	profile = profile + "\n  > per     : " + str(float(tmplist[2])/float(tmplist[3]))
+	profile = profile + "\n detailpages: " + str(tmplist[4])
+	profile = profile + "\n  > queries : " + str(tmplist[5])
+	profile = profile + "\n  > per     : " + str(float(tmplist[4])/float(tmplist[5]))
+	profile = profile + "\n render     : " + str(tmplist[6])
+	profile = profile + "\n upload     : " + str(execTime)
+	profile = profile + "\n-->"
+except (FileNotFoundError):
+	print("Couldn't retrieve execution time.")
+	profile = "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
+#print(profile)
 
 if forReal == 1:
 	edit = s.post(apiBase, data={
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": payload,
+		"text": payload + profile,
 		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
 		"format": "json"
 		})
@@ -290,7 +334,7 @@ else:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": payload,
+		"text": payload + profile,
 		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
 		"format": "json"
 		}
