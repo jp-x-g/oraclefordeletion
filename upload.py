@@ -288,9 +288,6 @@ try:
 	tmphandlePath = open(str(tmpfile), 'rb')
 	tmptxt = tmphandlePath.read().decode()
 	tmphandlePath.close()
-	tmphandle = open(str(tmpfile), 'w')
-	tmphandle.write("")
-	tmphandle.close()
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	tmplist = tmptxt.split("\n")
 	#print(tmplist)
@@ -310,7 +307,10 @@ try:
 	profile = profile + "\n render     : " + str(tmplist[6])
 	profile = profile + "\n upload     : " + str(execTime)
 	profile = profile + "\n-->"
-except (FileNotFoundError):
+	tmphandle = open(str(tmpfile), 'w')
+	tmphandle.write("")
+	tmphandle.close()
+except (KeyboardInterrupt):
 	print("Couldn't retrieve execution time.")
 	profile = "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
 #print(profile)

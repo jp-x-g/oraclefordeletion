@@ -337,8 +337,7 @@ if (args.output != "insanely weird string that nobody would ever type in on purp
 	dayLogPath = str(out) + "/" + args.output
 # This will set the path for the output file, either to the default thing, or to whatever input was given.
 
-
-outputstring = "\nLast updated: " + str(datetime.now(timezone.utc).strftime("%Y-%m-%d")) + "\n"
+outputstring = "\nLast updated: " + str(datetime.now(timezone.utc).strftime("%Y-%m-%d, %H:%M (UTC)")) + "\n"
 top = ""
 o = ""
 # Create blank template for output text.
