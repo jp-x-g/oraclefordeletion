@@ -21,24 +21,24 @@ Basic and straightforward tasks (like scanning a range of days from the AfD logs
 > ``run-batch.sh -b 100 -l 2016-11-14 -s 0.75 -v 1 -o User:Example/AfD_oracle``
 
 Advanced or bizarre tasks (like scanning 100 days of nominations from the AfD logs, getting page stats for 28 of them, rendering a separate table for each week, and uploading them all to separate pages) should be done by running each component individually.
-> python3 main.py -b 100 -l 2020-12-31
+> ``python3 main.py -b 100 -l 2020-12-31``
 
-> python3 detail.py -b 28
+> ``python3 detail.py -b 28``
 
-> python3 detailpages.py -b 28
+> ``python3 detailpages.py -b 28``
 
-> python3 render.py -b 7 -l 2020-12-31 -o render1.txt
+> ``python3 render.py -b 7 -l 2020-12-31 -o render1.txt``
 
-> python3 render.py -b 7 -l 2020-12-24 -o render2.txt
+> ``python3 render.py -b 7 -l 2020-12-24 -o render2.txt``
 
-> python3 render.py -b 7 -l 2020-12-17 -o render3.txt
+> ``python3 render.py -b 7 -l 2020-12-17 -o render3.txt``
 
-> python3 render.py -b 7 -l 2020-12-10 -o render4.txt
+> ``python3 render.py -b 7 -l 2020-12-10 -o render4.txt``
 
-> python3 upload.py -i render1.txt -o User:Example/AfD_end_of_December
+> ``python3 upload.py -i render1.txt -o User:Example/AfD_end_of_December``
 
-> python3 upload.py -i render2.txt -o User:Example/AfD_late_December
+> ``python3 upload.py -i render2.txt -o User:Example/AfD_late_December``
 
-> python3 upload.py -i render3.txt -o User:Example/AfD_mid-December
+> ``python3 upload.py -i render3.txt -o User:Example/AfD_mid-December``
 
-> python3 upload.py -i render4.txt -o User:Example/AfD_beginning_of_December
+> ``python3 upload.py -i render4.txt -o User:Example/AfD_beginning_of_December``
