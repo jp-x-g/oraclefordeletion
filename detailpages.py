@@ -25,30 +25,13 @@ import json
 import argparse
 # Required to parse arguments. Parse parse...!!
 
-# days in months
-# jan 31
-# feb 28/29
-# mar 31
-# apr 30
-# may 31
-# jun 30
-# jul 31
-# aug 31
-# sep 30
-# oct 31
-# nov 30
-# dec 31
-
 ########################################
 # Set all configuration variables.
 ########################################
 version = "0.1"
 userRunning = "JPxG"
-#numberOfDays = 20
-# How long to wait in between queries.
-#sleepTime = 0.1
 
-# File system stuff
+# File system stuff below.
 dataname = "data"
 pagesname = "pages"
 configname = "cfg"
@@ -57,16 +40,10 @@ configfilename = "config.txt"
 logfilename = "run3.log"
 outfilename = "output.html"
 jsonprefix = "AfD-log-"
-
+tmpfilename = "tmp.txt"
 
 apiBase = "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=*&rvprop=content&formatversion=2&format=json&titles="
 today = datetime.utcnow().date()
-#forReal = 1
-#useAltStartDate = False
-#startDate = datetime.fromisoformat("2021-08-13")
-#limitMaxQueries = False
-#maxQueriesToMake = 4
-#totalQueriesMade = 0
 
 ########################################
 # Parse arguments from command line.
@@ -157,6 +134,8 @@ if (args.max != 0):
 numberOfDays = int(args.back)
 sleepTime = float(args.sleep)
 
+totalQueriesMade = 0
+
 # Set configuration variables from args.
 # This is awkward, but I wrote the script before I wrote the arg parser, lol.
 
@@ -172,7 +151,7 @@ pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
 config = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
 tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-# Stupid kludge.
+tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
 pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
 logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
@@ -213,9 +192,17 @@ def aLog(argument):
 def closeOut():
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	aLog("FINISHED AT  : " + str(datetime.now(timezone.utc)))
-	aLog("DAYS: " + str(numberOfDays) + " / TIME: " + str(round(execTime,3)))
-		# + " / ENTRIES: " + str(totalQueriesMade / 2.0) + " / QUERIES: " + str(totalQueriesMade))
+	aLog("DAYS: " + str(numberOfDays) + " / TIME: " + str(round(execTime,3)) + " / QUERIES: " + str(totalQueriesMade))
 	#aLog() + "s / " + str(round((execTime / totalQueriesMade),3)) + "s per query")
+	try:
+		tmphandlePath = open(str(tmpfile), 'rb')
+		tmphandleContents = tmphandlePath.read().decode()
+		tmphandlePath.close()
+		tmphandle = open(str(tmpfile), 'w')
+		tmphandle.write(tmphandleContents + "\n" + str(execTime) + "\n" + str(totalQueriesMade))
+		tmphandle.close()
+	except (FileNotFoundError):
+		print("Couldn't log execution time.")
 	quit()
 
 ########################################
@@ -348,7 +335,7 @@ for incr in range(0,numberOfDays):
 							time.sleep(sleepTime)
 							r = requests.get(query, allow_redirects=False)
 							# Actually hit the URL in this line, and get a page, which will be of type "Response"
-							#totalQueriesMade = totalQueriesMade + 1
+							totalQueriesMade = totalQueriesMade + 1
 							# Increment "total queries made"
 							r = r.text
 							# Make it so that "r" is the text of the response, not a "Response" of the response

@@ -48,12 +48,6 @@ apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
 totalQueriesMade = 0
 
-# All this does is put a bunch of blank lines in the terminal.
-#clearScreen = 0
-#if clearScreen:
-#	for asdf in range(0,clearScreen):
-#		print("\n")
-
 ########################################
 # Parse arguments from command line.
 ########################################
