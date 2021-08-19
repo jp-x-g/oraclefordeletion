@@ -57,7 +57,7 @@ if [ "$help" = 1 ]; then
 	echo "  -l    the latest day to parse (YYYY-MM-DD)"
 	echo "  -s    sleep time between API queries (in seconds, will take decimals)"
 	echo "  -v    enable verbose mode"
-	echo "  -h    print help messages and exit"
+	echo "  -h    print this help message and exit"
 	echo "  -a    print every individual component's help message and exit"
 	echo "  -c    print every individual component's configuration details and exit"
 	echo ""
