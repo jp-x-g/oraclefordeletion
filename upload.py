@@ -334,7 +334,7 @@ try:
 	tmphandle = open(str(tmpfile), 'w')
 	tmphandle.write("")
 	tmphandle.close()
-except (KeyboardInterrupt):
+except:
 	print("Couldn't retrieve execution time.")
 	profile = "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
 #print(profile)
