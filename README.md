@@ -14,8 +14,31 @@ It contains five scripts, intended to be run in sequence, and a shell script tha
 
 **If you have no idea what to do with this software, do this and you will learn how to use it:**
 > ``cd oraclefordeletion``
+
 > ``bash run-batch.sh -h 1``
 
-Basic tasks (like scanning a range of days from the AfD logs, parsing the table and uploading it) should be done by running the shell script (run.sh) with appropriate flags.
+Basic and straightforward tasks (like scanning a range of days from the AfD logs, parsing the table and uploading it) should be done by running the shell script (run-batch.sh) with appropriate flags. Here's an example: gathering 14 days of AfD logs from November 2016, processing them verbosely with a cooldown of 0.75 seconds, and posting the result to ``User:Example/AfD_oracle``:
+> ``run-batch.sh -b 100 -l 2016-11-14 -s 0.75 -v 1 -o User:Example/AfD_oracle``
 
-Advanced tasks (like scanning 100 days of nominations from the AfD logs, getting page stats for 28 of them, rendering a separate table for each week, and uploading them all to separate pages) should be done by running each component individually.
+Advanced or bizarre tasks (like scanning 100 days of nominations from the AfD logs, getting page stats for 28 of them, rendering a separate table for each week, and uploading them all to separate pages) should be done by running each component individually.
+> python3 main.py -b 100 -l 2020-12-31
+
+> python3 detail.py -b 28
+
+> python3 detailpages.py -b 28
+
+> python3 render.py -b 7 -l 2020-12-31 -o render1.txt
+
+> python3 render.py -b 7 -l 2020-12-24 -o render2.txt
+
+> python3 render.py -b 7 -l 2020-12-17 -o render3.txt
+
+> python3 render.py -b 7 -l 2020-12-10 -o render4.txt
+
+> python3 upload.py -i render1.txt -o User:Example/AfD_end_of_December
+
+> python3 upload.py -i render2.txt -o User:Example/AfD_late_December
+
+> python3 upload.py -i render3.txt -o User:Example/AfD_mid-December
+
+> python3 upload.py -i render4.txt -o User:Example/AfD_beginning_of_December
