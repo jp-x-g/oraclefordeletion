@@ -42,6 +42,7 @@ logfilename = "run2.log"
 outfilename = "output.html"
 outprefix = "AfD-render-"
 jsonprefix = "AfD-log-"
+tmpfilename = "tmp.txt"
 
 apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
@@ -131,7 +132,7 @@ pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
 config = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
 tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-# Stupid kludge.
+tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
 pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
 logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
@@ -174,6 +175,15 @@ def closeOut():
 	aLog("FINISHED AT  : " + str(datetime.now(timezone.utc)))
 	aLog("DAYS: " + str(numberOfDays) + " / ENTRIES: " + str(totalQueriesMade / 2.0) + " / QUERIES: " + str(totalQueriesMade))
 	aLog("TIME: " + str(round(execTime,3)) + "s / " + str(round((execTime / totalQueriesMade),3)) + "s per query")
+	try:
+		tmphandlePath = open(str(tmpfile), 'rb')
+		tmphandleContents = tmphandlePath.read().decode()
+		tmphandlePath.close()
+		tmphandle = open(str(tmpfile), 'w')
+		tmphandle.write(tmphandleContents + "\n" + str(execTime) + "\n" + str(totalQueriesMade))
+		tmphandle.close()
+	except (FileNotFoundError):
+		print("Couldn't log execution time.")
 	quit()
 
 ########################################
