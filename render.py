@@ -42,10 +42,11 @@ logfilename = "run4.log"
 outfilename = "output.html"
 outprefix = "AfD-render-"
 jsonprefix = "AfD-log-"
+tmpfilename = "tmp.txt"
+
 apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
 totalQueriesMade = 0
-# This is what the bot will use to prefix the content it puts into the page.
 
 
 #clearScreen = 0
@@ -107,7 +108,8 @@ pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
 config = Path(os.getcwd() + "/" + configname)
 # Config files live here.
 tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-# Temporary file directory (doesn't need to persist between sessions)
+tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
+# Temporary file directory (doesn't need to persist between runs of the stack)
 pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 # Stupid kludge.
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
@@ -199,6 +201,16 @@ def closeOut():
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	aLog("FINISHED AT  : " + str(datetime.now(timezone.utc)))
 	aLog("TIME: " + str(round(execTime,3)) + "s")
+	try:
+		tmphandlePath = open(str(tmpfile), 'rb')
+		tmphandleContents = tmphandlePath.read().decode()
+		tmphandlePath.close()
+		tmphandle = open(str(tmpfile), 'w')
+		tmphandle.write(tmphandleContents + str(execTime))
+		# For some reason, it writes two line breaks instead of one. No idea what's up with that. The other scripts don't freaking do that.
+		tmphandle.close()
+	except (FileNotFoundError):
+		print("Couldn't log execution time.")
 	quit()
 
 ########################################
