@@ -298,7 +298,7 @@ try:
 	startZone = 0
 	if (r.find(dividerStart) != -1):
 		startZone = r.find(dividerStart)
-	r = r[0:startZone]
+	r = r[0:startZone] + divider
 	#print(r)
 except:
 	r = divider
@@ -315,6 +315,7 @@ try:
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	tmplist = tmptxt.split("\n")
 	#print(tmplist)
+	tmplist.append("1")
 	totalTime =	float(tmplist[0]) + float(tmplist[2]) + float(tmplist[4]) + float(tmplist[6]) + execTime 
 	totalQueries = float(tmplist[1]) + float(tmplist[3]) + float(tmplist[5]) + float(4)
 	profile = "\n----\n<center>''Completed in " + str(round(totalTime,3)) + "s (" + str(int(totalQueries)) + " queries, " + str(round((totalTime / totalQueries),5)) + "s per query) · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
