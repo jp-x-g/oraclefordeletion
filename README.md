@@ -1,3 +1,5 @@
+![The Oracle contemplating the haze of general notability guidelines.](/logo.jpg)
+
 This is a piece of software intended to provide a simple yet powerful utility to Wikipedia editors who participate in, monitor, and close deletion debates.
 
 Specifically, this is what it does:
