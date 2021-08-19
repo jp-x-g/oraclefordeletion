@@ -39,6 +39,7 @@ configfilename = "config.txt"
 logfilename = "run1.log"
 outfilename = "output.html"
 jsonprefix = "AfD-log-"
+tmpfilename = "tmp.txt"
 
 today = datetime.utcnow().date()
 
@@ -122,6 +123,7 @@ pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
 config = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
 tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
+tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
 # Stupid kludge.
 pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
@@ -371,66 +373,10 @@ for incr in range(0,numberOfDays):
 execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 aLog("FINISHED AT " + str(datetime.now(timezone.utc)) + " (" + str(round(execTime,3)) + "s total / " + str(round((execTime / numberOfDays),3)) + "s per entry)")
 # Log how long it took.
-
-# aLog("(" + str(round(execTime,2)) + "s total / " + str(round((execTime / numberOfDays),2)) + "s per entry)")
-# AfD pages have a format like this:
-# https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion/Log/2021_August_10
-
-
-
-
-
-# REST API for talk pages as structured JSON
-# https://en.wikipedia.org/api/rest_v1/page/talk/Wikipedia%3AArticles_for_deletion%2FLog%2F2021_August_10?redirect=false
-
-# API endpoint for wikitext of a page
-# https://en.wikipedia.org/w/api.php?action=query&prop=revisions&titles=Wikipedia%3AArticles_for_deletion%2FLog%2F2021_August_10&rvslots=*&rvprop=content&formatversion=2
-
-# https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&titles=Dog%7CCat%7CMeow&formatversion=2&rvprop=content&rvslots=*
-
-# August 10, list of stuff to do
-#
-# The structured JSON for the talk pages needs to have some stuff parsed out of it.
-# 
-# The JSON looks like this:
-#
-# 
-#
-# {
-#   "revision": 1038075885,
-#   "topics": [
-#     {
-#       "id": 0,
-#       "replies": [
-#         {
-#           "sha": "ce6902380c93e15c680344d01dfed27dfb69aa342341e90caccf248865001349",
-#           "depth": 0,
-#           "html": "blah blah blah"
-#         }
-#       ],
-#       "depth": 1,
-#       "html": "",
-#       "shas": {
-#         "html": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
-#         "indicator": "022ced0f9398af21961e2eff2076760e0eb3b52b7bb043064e9d481b57eec813"
-#       }
-#     },
-# 
-# ID 0 is the CENT notice, disregard that. Everything else has ID -1 for some freaking reason - what?
-# The replies will be depth 1 (or 2 if they're responses). The title isn't a reply, it's depth 3 (for some reason).
-# The first reply will be, like, the AfD header. Ignore this.
-# "Note:  This discussion has been included in the [...]" = delsorting, ignore.
-# Delsorting notices and the initial nom have depth 1, and comments have depth 0, for some of them.
-# But then sometimes the freaking comments are depth 1, also.
-#
-# RELISTS are at depth 0. <a href=\"./Wikipedia:Deletion_process#Relisting_discussions\" title=\"Wikipedia:Deletion process\">Relisted</a> to generate a more thorough discussion and clearer consensus. <-- Ignore this.
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
+try:
+	tmphandle = open(str(tmpfile), 'w')
+	tmphandle.write(str(execTime) + "\n" + str(numberOfDays))
+	tmphandle.close()
+except (FileNotFoundError):
+	print("Couldn't log execution time.")
+#Store to temp file.

@@ -45,10 +45,6 @@ jsonprefix = "AfD-log-"
 apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
 totalQueriesMade = 0
-dividerStart = "<!-- Everything below"
-# This is what the bot will interpret as the last line of header text on the page.
-
-divider = "<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->"
 # This is what the bot will use to prefix the content it puts into the page.
 
 
@@ -330,7 +326,7 @@ if (args.output != "insanely weird string that nobody would ever type in on purp
 # This will set the path for the output file, either to the default thing, or to whatever input was given.
 
 
-outputstring = divider + "\n Last updated: " + str(datetime.now(timezone.utc).strftime("%Y-%m-%d")) + "\n"
+outputstring = "\nLast updated: " + str(datetime.now(timezone.utc).strftime("%Y-%m-%d")) + "\n"
 top = ""
 o = ""
 # Create blank template for output text.
@@ -479,6 +475,8 @@ for incr in range(0,numberOfDays):
 		aLog("ABORTING EXECUTION: KeyboardInterrupt")
 		quit()
 outputstring = outputstring + top + o
+execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
+outputstring = outputstring + "\n''Rendered in " + str(round(execTime,4)) + "s · Oracle for Deletion v" + version + "''"
 try:
 	dayLogFile = open(dayLogPath, 'w')
 	dayLogFile.write(outputstring)
