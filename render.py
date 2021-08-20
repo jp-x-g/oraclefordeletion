@@ -516,9 +516,11 @@ for incr in range(0,numberOfDays):
 				s=s+"[[Wikipedia:Articles for deletion/" + d['afd']['afdtitle'] + "|" + page + "]]"
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
+					# Bold it if it's a relist
 				if (anchorSetYet == 0):
 					s=s+"{{anchor|" + dayDate + "}}"
-					# Bold it if it's a relist
+					anchorSetYet = 1
+					# Add an anchor and disable the sentry variable.
 				s=s+"\n|<span class=\"plainlinks\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
 				# Article links column
 				s=s+"\n|style=\"background:" + ratiocolor + "\"|" + ratio
