@@ -31,7 +31,6 @@ import argparse
 version = "0.1"
 userRunning = "JPxG"
 
-apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
 totalQueriesMade = 0
 
