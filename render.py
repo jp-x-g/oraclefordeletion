@@ -504,7 +504,7 @@ for incr in range(0,numberOfDays):
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
 					# Bold it if it's a relist
-				s=s+"\n|<span class=\"plainlinks nourlexpansion lx\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+				s=s+"\n|<span class=\"plainlinks\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
 				# Article links column
 				s=s+"\n|style=\"background:" + ratiocolor + "\"|" + ratio
 				# Ratio column
