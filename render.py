@@ -332,8 +332,11 @@ if numberOfDays > 30:
 # Let's jam.
 ########################################
 
-#FFFFDD
-#E0E0CE
+m = "<small><small><small>"
+n = "</small></small></small>"
+# These are used for formatting table headers.
+
+
 dayLogPath = str(out) + "/" + str(outprefix) + today.strftime("%Y-%m-%d") + "-to-" + (today - timedelta(days=numberOfDays)).strftime("%Y-%m-%d") + ".txt"
 # out/outprefix/YYYY-MM-DD-to-YYYY-MM-DD.txt
 if (args.output != "insanely weird string that nobody would ever type in on purpose.txt"):
@@ -347,13 +350,13 @@ top = top + "__NOTOC__\n"
 top = top + "{| class=\"wikitable sortable\""
 top = top + "\n|-"
 top = top + "\n! '''Contents'''"
-top = top + "\n! Total"
-top = top + "\n! Open"
-top = top + "\n! uncom-<br/>mented"
-top = top + "\n! Closed"
-top = top + "\n! (%k)"
-top = top + "\n! (%d)"
-top = top + "\n! (%m)"
+top = top + "\n! "+m+"Total"+n
+top = top + "\n! "+m+"Open"+n
+top = top + "\n! "+m+"Uncom-<br/>mented"+n
+top = top + "\n! "+m+"Closed"+n
+top = top + "\n! "+m+"(%k)"+n
+top = top + "\n! "+m+"(%d)"+n
+top = top + "\n! "+m+"(%m)"+n
 #print(top)
 
 totind = ["<span style=\"display:none\">!!!999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
@@ -395,37 +398,39 @@ for incr in range(0,numberOfDays):
 		o=o+"\n===" + dayDate + "===" 
 		# Take the existing string, and add a new section header for each new day being processed.
 
+
 		m = "<small><small><small>"
 		n = "</small></small></small>"
+		# These are used for formatting table headers.
 		op = "\n{| class=\"wikitable sortable" 
 		op = op + "\n|-" 
 		op = op + "\n! '''Open AfDs (relists bolded)'''" 
 		op = op + "\n! " 
-		op = op + "\n! "+m+"Keep"+n+"<br/>"+m+"%"+n
-		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"revs"+n
-		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"eds."+n
-		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"size"+n
-		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"made"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"!v #"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"eds."+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"size"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"made"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"last"+n
+		op = op + "\n! "+m+"Keep<br/>%"+n
+		op = op + "\n! "+m+"Page<br/>revs"+n
+		op = op + "\n! "+m+"Page<br/>eds."+n
+		op = op + "\n! "+m+"Page<br/>size"+n
+		op = op + "\n! "+m+"Page<br/>made"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>!v #"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>eds."+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>size"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>made"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all open AfDs for that day.
 		cl = "\n{| class=\"wikitable sortable" 
 		cl = cl + "\n|-" 
 		cl = cl + "\n! '''Closed AfDs (relists bolded)'''" 
 		cl = cl + "\n! " 
-		cl = cl + "\n! "+m+"Keep"+n+"<br/>"+m+"%"+n
-		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"revs"+n
-		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"eds."+n
-		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"size"+n
-		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"made"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"!v #"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"eds."+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"size"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"made"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"last"+n
+		cl = cl + "\n! "+m+"Keep<br/>%"+n
+		cl = cl + "\n! "+m+"Page<br/>revs"+n
+		cl = cl + "\n! "+m+"Page<br/>eds."+n
+		cl = cl + "\n! "+m+"Page<br/>size"+n
+		cl = cl + "\n! "+m+"Page<br/>made"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>!v #"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>eds."+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>size"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>made"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all closed AfDs for that day.
 		opCount = 0
 		# Initialize count for open AfDs
@@ -469,15 +474,22 @@ for incr in range(0,numberOfDays):
 						# Dark green (i.e. keep) for closed AfDs.
 				try:
 					#print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
-					ratio = (d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) / d['afdinfo']['all']
-					# Delete, speedy delete, merge, redirect, draftify, and userfy !votes, out of all !votes.
-					ratio = ratio * 100.0
-					#There's 101 steps, so 0 to 100 will cover them all.
-					#print(str(ratio)[0:5])
-					ratiocolor = str(grad[int(ratio)])
-					# Creates number (from 0 to 16) expressing ratio of how many !votes are delete-like.
+					if (d['afdinfo']['all'] == 0):
+						ratio = "N/A"
+						ratiocolor = errorst
+					else:
+						ratio = (d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) / d['afdinfo']['all']
+						# Delete, speedy delete, merge, redirect, draftify, and userfy !votes, out of all !votes.
+						ratio = ratio * 100.0
+						# Creates number (from 0 to 100) expressing ratio of how many !votes are delete-like.
+						# There's 101 gradient steps, so 0 to 100 will cover them all.
+						#print(str(ratio)[0:5])
+						ratiocolor = str(grad[int(ratio)])
+						ratio = str(100 - ratio)[0:5]
+						# Calculate ratio to display (as keep %, truncated decimals)
 				except:
 					aLog("Couldn't calculate ratio for " + page)
+					ratio = "?"
 					ratiocolor = errorst
 				s = ""
 				# Initialize blank string for this row. Rows for open and closed AfDs are the same,
@@ -494,7 +506,7 @@ for incr in range(0,numberOfDays):
 					# Bold it if it's a relist
 				s=s+"\n| <span class=\"plainlinks nourlexpansion lx\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
 				# Article links column
-				s=s+"\n| style=\"background:" + grad[int(ratio)] + "\" | " + str(100 - ratio)[0:5]
+				s=s+"\n| style=\"background:" + ratiocolor + "\" | " + ratio
 				# Ratio column
 				try: 
 					sd = n + str(d['pagestats']['revisions'])

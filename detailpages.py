@@ -372,7 +372,7 @@ for incr in range(0,numberOfDays):
 											delsorts = ptext.count("<small class=\"delsort-notice\">")
 											sigs = ptext.count("[[User")
 											lines = ptext.count("\n")
-											vkp = ptextl.count("keep'''") + ptextl.count("oppose'''")
+											vkp = ptextl.count("keep'''") + ptextl.count("oppose'''") + ptextl.count("keep all'''")
 											vdl = ptextl.count("delete'''") + ptextl.count("delete all'''") 
 											vsk = ptextl.count("speedy keep'''")
 											vsd = ptextl.count("speedy delete'''")
