@@ -438,7 +438,12 @@ for incr in range(0,numberOfDays):
 			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
 			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
 			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
-		# Initialize string that will be a table of all closed AfDs for that day.
+			# Initialize string that will be a table of all closed AfDs for that day.
+			anchorSetYet = 1
+			# We don't want to set anchors at all.
+		else:
+			anchorSetYet = 0
+		#Set this to zero, which means that the renderer will put an anchor in the first entry for the day.
 		opCount = 0
 		# Initialize count for open AfDs
 		clCount = 0
@@ -511,6 +516,8 @@ for incr in range(0,numberOfDays):
 				s=s+"[[Wikipedia:Articles for deletion/" + d['afd']['afdtitle'] + "|" + page + "]]"
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
+				if (anchorSetYet == 0):
+					s=s+"{{anchor|" + dayDate + "}}"
 					# Bold it if it's a relist
 				s=s+"\n|<span class=\"plainlinks\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
 				# Article links column
