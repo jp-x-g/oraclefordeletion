@@ -680,6 +680,7 @@ for incr in range(0,numberOfDays):
 		aLog("ABORTING EXECUTION: KeyboardInterrupt")
 		quit()
 ##### All days have now been processed, time to start compositing the output page.
+
 sort = "<span style=\"display:none\">!!!999</span>"
 top = top + "\n|-"
 top = top + "\n| " + sort + str(totind[0])
@@ -700,25 +701,25 @@ else:
 top = top + "\n|}\n"
 # Composite table-of-contents index table with "total" row.
 if (aggregate == 1):
-		top = top + "\n{| class=\"wikitable sortable collapsible\" style=\"width:100%\"" 
-		top = top + "\n|-" 
-		top = top + "\n!'''AfDs (relists bolded)'''" 
-		top = top + "\n!" 
-		top = top + "\n!"+m+"Keep<br/>%"
-		top = top + "\n!"+m+"Page<br/>revs"
-		top = top + "\n!"+m+"Page<br/>eds."
-		top = top + "\n!"+m+"Page<br/>size"
-		top = top + "\n!"+m+"Page<br/>made"
-		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"
-		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
-		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"
-		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"
-		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"
-		# Create start, and headers, for big aggregate column.
-		o = o + "\n|}"
-		outputstring = outputstring + "__NOTOC__\n" + "<onlyinclude>" + top + "</onlyinclude>" + o
-else:
-	outputstring = outputstring + "__NOTOC__\n" + top + o
+	top = "<onlyinclude>" + top + "\n</onlyinclude>"
+	top = top + "\n{| class=\"wikitable sortable collapsible\" style=\"width:100%\"" 
+	top = top + "\n|-" 
+	top = top + "\n!'''AfDs (relists bolded)'''" 
+	top = top + "\n!" 
+	top = top + "\n!"+m+"Keep<br/>%"
+	top = top + "\n!"+m+"Page<br/>revs"
+	top = top + "\n!"+m+"Page<br/>eds."
+	top = top + "\n!"+m+"Page<br/>size"
+	top = top + "\n!"+m+"Page<br/>made"
+	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"
+	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
+	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"
+	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"
+	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"
+	# Create start, and headers, for big aggregate column.
+	o = o + "\n|}"
+	# Terminate output string for AfD table.
+outputstring = outputstring + "__NOTOC__\n" + top + o
 # Composite output string from beginning section, top index table, and day tables.
 try:
 	dayLogFile = open(dayLogPath, 'w')
