@@ -51,13 +51,13 @@ tmpfilename = "tmp.txt"
 
 # Page names below.
 inputPage = "render.txt"
-pagename = "User:JPxG/sandbox66"
+pagename = "User:JPxG/Oracle"
 apiBase = "https://en.wikipedia.org/w/api.php"
 
 dividerStart = "<!-- Everything below"
 # This is what the bot will interpret as the last line of header text on the page.
 
-divider = "<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->"
+divider = "{{/header}}\n<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->"
 # All this does is put a bunch of blank lines in the terminal.
 #clearScreen = 0
 #if clearScreen:

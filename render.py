@@ -332,8 +332,8 @@ if numberOfDays > 30:
 # Let's jam.
 ########################################
 
-m = "<small><small><small>"
-n = "</small></small></small>"
+m = "<small><small>"
+n = "</small></small>"
 # These are used for formatting table headers.
 
 
@@ -347,16 +347,16 @@ outputstring = "\nLast updated: " + str(datetime.now(timezone.utc).strftime("%Y-
 top = ""
 # Create blank template for output text of top index.
 top = top + "__NOTOC__\n"
-top = top + "{| class=\"wikitable sortable\""
+top = top + "{|class=\"wikitable sortable\""
 top = top + "\n|-"
-top = top + "\n! '''Contents'''"
-top = top + "\n! "+m+"Total"+n
-top = top + "\n! "+m+"Open"+n
-top = top + "\n! "+m+"Uncom-<br/>mented"+n
-top = top + "\n! "+m+"Closed"+n
-top = top + "\n! "+m+"(%k)"+n
-top = top + "\n! "+m+"(%d)"+n
-top = top + "\n! "+m+"(%m)"+n
+top = top + "\n!'''Contents'''"
+top = top + "\n!"+m+"Total"+n
+top = top + "\n!"+m+"Open"+n
+top = top + "\n!"+m+"Uncom-<br/>mented"+n
+top = top + "\n!"+m+"Closed"+n
+top = top + "\n!"+m+"(%k)"+n
+top = top + "\n!"+m+"(%d)"+n
+top = top + "\n!"+m+"(%m)"+n
 #print(top)
 
 totind = ["<span style=\"display:none\">!!!999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
@@ -399,38 +399,38 @@ for incr in range(0,numberOfDays):
 		# Take the existing string, and add a new section header for each new day being processed.
 
 
-		m = "<small><small><small>"
-		n = "</small></small></small>"
+		m = "<small><small>"
+		n = "</small></small>"
 		# These are used for formatting table headers.
 		op = "\n{| class=\"wikitable sortable" 
 		op = op + "\n|-" 
-		op = op + "\n! '''Open AfDs (relists bolded)'''" 
-		op = op + "\n! " 
-		op = op + "\n! "+m+"Keep<br/>%"+n
-		op = op + "\n! "+m+"Page<br/>revs"+n
-		op = op + "\n! "+m+"Page<br/>eds."+n
-		op = op + "\n! "+m+"Page<br/>size"+n
-		op = op + "\n! "+m+"Page<br/>made"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>!v #"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>eds."+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>size"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>made"+n
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>last"+n
+		op = op + "\n!'''Open AfDs (relists bolded)'''" 
+		op = op + "\n!" 
+		op = op + "\n!"+m+"Keep<br/>%"+n
+		op = op + "\n!"+m+"Page<br/>revs"+n
+		op = op + "\n!"+m+"Page<br/>eds."+n
+		op = op + "\n!"+m+"Page<br/>size"+n
+		op = op + "\n!"+m+"Page<br/>made"+n
+		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
+		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
+		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
+		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
+		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all open AfDs for that day.
 		cl = "\n{| class=\"wikitable sortable" 
 		cl = cl + "\n|-" 
-		cl = cl + "\n! '''Closed AfDs (relists bolded)'''" 
-		cl = cl + "\n! " 
-		cl = cl + "\n! "+m+"Keep<br/>%"+n
-		cl = cl + "\n! "+m+"Page<br/>revs"+n
-		cl = cl + "\n! "+m+"Page<br/>eds."+n
-		cl = cl + "\n! "+m+"Page<br/>size"+n
-		cl = cl + "\n! "+m+"Page<br/>made"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>!v #"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>eds."+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>size"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>made"+n
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD<br/>last"+n
+		cl = cl + "\n!'''Closed AfDs (relists bolded)'''" 
+		cl = cl + "\n!" 
+		cl = cl + "\n!"+m+"Keep<br/>%"+n
+		cl = cl + "\n!"+m+"Page<br/>revs"+n
+		cl = cl + "\n!"+m+"Page<br/>eds."+n
+		cl = cl + "\n!"+m+"Page<br/>size"+n
+		cl = cl + "\n!"+m+"Page<br/>made"+n
+		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
+		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
+		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
+		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
+		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all closed AfDs for that day.
 		opCount = 0
 		# Initialize count for open AfDs
@@ -448,8 +448,8 @@ for incr in range(0,numberOfDays):
 				#print(page)
 				d = dlData["pgs"][page]
 				#print(d)
-				b = "style=\"background:" + afdbg + "\" | "
-				bnocomments = "style=\"background:" + afdnocomments + "\" | "
+				b = "style=\"background:" + afdbg + "\"|"
+				bnocomments = "style=\"background:" + afdnocomments + "\"|"
 				# Beginning for AfD data cells
 				cellcolor = defaultcl
 				sortkey = "!111"
@@ -494,9 +494,9 @@ for incr in range(0,numberOfDays):
 				s = ""
 				# Initialize blank string for this row. Rows for open and closed AfDs are the same,
 				# which means we can use the same code for both, THEN decide which table to put it in.
-				n = "\n| "
+				n = "\n|"
 				s=s+ "\n|-"
-				s=s+"\n| style=\"background:" + cellcolor + "\" | <span style=\"display:none\">" + sortkey + "</span>"
+				s=s+"\n|style=\"background:" + cellcolor + "\" |<span style=\"display:none\">" + sortkey + "</span>"
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
 					# Bold it if it's a relist
@@ -504,9 +504,9 @@ for incr in range(0,numberOfDays):
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
 					# Bold it if it's a relist
-				s=s+"\n| <span class=\"plainlinks nourlexpansion lx\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+				s=s+"\n|<span class=\"plainlinks nourlexpansion lx\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
 				# Article links column
-				s=s+"\n| style=\"background:" + ratiocolor + "\" | " + ratio
+				s=s+"\n|style=\"background:" + ratiocolor + "\"|" + ratio
 				# Ratio column
 				try: 
 					sd = n + str(d['pagestats']['revisions'])
