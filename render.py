@@ -351,7 +351,6 @@ if (args.output != "insanely weird string that nobody would ever type in on purp
 outputstring = "\nLast updated: " + str(datetime.now(timezone.utc).strftime("%Y-%m-%d, %H:%M (UTC)")) + "\n"
 top = ""
 # Create blank template for output text of top index.
-top = top + "__NOTOC__\n"
 top = top + "{|class=\"wikitable sortable\""
 top = top + "\n|-"
 top = top + "\n!'''Contents'''"
@@ -521,8 +520,58 @@ for incr in range(0,numberOfDays):
 					s=s+"{{anchor|" + dayDate + "}}"
 					anchorSetYet = 1
 					# Add an anchor and disable the sentry variable.
-				s=s+"\n|<span class=\"plainlinks\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+				linkscolumn="\n|<span class=\"plainlinks\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+				########################################
+				# Fix namespace errors in link string.
+				########################################
 				# Article links column
+				linkscolumn = linkscolumn.replace("·[[Talk:Talk:","·[[Talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Draft:","·[[Draft talk:")
+				# Sometimes people nominate weird namespaces at AfD.
+				linkscolumn = linkscolumn.replace("·[[Talk:User:","·[[User talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Wikipedia:","·[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Template:","·[[Template talk:")
+				# Sometimes people nominate REALLY weird namespaces.
+				linkscolumn = linkscolumn.replace("·[[Talk:Wikipedia talk:","·[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Template talk:","·[[Template talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:File:","·[[File talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:File talk:","·[[File talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:MediaWiki:","·[[MediaWiki talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:MediaWiki talk:","·[[MediaWiki talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Help:","·[[Help talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Help talk:","·[[Help talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Category:","·[[Category talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Category talk:","·[[Category talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Portal:","·[[Portal talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Portal talk:","·[[Portal talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:TimedText:","·[[TimedText talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:TimedText talk:","·[[TimedText talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Module:","·[[Module talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Module talk:","·[[Module talk:")
+				# Sometimes it's April Fools' Day.
+				linkscolumn = linkscolumn.replace("·[[Talk:Gadget:","·[[Gadget talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Gadget talk:","·[[Gadget talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Gadget definition:","·[[Gadget definition talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Gadget definition talk:","·[[Gadget definition talk:")
+				# Some editors just want to watch the world burn.
+				linkscolumn = linkscolumn.replace("·[[Talk:Special:","·[[Special talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Special talk:","·[[Special talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Media:","·[[Media talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Media talk:","·[[Media talk:")
+				# Virtual namespaces.
+				linkscolumn = linkscolumn.replace("·[[Talk:Image:","·[[Image talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Image talk:","·[[Image talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:WP:","·[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:WPT:","·[[Wikipedia talk:")
+				# Aliases.
+				linkscolumn = linkscolumn.replace("·[[Talk:Book:","·[[Book talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Book talk:","·[[Book talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Flow:","·[[Flow talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Flow talk:","·[[Flow talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Education Program:","·[[Education Program talk:")
+				linkscolumn = linkscolumn.replace("·[[Talk:Education Program talk:","·[[Education Program talk:")
+				# I don't even think this is possible, but why not.
+				s=s+linkscolumn
 				s=s+"\n|style=\"background:" + ratiocolor + "\"|" + ratio
 				# Ratio column
 				try: 
@@ -667,8 +716,9 @@ if (aggregate == 1):
 		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"
 		# Create start, and headers, for big aggregate column.
 		o = o + "\n|}"
-
-outputstring = outputstring + top + o
+		outputstring = outputstring + "__NOTOC__\n" + "<onlyinclude>" + top + "</onlyinclude>" + o
+else:
+	outputstring = outputstring + "__NOTOC__\n" + top + o
 # Composite output string from beginning section, top index table, and day tables.
 try:
 	dayLogFile = open(dayLogPath, 'w')

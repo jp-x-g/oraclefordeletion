@@ -88,7 +88,7 @@ if [ "$cfg" = 1 ]; then
 fi
 # If configure is set, then add -c to the argument string.
 
-if [ "$aggregate" ]; then
+if [ "$aggregate" = 1 ]; then
 	# main.py doesn't take -a
 	# detail.py doesn't take -a
 	# detailpages.py doesn't take -a
