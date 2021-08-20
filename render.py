@@ -225,7 +225,7 @@ dellest = "#FFCCDD"
 middest = "#EFEFDD"
 # Color for the midpoint of keepest and dellest (the natural midpoint is too murky, and yellow is too yellow).
 errorst = "#EAECF0"
-# Color for ratios that couldn't be determined.
+# Color for ratios that couldn't be determined (or no !votes have been cast)
 defaultcl = "#EAECF0"
 # Color for closes that couldn't be determined, or AfDs which are still open.
 keepcl = "#CEF2CE"
@@ -395,35 +395,37 @@ for incr in range(0,numberOfDays):
 		o=o+"\n===" + dayDate + "===" 
 		# Take the existing string, and add a new section header for each new day being processed.
 
+		m = "<small><small><small>"
+		n = "</small></small></small>"
 		op = "\n{| class=\"wikitable sortable" 
 		op = op + "\n|-" 
 		op = op + "\n! '''Open AfDs (relists bolded)'''" 
 		op = op + "\n! " 
-		op = op + "\n! Keep<br/>% " 
-		op = op + "\n! Page<br/>revs" 
-		op = op + "\n! Page<br/>eds." 
-		op = op + "\n! Page<br/>size" 
-		op = op + "\n! Page<br/>made" 
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>!v #" 
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>eds."
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>size"
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>made"
-		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>last"
+		op = op + "\n! "+m+"Keep"+n+"<br/>"+m+"%"+n
+		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"revs"+n
+		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"eds."+n
+		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"size"+n
+		op = op + "\n! "+m+"Page"+n+"<br/>"+m+"made"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"!v #"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"eds."+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"size"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"made"+n
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"last"+n
 		# Initialize string that will be a table of all open AfDs for that day.
 		cl = "\n{| class=\"wikitable sortable" 
 		cl = cl + "\n|-" 
 		cl = cl + "\n! '''Closed AfDs (relists bolded)'''" 
 		cl = cl + "\n! " 
-		cl = cl + "\n! Keep<br/>% " 
-		cl = cl + "\n! Page<br/>revs" 
-		cl = cl + "\n! Page<br/>eds." 
-		cl = cl + "\n! Page<br/>size" 
-		cl = cl + "\n! Page<br/>made" 
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>!v #" 
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>eds."
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>size"
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>made"
-		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>last"
+		cl = cl + "\n! "+m+"Keep"+n+"<br/>"+m+"%"+n
+		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"revs"+n
+		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"eds."+n
+		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"size"+n
+		cl = cl + "\n! "+m+"Page"+n+"<br/>"+m+"made"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"!v #"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"eds."+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"size"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"made"+n
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | "+m+"AfD"+n+"<br/>"+m+"last"+n
 		# Initialize string that will be a table of all closed AfDs for that day.
 		opCount = 0
 		# Initialize count for open AfDs
