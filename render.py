@@ -364,9 +364,9 @@ o = ""
 
 # grad = createGradient("#CCFFDD", "#FFCCDD", 16)
 # 16-step gradient between pale green and pale red.
-midder = createGradient(middest, dellest, 8)[2]
-grad = createGradient(keepest, middest, 8) + createGradient(midder, dellest, 8)
-# 32-step gradient between pale green, pale yellow, and pale red.
+midder = createGradient(middest, dellest, 52)[2]
+grad = createGradient(keepest, middest, 50) + createGradient(midder, dellest, 51)
+# 101-step gradient between pale green, pale yellow, and pale red.
 # The natural midpoint of the gradient is E6E6DD, which I changed to EFEFDD to be a slight bit yellower.
 # I started out with FFFFDD, but this was so yellow it made the midrange of results hard to read.
 # The next one is 56% (a sixteenth) along the second gradient, not 50, to avoid double-counting it and making two steps the same color.
@@ -395,9 +395,35 @@ for incr in range(0,numberOfDays):
 		o=o+"\n===" + dayDate + "===" 
 		# Take the existing string, and add a new section header for each new day being processed.
 
-		op = "\n{| class=\"wikitable sortable\n" + "|-\n" + "! '''Open AfDs'''\n" + "! \n" + "! Page<br/>revs\n" + "! Page<br/>eds.\n" + "! Page<br/>size\n" + "! Page<br/>made\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>cmts.\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>eds.\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>size\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>made\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>last\n"
+		op = "\n{| class=\"wikitable sortable" 
+		op = op + "\n|-" 
+		op = op + "\n! '''Open AfDs (relists bolded)'''" 
+		op = op + "\n! " 
+		op = op + "\n! Keep<br/>% " 
+		op = op + "\n! Page<br/>revs" 
+		op = op + "\n! Page<br/>eds." 
+		op = op + "\n! Page<br/>size" 
+		op = op + "\n! Page<br/>made" 
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>!v #" 
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>eds."
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>size"
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>made"
+		op = op + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>last"
 		# Initialize string that will be a table of all open AfDs for that day.
-		cl = "\n{| class=\"wikitable sortable\n" + "|-\n" + "! '''Closed AfDs'''\n" + "! \n" + "! Page<br/>revs\n" + "! Page<br/>eds.\n" + "! Page<br/>size\n" + "! Page<br/>made\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>cmts.\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>eds.\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>size\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>made\n" + "!! style=\"background:" + afdheaderbg + "\" | AfD<br/>last\n"
+		cl = "\n{| class=\"wikitable sortable" 
+		cl = cl + "\n|-" 
+		cl = cl + "\n! '''Closed AfDs (relists bolded)'''" 
+		cl = cl + "\n! " 
+		cl = cl + "\n! Keep<br/>% " 
+		cl = cl + "\n! Page<br/>revs" 
+		cl = cl + "\n! Page<br/>eds." 
+		cl = cl + "\n! Page<br/>size" 
+		cl = cl + "\n! Page<br/>made" 
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>!v #" 
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>eds."
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>size"
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>made"
+		cl = cl + "\n!! style=\"background:" + afdheaderbg + "\" | AfD<br/>last"
 		# Initialize string that will be a table of all closed AfDs for that day.
 		opCount = 0
 		# Initialize count for open AfDs
@@ -443,8 +469,8 @@ for incr in range(0,numberOfDays):
 					#print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
 					ratio = (d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) / d['afdinfo']['all']
 					# Delete, speedy delete, merge, redirect, draftify, and userfy !votes, out of all !votes.
-					ratio = ratio * 15.0
-					#There's 16 steps, so 0 to 15 will cover them all.
+					ratio = ratio * 100.0
+					#There's 101 steps, so 0 to 100 will cover them all.
 					#print(str(ratio)[0:5])
 					ratiocolor = str(grad[int(ratio)])
 					# Creates number (from 0 to 16) expressing ratio of how many !votes are delete-like.
@@ -459,10 +485,15 @@ for incr in range(0,numberOfDays):
 				s=s+"\n| style=\"background:" + cellcolor + "\" | <span style=\"display:none\">" + sortkey + "</span>"
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
+					# Bold it if it's a relist
 				s=s+"[[Wikipedia:Articles for deletion/" + d['afd']['afdtitle'] + "|" + page + "]]"
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
-				s=s+"\n| style=\"background:" + grad[int(ratio)] + "\" | <span style=\"display:none\">" + str(ratio)[0:5] + "</span><span class=\"plainlinks nourlexpansion lx\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+					# Bold it if it's a relist
+				s=s+"\n| <span class=\"plainlinks nourlexpansion lx\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+				# Article links column
+				s=s+"\n| style=\"background:" + grad[int(ratio)] + "\" | " + str(100 - ratio)[0:5]
+				# Ratio column
 				try: 
 					sd = n + str(d['pagestats']['revisions'])
 					sd = sd + n + str(d['pagestats']['editors'])
