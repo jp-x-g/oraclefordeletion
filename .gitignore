@@ -11,3 +11,5 @@ test.py
 
 # Custom scripts that aren't part of the core package
 custom*
+custom*.sh
+custom*.py
