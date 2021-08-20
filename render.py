@@ -405,7 +405,7 @@ for incr in range(0,numberOfDays):
 		m = "<small><small>"
 		n = "</small></small>"
 		# These are used for formatting table headers.
-		op = "\n{| class=\"wikitable sortable collapsible\"" 
+		op = "\n{| class=\"wikitable sortable collapsible\" style=\"width:100%\"" 
 		op = op + "\n|-" 
 		op = op + "\n!'''Open AfDs (relists bolded)'''" 
 		op = op + "\n!" 
@@ -420,7 +420,7 @@ for incr in range(0,numberOfDays):
 		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
 		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all open AfDs for that day.
-		cl = "\n{| class=\"wikitable sortable collapsible collapsed" 
+		cl = "\n{| class=\"wikitable sortable collapsible collapsed\" style=\"width:100%\"" 
 		cl = cl + "\n|-" 
 		cl = cl + "\n!'''Closed AfDs (relists bolded)'''" 
 		cl = cl + "\n!" 
