@@ -28,7 +28,7 @@ import argparse
 ########################################
 # Set default configuration variables.
 ########################################
-version = "0.1"
+version = "0.2"
 userRunning = "JPxG"
 
 # File system stuff below.
@@ -63,7 +63,7 @@ parser = argparse.ArgumentParser(description="Oracle for Deletion, output render
 parser.add_argument("-o", "--output", metavar="blahblah.txt", help="Output file, which will be saved in " + os.getcwd() + dataname + "/" + outputname + "/. Default is \"AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt\".)", default="insanely weird string that nobody would ever type in on purpose.txt")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="DATE", help="Date to parse back from (YYYY-MM-DD). Default is today (UTC).", default=today)
-#parser.add_argument("-a,", "--aggregate", help="Whether to eliminate the daily headings and just make one huge table for the whole interval.")
+parser.add_argument("-a,", "--aggregate", help="Whether to eliminate the daily headings and just make one huge table for the whole interval.",action="store_true")
 #parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all days in the specified interval).", default=0)
 #parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with detailed information. Wheee!", action="store_true")
@@ -96,8 +96,8 @@ sleepTime = 0.01
 daysDelta = timedelta(days=numberOfDays)
 
 aggregate = 0
-#if args.aggregate:
-#	aggregate = 1
+if args.aggregate:
+	aggregate = 1
 
 # Set configuration variables from args.
 # This is awkward, but I wrote the script before I wrote the arg parser, lol.
@@ -379,6 +379,7 @@ grad = createGradient(keepest, middest, 50) + createGradient(midder, dellest, 51
 # I started out with FFFFDD, but this was so yellow it made the midrange of results hard to read.
 # The next one is 56% (a sixteenth) along the second gradient, not 50, to avoid double-counting it and making two steps the same color.
 
+
 for incr in range(0,numberOfDays):
 # This will go from 0 (today) to numberOfDays (the furthest we want to go back)
 	try:
@@ -400,40 +401,43 @@ for incr in range(0,numberOfDays):
 			aLog("Processing " + str(dlData["count"]) + " AfDs from " + processingPath)
 		except:
 			aLog("!!! FAILED TO OPEN: " + processingPath)
-		o=o+"\n===" + dayDate + "===" 
 		# Take the existing string, and add a new section header for each new day being processed.
 		m = "<small><small>"
 		n = "</small></small>"
 		# These are used for formatting table headers.
-		op = "\n{| class=\"wikitable sortable collapsible\" style=\"width:100%\"" 
-		op = op + "\n|-" 
-		op = op + "\n!'''Open AfDs (relists bolded)'''" 
-		op = op + "\n!" 
-		op = op + "\n!"+m+"Keep<br/>%"+n
-		op = op + "\n!"+m+"Page<br/>revs"+n
-		op = op + "\n!"+m+"Page<br/>eds."+n
-		op = op + "\n!"+m+"Page<br/>size"+n
-		op = op + "\n!"+m+"Page<br/>made"+n
-		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
-		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
-		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
-		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
-		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
-		# Initialize string that will be a table of all open AfDs for that day.
-		cl = "\n{| class=\"wikitable sortable collapsible collapsed\" style=\"width:100%\"" 
-		cl = cl + "\n|-" 
-		cl = cl + "\n!'''Closed AfDs (relists bolded)'''" 
-		cl = cl + "\n!" 
-		cl = cl + "\n!"+m+"Keep<br/>%"+n
-		cl = cl + "\n!"+m+"Page<br/>revs"+n
-		cl = cl + "\n!"+m+"Page<br/>eds."+n
-		cl = cl + "\n!"+m+"Page<br/>size"+n
-		cl = cl + "\n!"+m+"Page<br/>made"+n
-		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
-		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
-		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
-		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
-		cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
+		op = ""
+		cl = ""
+		if (aggregate == 0):
+			o=o+"\n===" + dayDate + "===" 
+			op = "\n{| class=\"wikitable sortable collapsible\" style=\"width:100%\"" 
+			op = op + "\n|-" 
+			op = op + "\n!'''Open AfDs (relists bolded)'''" 
+			op = op + "\n!" 
+			op = op + "\n!"+m+"Keep<br/>%"+n
+			op = op + "\n!"+m+"Page<br/>revs"+n
+			op = op + "\n!"+m+"Page<br/>eds."+n
+			op = op + "\n!"+m+"Page<br/>size"+n
+			op = op + "\n!"+m+"Page<br/>made"+n
+			op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
+			op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
+			op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
+			op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
+			op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
+			# Initialize string that will be a table of all open AfDs for that day.
+			cl = "\n{| class=\"wikitable sortable collapsible collapsed\" style=\"width:100%\"" 
+			cl = cl + "\n|-" 
+			cl = cl + "\n!'''Closed AfDs (relists bolded)'''" 
+			cl = cl + "\n!" 
+			cl = cl + "\n!"+m+"Keep<br/>%"+n
+			cl = cl + "\n!"+m+"Page<br/>revs"+n
+			cl = cl + "\n!"+m+"Page<br/>eds."+n
+			cl = cl + "\n!"+m+"Page<br/>size"+n
+			cl = cl + "\n!"+m+"Page<br/>made"+n
+			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
+			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
+			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
+			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
+			cl = cl + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all closed AfDs for that day.
 		opCount = 0
 		# Initialize count for open AfDs
@@ -498,6 +502,7 @@ for incr in range(0,numberOfDays):
 				# Initialize blank string for this row. Rows for open and closed AfDs are the same,
 				# which means we can use the same code for both, THEN decide which table to put it in.
 				n = "\n|"
+				# Newline string (this just makes the code less ugly)
 				s=s+ "\n|-"
 				s=s+"\n|style=\"background:" + cellcolor + "\" |<span style=\"display:none\">" + sortkey + "</span>"
 				if d['afd']['relist'] > 0:
@@ -519,9 +524,9 @@ for incr in range(0,numberOfDays):
 					s = s + sd
 					# Add them all to a string and then add that string to s all at once.
 					# This may seem pointless, but it prevents table-breaking.
-					# If it just adds them to s sequentially, this "try" failing will
-					# cause it to add a full five dummy columns, even if it's already written some.
-					# That is to say, it will add more than five, and the table will break.
+					# If it just adds them to s sequentially, and it fails on column 4,
+					# cause it to add a full five dummy columns IN ADDITION to those four.
+					# That is to say, the row will be more than five, and the table will break.
 				except:
 					s=s+n+n+n+n
 				try:
@@ -553,8 +558,8 @@ for incr in range(0,numberOfDays):
 			except:
 				# If there is some bizarre mystery bug that makes no sense.
 				try:
-					aLog("Couldn't process " + str(dlData["pgs"][page]))
-					o = o + "<!-- Couldn't process a page -->"
+					aLog("Couldn't process " + page)
+					o = o + "<!-- Couldn't process a page: " + page + "-->"
 					#o = o + "<!-- Couldn't process a page: " + str(dlData["pgs"][page])
 				except:
 					aLog("Couldn't process a page, and couldn't even figure out what it was.")
@@ -605,8 +610,10 @@ for incr in range(0,numberOfDays):
 		top = top + "\n| " + str(ind[6])
 		top = top + "\n| " + str(ind[7])
 		# Add all the stuff to the index table for the top.
-
-		o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}"
+		if (aggregate == 0):
+			o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}"
+		else:
+			o = o + op + cl
 		#print(o)
 		##########
 		# End of codeblock that runs over every day's AfD log in the batch.
@@ -634,6 +641,23 @@ else:
 	top = top + "\n| " + sort + "0"
 top = top + "\n|}\n"
 # Composite table-of-contents index table with "total" row.
+if (aggregate == 1):
+		top = top + "\n{| class=\"wikitable sortable collapsible\" style=\"width:100%\"" 
+		top = top + "\n|-" 
+		top = top + "\n!'''AfDs (relists bolded)'''" 
+		top = top + "\n!" 
+		top = top + "\n!"+m+"Keep<br/>%"
+		top = top + "\n!"+m+"Page<br/>revs"
+		top = top + "\n!"+m+"Page<br/>eds."
+		top = top + "\n!"+m+"Page<br/>size"
+		top = top + "\n!"+m+"Page<br/>made"
+		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"
+		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
+		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"
+		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"
+		top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"
+		# Create start, and headers, for big aggregate column.
+		o = o + "\n|}"
 
 outputstring = outputstring + top + o
 # Composite output string from beginning section, top index table, and day tables.

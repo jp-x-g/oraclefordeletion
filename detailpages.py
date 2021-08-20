@@ -28,7 +28,7 @@ import argparse
 ########################################
 # Set all configuration variables.
 ########################################
-version = "0.1"
+version = "0.2"
 userRunning = "JPxG"
 
 # File system stuff below.
@@ -379,8 +379,8 @@ for incr in range(0,numberOfDays):
 											vkp = vkp - vsk
 											vdl = vdl - vsd
 											# Don't doublecount speedy keeps/deletes
-											vmg = ptextl.count("merge'''")
-											vrd = ptextl.count("redirect'''")
+											vmg = ptextl.count("merge'''") + ptextl.count("merge all'''")
+											vrd = ptextl.count("redirect'''") + ptextl.count("redirect all'''")
 											vtw = ptextl.count("transwiki'''")
 											vus = ptextl.count("userfy'''")
 											vdr = ptextl.count("draftify'''")

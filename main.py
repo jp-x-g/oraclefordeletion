@@ -27,7 +27,7 @@ import argparse
 ########################################
 # Set all configuration variables.
 ########################################
-version = "0.1"
+version = "0.2"
 userRunning = "JPxG"
 
 # File system stuff

@@ -17,13 +17,14 @@
 #python3 render.py      -v -b 31 -l 2021-06-30 -o render.txt
 #python3 upload.py      -v -o User:JPxG/sandbox68 -n "Parsing June 2021"
 
-while getopts v:h:c:a:s:b:l:o: flag
+while getopts v:h:c:a:g:s:b:l:o: flag
 do
 	case "${flag}" in
 		v) verbose=1;;
 		h) help=1;;
 		c) cfg=1;;
 		a) all=1;;
+		g) aggregate=1;;
 		s) sleep=${OPTARG};;
 		b) back=${OPTARG};;
 		l) last=${OPTARG};;
@@ -38,15 +39,6 @@ arst4=""
 arst5=""
 # Argument strings for each command (since some scripts don't take some flags)
 
-if [ "$verbose" = 1 ]; then
-	arst1="$arst1 -v"
-	arst2="$arst2 -v"
-	arst3="$arst3 -v"
-	arst4="$arst4 -v"
-	arst5="$arst5 -v"
-fi
-# If verbose is set, then add -v to the argument string.
-
 if [ "$help" = 1 ]; then
 	echo "This script runs all five components in order, and passes arguments to them."
 	echo "Usage looks like, for example, this:"
@@ -56,6 +48,7 @@ if [ "$help" = 1 ]; then
 	echo "  -b    how many days to go back"
 	echo "  -l    the latest day to parse (YYYY-MM-DD)"
 	echo "  -s    sleep time between API queries (in seconds, will take decimals)"
+	echo "  -g    enable aggregate output (one big table, instead of new sections/tables for different days)"
 	echo "  -v    enable verbose mode"
 	echo "  -h    print this help message and exit"
 	echo "  -a    print every individual component's help message and exit"
@@ -66,6 +59,16 @@ if [ "$help" = 1 ]; then
 	echo "Also note that individual components have more flags, which provide finer control, and are not available from this shell script. If you want to specify a password from the command line, for example, running upload.py manually will allow you to do this with '-p'. See the component helps for more information (you can do so by invoking this script with '-a 1')."
 	exit 1
 fi
+
+if [ "$verbose" = 1 ]; then
+	arst1="$arst1 -v"
+	arst2="$arst2 -v"
+	arst3="$arst3 -v"
+	arst4="$arst4 -v"
+	arst5="$arst5 -v"
+fi
+# If verbose is set, then add -v to the argument string.
+
 
 if [ "$all" = 1 ]; then
 	arst1="$arst1 -h"
@@ -84,6 +87,15 @@ if [ "$cfg" = 1 ]; then
 	arst5="$arst5 -c"
 fi
 # If configure is set, then add -c to the argument string.
+
+if [ "$aggregate" ]; then
+	# main.py doesn't take -a
+	# detail.py doesn't take -a
+	# detailpages.py doesn't take -a
+	arst4="$arst4 -a"
+	# upload.py doesn't take -a
+fi
+# If last.
 
 if [ "$sleep" ]; then
 	arst1="$arst1 -s $sleep"
