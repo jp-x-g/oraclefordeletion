@@ -63,7 +63,7 @@ parser = argparse.ArgumentParser(description="Oracle for Deletion, output render
 parser.add_argument("-o", "--output", metavar="blahblah.txt", help="Output file, which will be saved in " + os.getcwd() + dataname + "/" + outputname + "/. Default is \"AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt\".)", default="insanely weird string that nobody would ever type in on purpose.txt")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="DATE", help="Date to parse back from (YYYY-MM-DD). Default is today (UTC).", default=today)
-parser.add_argument("-a,", "--aggregate", help="Whether to eliminate the daily headings and just make one huge table for the whole interval.")
+#parser.add_argument("-a,", "--aggregate", help="Whether to eliminate the daily headings and just make one huge table for the whole interval.")
 #parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all days in the specified interval).", default=0)
 #parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with detailed information. Wheee!", action="store_true")
@@ -96,8 +96,8 @@ sleepTime = 0.01
 daysDelta = timedelta(days=numberOfDays)
 
 aggregate = 0
-if args.aggregate:
-	aggregate = 1
+#if args.aggregate:
+#	aggregate = 1
 
 # Set configuration variables from args.
 # This is awkward, but I wrote the script before I wrote the arg parser, lol.
