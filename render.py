@@ -63,7 +63,7 @@ parser = argparse.ArgumentParser(description="Oracle for Deletion, output render
 parser.add_argument("-o", "--output", metavar="blahblah.txt", help="Output file, which will be saved in " + os.getcwd() + dataname + "/" + outputname + "/. Default is \"AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt\".)", default="insanely weird string that nobody would ever type in on purpose.txt")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="DATE", help="Date to parse back from (YYYY-MM-DD). Default is today (UTC).", default=today)
-parser.add_argument("-a,", "--aggregate", help="Whether to eliminate the daily headings and just make one huge table for the whole interval.")
+#parser.add_argument("-a,", "--aggregate", help="Whether to eliminate the daily headings and just make one huge table for the whole interval.")
 #parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all days in the specified interval).", default=0)
 #parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with detailed information. Wheee!", action="store_true")
@@ -96,8 +96,8 @@ sleepTime = 0.01
 daysDelta = timedelta(days=numberOfDays)
 
 aggregate = 0
-if args.aggregate:
-	aggregate = 1
+#if args.aggregate:
+#	aggregate = 1
 
 # Set configuration variables from args.
 # This is awkward, but I wrote the script before I wrote the arg parser, lol.
@@ -405,7 +405,7 @@ for incr in range(0,numberOfDays):
 		m = "<small><small>"
 		n = "</small></small>"
 		# These are used for formatting table headers.
-		op = "\n{| class=\"wikitable sortable" 
+		op = "\n{| class=\"wikitable sortable collapsible\"" 
 		op = op + "\n|-" 
 		op = op + "\n!'''Open AfDs (relists bolded)'''" 
 		op = op + "\n!" 
@@ -420,7 +420,7 @@ for incr in range(0,numberOfDays):
 		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
 		op = op + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
 		# Initialize string that will be a table of all open AfDs for that day.
-		cl = "\n{| class=\"wikitable sortable" 
+		cl = "\n{| class=\"wikitable sortable collapsible collapsed" 
 		cl = cl + "\n|-" 
 		cl = cl + "\n!'''Closed AfDs (relists bolded)'''" 
 		cl = cl + "\n!" 
@@ -606,7 +606,7 @@ for incr in range(0,numberOfDays):
 		top = top + "\n| " + str(ind[7])
 		# Add all the stuff to the index table for the top.
 
-		o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}" + "\n{{collapse top|Closed AfDs for " + dayDate + " (" + str(clCount) + ")}}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}\n{{collapse bottom}}"
+		o = o + "\n====Open AfDs, " + dayDate +  " (" + str(opCount) + ")====" + op + "\n|}\n====Closed AfDs, " + dayDate + " (" + str(clCount) + ")====\n" + cl + "\n|}"
 		#print(o)
 		##########
 		# End of codeblock that runs over every day's AfD log in the batch.
