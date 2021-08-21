@@ -262,8 +262,15 @@ for incr in range(0,numberOfDays):
 			# Do this for each page in the response (not currently necessary, but why not).
 			for eachPage in r['query']['pages']:
 				afdDay['title'] = "Wikipedia:Articles_for_deletion/Log/" + dayText
-				pageContent = eachPage['revisions'][0]['slots']['main']['content']
+				try:
+					pageContent = eachPage['revisions'][0]['slots']['main']['content']
+				except:
+					aLog("!!! Failed to retrieve page content for that day.")
 				# Get a string of the content we want to store.
+				##########
+				# Stupid disgusting hack. Do this to process raw text of an AfD if you're a hoopty-ass.
+				#pageContent = "asdf"
+				##########
 				pageContent = pageContent.replace("_"," ")
 				afdDay['content'] = pageContent
 				# Store the content of the page as 'content' for that day's entry.
@@ -330,6 +337,21 @@ for incr in range(0,numberOfDays):
 							nom = int(ordinal[0:len(ordinal) - 2])
 							article = theSlice[0:theSlice.find(" (" + ordinal + " nomination)")]
 							# print("Nomination: " + str(nom))
+					ordsText = ["zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"]
+					# Yes, people actually did this sometimes.
+					for ordinal in range(0,21):
+						# There are 21 items in the list, so we want 0 to 20 as indices.
+						# , "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th"]:
+						# print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
+						if (theSlice.find(" (" + ordsText[ordinal] + " nomination)") != -1):
+							# Trim the ordinal, i.e. "2nd" -> "2".
+							#print("FOUND A WEIRD NOMINATION ORDINAL!!!!!!!!!!!!")
+							#print(theSlice)
+							#print(str(ordinal))
+							nom = int(ordinal)
+							article = theSlice[0:theSlice.find(" (" + ordsText[ordinal] + " nomination)")]
+							#print(str(article))
+							# print("Nomination: " + str(nom))					
 					#articleJson = {article: {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# articleJson = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# print(json.dumps(articleJson))

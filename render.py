@@ -398,7 +398,8 @@ for incr in range(0,numberOfDays):
 			dayLogFile = open(processingPath, 'r')
 			dlData = json.load(dayLogFile)
 			dayLogFile.close()
-			aLog("Processing " + str(dlData["count"]) + " AfDs from " + processingPath)
+			if verbose:
+				aLog("Processing " + str(dlData["count"]) + " AfDs from " + processingPath)
 		except:
 			aLog("!!! FAILED TO OPEN: " + processingPath)
 		# Take the existing string, and add a new section header for each new day being processed.
@@ -465,6 +466,7 @@ for incr in range(0,numberOfDays):
 				# Beginning for AfD data cells
 				cellcolor = defaultcl
 				sortkey = "!111"
+				print(page)
 				if (d['afdinfo']['open'] != 1):
 					if (d['pageinfo']['error'] != "0"):
 						ind[6] = ind[6] + 1

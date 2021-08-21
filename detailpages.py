@@ -283,7 +283,8 @@ for incr in range(0,numberOfDays):
 			dayLogFile = open(dayLogPath, 'r')
 			dlData = json.load(dayLogFile)
 			dayLogFile.close()
-			aLog("Processing " + str(dlData["count"]) + " AfDs from " + dayLogPath)
+			if verbose:
+				aLog("Processing " + str(dlData["count"]) + " AfDs from " + dayLogPath)
 		except:
 			aLog("!!! FAILED TO OPEN: " + dayLogPath)
 		# Generic XTools API URL:
@@ -299,19 +300,19 @@ for incr in range(0,numberOfDays):
 		for page in dlData["pgs"]:
 			try:
 				# This iterates over every page in that day's AfD.
-				#print(page)
+				#print(str(cursor) + " / " + str(page))
 				key = dlData["pgs"][page]
 				#print(key)
 				if ((forReal) and (page != "")):
+					querylength = querylength + 1
+					cursor = cursor + 1
 					# This will actually hit the XTools API.
 					urls = [apiBase + page, apiBase + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"]]
 					query = query + page + "|" + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"] + "|"
 					# Add another argument for the article and also for its AfD.
-					querylength = querylength + 1
-					cursor = cursor + 1
 					#Increment the pagecount so we can know what's going on.
 					#print(query)
-					if (querylength >= queryBatchSize) or (cursor == dlData["count"]):
+					if (querylength >= queryBatchSize) or (cursor >= len(dlData["pgs"])):
 						query = query[:-1]
 						# Trim that damn "|" from the end of the string.
 						# query = query.replace("%", "%25")
@@ -328,7 +329,7 @@ for incr in range(0,numberOfDays):
 						query = apiBase + query
 						# Prepend API base URL to send it out.
 						if verbose:
-							print("Sending query, requesting " + str(querylength) + " pages")
+							print("Requesting " + str(querylength) + " pages, query #" + str(totalQueriesMade + 1))
 						#print(query)
 						# Reset query and query length for next run.
 						if forReal:
@@ -356,6 +357,18 @@ for incr in range(0,numberOfDays):
 											ptitle = ptitle[0:ptitle.find(" (" + ordinal + " nomination)")]
 												# Trim the "(2nd nomination)" crap.
 										# This whole block just trims out the nomination parts.
+									ordsText = ["zeroth", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth", "eleventh", "twelfth", "thirteenth", "fourteenth", "fifteenth", "sixteenth", "seventeenth", "eighteenth", "nineteenth", "twentieth"]
+									# Yes, people actually did this sometimes.
+									for ordinal in range(0,21):
+										# There are 21 items in the list, so we want 0 to 20 as indices.
+										# , "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th"]:
+										# print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
+										if (ptitle.find(" (" + ordsText[ordinal] + " nomination)") != -1):
+											# Trim the ordinal, i.e. "2nd" -> "2".
+											#print("FOUND A WEIRD NOMINATION ORDINAL!!!!!!!!!!!!")
+											#print(theSlice)
+											#print(str(ordinal))
+											ptitle = ptitle[0:ptitle.find(" (" + ordsText[ordinal] + " nomination)")]
 									try:
 										if "missing" in rp.keys():
 											#print("AFD'S A LION GET IN THE CAR")
@@ -409,13 +422,14 @@ for incr in range(0,numberOfDays):
 											}
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except:
+									except (KeyboardInterrupt):
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 								else:
 									try:
 										if "missing" in rp.keys():
 											#print("IT'S A LION GET IN THE CAR")
-											print(str(rp.keys()) + " / " + ptitle)
+											#if verbose:
+											#	print(str(rp.keys()) + " / " + ptitle)
 											dlData["pgs"][ptitle]['pageinfo'] = {
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
 											"error": "missing"
@@ -445,6 +459,7 @@ for incr in range(0,numberOfDays):
 											"links": links
 											}
 									except:
+											#cursor = cursor + 1
 											aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 									#print("Article found: " + ptitle)
 
