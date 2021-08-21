@@ -586,7 +586,18 @@ for incr in range(0,numberOfDays):
 					# cause it to add a full five dummy columns IN ADDITION to those four.
 					# That is to say, the row will be more than five, and the table will break.
 				except:
-					s=s+n+n+n+n
+					try:
+						sd = n + "−"
+						sd = sd + n + "−"
+						sd = sd + n + str(d['pageinfo']['size'])
+						sd = sd + n + "−"
+						s = s + sd
+						# Render light version (without XTools queries).
+						# This is what will render if detail.py wasn't run.
+					except:
+						s=s+n+n+n+n
+						# If rendering the light version also failed, dummy out the row.
+						# This will happen if the page was deleted.
 				try:
 					if (d['afdinfo']['all'] == 0):
 						sd = n + bnocomments + str(d['afdinfo']['all'])
@@ -603,8 +614,26 @@ for incr in range(0,numberOfDays):
 					s = s + sd
 					# See above comment for why this is necessary.
 				except:
-					print("Oopsie woopsie! Failed to render for " + d['afd']['afdtitle'])
-					s=s+n+b+n+b+n+b+n+b+n+b
+					try:
+						if (d['afdinfo']['all'] == 0):
+							sd = n + bnocomments + str(d['afdinfo']['all'])
+							# Add the background color for an uncommented AfD to the line.
+							ind[3] = ind[3]
+							# Don't increment the "uncommented" counter, because we just did it.
+						else:
+							sd = n + b + str(d['afdinfo']['all'])
+							# Add normal background color for commented AfD to the line.
+						sd = sd + n + b + "−"
+						sd = sd + n + b + str(d['afdinfo']['size'])
+						sd = sd + n + b + "−"
+						sd = sd + n + b + "−"
+						s = s + sd
+						# Render the light version of the AfD row (omitting XTools info).
+						# This is what will render if detail.py wasn't run.
+					except:
+						aLog("Failed to render AfD for" + d['afd']['afdtitle'])
+						s=s+n+b+n+b+n+b+n+b+n+b
+						# 
 				if (d['afdinfo']['open'] != 1):
 					clCount = clCount + 1
 					cl = cl + s 

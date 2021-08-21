@@ -17,7 +17,7 @@
 #python3 render.py      -v -b 31 -l 2021-06-30 -o render.txt
 #python3 upload.py      -v -o User:JPxG/sandbox68 -n "Parsing June 2021"
 
-while getopts v:h:c:a:g:s:b:l:o: flag
+while getopts v:h:c:a:g:f:s:b:l:o: flag
 do
 	case "${flag}" in
 		v) verbose=1;;
@@ -25,6 +25,7 @@ do
 		c) cfg=1;;
 		a) all=1;;
 		g) aggregate=1;;
+		f) fast=1;;
 		s) sleep=${OPTARG};;
 		b) back=${OPTARG};;
 		l) last=${OPTARG};;
@@ -48,13 +49,14 @@ if [ "$help" = 1 ]; then
 	echo "  -b    how many days to go back"
 	echo "  -l    the latest day to parse (YYYY-MM-DD)"
 	echo "  -s    sleep time between API queries (in seconds, will take decimals)"
-	echo "  -g    enable aggregate output (one big table, instead of new sections/tables for different days)"
-	echo "  -v    enable verbose mode"
-	echo "  -h    print this help message and exit"
-	echo "  -a    print every individual component's help message and exit"
-	echo "  -c    print every individual component's configuration details and exit"
+	echo "  -f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month will take ~1 minute instead of ~30)"
+	echo "  -g 1  enable aggregate output (one big table, instead of new sections/tables for different days)"
+	echo "  -v 1  enable verbose mode"
+	echo "  -h 1  print this help message and exit"
+	echo "  -a 1  print every individual component's help message and exit"
+	echo "  -c 1  print every individual component's configuration details and exit"
 	echo ""
-	echo "Note: -v, -h, -a and -c cannot be supplied bare. This means you must supply them as '-v 1', '-v asdf', et cetera."
+	echo "Note: -g, -v, -h, -a, -c cannot be supplied bare. This means you must supply them as '-v 1', '-v asdf', et cetera, or the script will go berserk. If you don't want to run these flags, just don't specify them at all."
 	echo ""
 	echo "Also note that individual components have more flags, which provide finer control, and are not available from this shell script. If you want to specify a password from the command line, for example, running upload.py manually will allow you to do this with '-p'. See the component helps for more information (you can do so by invoking this script with '-a 1')."
 	exit 1
@@ -136,7 +138,12 @@ arst4="$arst4 -o render.txt"
 #Specify render.txt as output for render.py if it's being run in the pipeline
 
 python3 main.py        $arst1
-python3 detail.py      $arst2
+
+if [ "$fast" = 0 ]; then
+	python3 detail.py      $arst2
+fi
+# Skip that nonsense if you're running it in fast mode.
+
 python3 detailpages.py $arst3
 python3 render.py      $arst4
 python3 upload.py      $arst5
