@@ -309,9 +309,8 @@ token = json.loads(t.text)['query']['tokens']['csrftoken']
 ########## This stuff below is going to parse the profiling data from the temp file.
 execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 try:
-	tmphandlePath = open(str(tmpfile), 'rb')
-	tmphandleContents = tmphandlePath.read().decode()
-	profile = json.load(tmphandleContents)
+	tmphandlePath = open(str(tmpfile), 'r')
+	profile = json.load(tmphandlePath)
 	tmphandlePath.close()
 	# Read profiling data from JSON.
 	for param in ['main1', 'main2', 'detail1', 'detail2', 'detailp1', 'detailp2']:
@@ -322,26 +321,27 @@ try:
 		# Zero out any parameter that wasn't set.
 	totalTime = (profile['main1'] + profile['detail1'] + profile['detailp1'] + profile['render'] + execTime)
 	totalQueries = profile['main2'] + profile['detail2'] + profile['detailp2'] + 5
-	profile = "\n----\n<center>''Completed in " + str(round(totalTime,3)) + "s (" + str(int(totalQueries)) + " queries, " + str(round((totalTime / totalQueries),5)) + "s per query) · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
-	profile = profile + "\n<!-- Detailed profiling information:"
-	profile = profile + "\n main       : " + str(profile['main1'])
-	profile = profile + "\n  > queries : " + str(profile['main2'])
-	profile = profile + "\n  > time per: " + str(profile['main1'] / profile['main2'])
-	profile = profile + "\n detail     : " + str(profile['detail1'])
-	profile = profile + "\n  > queries : " + str(profile['detail2'])
-	profile = profile + "\n  > time per: " + str(profile['detail1'] / profile['detail2'])
-	profile = profile + "\n detailpages: " + str(profile['detailp1'])
-	profile = profile + "\n  > queries : " + str(profile['detailp2'])
-	profile = profile + "\n  > time per: " + str(profile['detailp1'] / profile['detailp2'])
-	profile = profile + "\n render     : " + str(profile['render'])
-	profile = profile + "\n upload     : " + str(execTime)
-	profile = profile + "\n-->"
+	pro = "\n----\n<center>''Completed in " + str(round(totalTime,3)) + "s (" + str(int(totalQueries)) + " queries, " + str(round((totalTime / totalQueries),5)) + "s per query) · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
+	#print(pro)
+	pro = pro + "\n<!-- Detailed profiling information:"
+	pro = pro + "\n main       : " + str(profile['main1'])
+	pro = pro + "\n  > queries : " + str(profile['main2'])
+	pro = pro + "\n  > time per: " + str(profile['main1'] / profile['main2'])
+	pro = pro + "\n detail     : " + str(profile['detail1'])
+	pro = pro + "\n  > queries : " + str(profile['detail2'])
+	pro = pro + "\n  > time per: " + str(profile['detail1'] / profile['detail2'])
+	pro = pro + "\n detailpages: " + str(profile['detailp1'])
+	pro = pro + "\n  > queries : " + str(profile['detailp2'])
+	pro = pro + "\n  > time per: " + str(profile['detailp1'] / profile['detailp2'])
+	pro = pro + "\n render     : " + str(profile['render'])
+	pro = pro + "\n upload     : " + str(execTime)
+	pro = pro + "\n-->"
 	tmphandle = open(str(tmpfile), 'w')
 	tmphandle.write("")
 	tmphandle.close()
 except:
 	print("Couldn't retrieve execution time.")
-	profile = "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
+	pro = "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
 #print(profile)
 
 if forReal == 1:
@@ -349,7 +349,7 @@ if forReal == 1:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": r + "\n" + payload + profile,
+		"text": r + "\n" + payload + pro,
 		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
 		"format": "json"
 		})
@@ -363,7 +363,7 @@ else:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": r + "\n" + payload + profile,
+		"text": r + "\n" + payload + pro,
 		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
 		"format": "json"
 		}

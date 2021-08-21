@@ -195,9 +195,8 @@ def closeOut():
 	aLog("DAYS: " + str(numberOfDays) + " / TIME: " + str(round(execTime,3)) + " / QUERIES: " + str(totalQueriesMade))
 	#aLog() + "s / " + str(round((execTime / totalQueriesMade),3)) + "s per query")
 	try:
-		tmphandlePath = open(str(tmpfile), 'rb')
-		tmphandleContents = tmphandlePath.read().decode()
-		profile = json.load(tmphandleContents)
+		tmphandlePath = open(str(tmpfile), 'r')
+		profile = json.load(tmphandlePath)
 		tmphandlePath.close()
 		# Try to read from temp file.
 		for param in ['main1', 'main2', 'detail1', 'detail2']:
@@ -453,6 +452,10 @@ for incr in range(0,numberOfDays):
 											# This whole block above handles AfDs in the response.
 									except:
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
+										print(rp)
+										print(ptext)
+										# This isn't a "page was deleted, oopsie".
+										# This shouldn't be happening at all! If this trips, it's a bug.
 								else:
 									try:
 										if "missing" in rp.keys():

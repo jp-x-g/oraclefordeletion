@@ -207,9 +207,8 @@ def closeOut():
 	aLog("FINISHED AT  : " + str(datetime.now(timezone.utc)))
 	aLog("TIME: " + str(round(execTime,3)) + "s")
 	try:
-		tmphandlePath = open(str(tmpfile), 'rb')
-		tmphandleContents = tmphandlePath.read().decode()
-		profile = json.load(tmphandleContents)
+		tmphandlePath = open(str(tmpfile), 'r')
+		profile = json.load(tmphandlePath)
 		tmphandlePath.close()
 		# Try to read from temp file.
 		for param in ['main1', 'main2', 'detail1', 'detail2', 'detailp1', 'detailp2']:
@@ -493,7 +492,8 @@ for incr in range(0,numberOfDays):
 				# Beginning for AfD data cells
 				cellcolor = defaultcl
 				sortkey = "!111"
-				print(page)
+				#print(page)
+				# Effective, but unbelievably spammy, debug line.
 				if (d['afdinfo']['open'] != 1):
 					if (d['pageinfo']['error'] != "0"):
 						ind[6] = ind[6] + 1

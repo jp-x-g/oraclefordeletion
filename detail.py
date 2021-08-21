@@ -170,9 +170,8 @@ def closeOut():
 	aLog("DAYS: " + str(numberOfDays) + " / ENTRIES: " + str(totalQueriesMade / 2.0) + " / QUERIES: " + str(totalQueriesMade))
 	aLog("TIME: " + str(round(execTime,3)) + "s / " + str(round((execTime / totalQueriesMade),3)) + "s per query")
 	try:
-		tmphandlePath = open(str(tmpfile), 'rb')
-		tmphandleContents = tmphandlePath.read().decode()
-		profile = json.load(tmphandleContents)
+		tmphandlePath = open(str(tmpfile), 'r')
+		profile = json.load(tmphandlePath)
 		tmphandlePath.close()
 		# Try to read from temp file.
 		for param in ['main1', 'main2']:

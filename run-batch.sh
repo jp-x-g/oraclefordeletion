@@ -11,6 +11,7 @@
 # python3 render.py      -v -b 14 -o render.txt
 # python3 upload.py      -v -b 14 -o User:JPxG/sandbox67
 
+# Basic template for running them all in series:
 #python3 main.py        -v -b 31 -l 2021-06-30 -s 0.01
 #python3 detail.py      -v -b 31 -l 2021-06-30 -s 0.01
 #python3 detailpages.py -v -b 31 -l 2021-06-30 -s 0.01
