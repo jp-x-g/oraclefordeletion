@@ -209,15 +209,42 @@ def closeOut():
 	try:
 		tmphandlePath = open(str(tmpfile), 'rb')
 		tmphandleContents = tmphandlePath.read().decode()
+		profile = json.load(tmphandleContents)
 		tmphandlePath.close()
+		# Try to read from temp file.
+		for param in ['main1', 'main2', 'detail1', 'detail2', 'detailp1', 'detailp2']:
+			try:
+				profile[param]
+			except:
+				profile[param] = 0.01
+			# Zero out previous parameters, if not already set.
+		profile['render'] = execTime
+		# Set params for this script.
 		tmphandle = open(str(tmpfile), 'w')
-		tmphandle.write(tmphandleContents + str(execTime))
-		# For some reason, it writes two line breaks instead of one. No idea what's up with that. The other scripts don't freaking do that.
+		tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
 		tmphandle.close()
+		# Write out file.
 	except (FileNotFoundError):
 		print("Couldn't log execution time.")
+		try:	
+			profile = {
+			'main1'   : 0.01,
+			'main2'   : 0.01,
+			'detail1' : 0.01,
+			'detail2' : 0.01,
+			'detailp1': 0.01,
+			'detailp2': 0.01,
+			'render'  : execTime
+			}
+			# Set zeroed params.
+			tmphandle = open(str(tmpfile), 'w')
+			tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
+			tmphandle.close()
+			# Write file.
+		except:
+			print("Couldn't save a fresh log either.")
+			# Well, to hell with it.
 	quit()
-
 ########################################
 # Set colors.
 ########################################

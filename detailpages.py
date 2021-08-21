@@ -197,12 +197,41 @@ def closeOut():
 	try:
 		tmphandlePath = open(str(tmpfile), 'rb')
 		tmphandleContents = tmphandlePath.read().decode()
+		profile = json.load(tmphandleContents)
 		tmphandlePath.close()
+		# Try to read from temp file.
+		for param in ['main1', 'main2', 'detail1', 'detail2']:
+			try:
+				profile[param]
+			except:
+				profile[param] = 0.01
+			# Zero out previous parameters, if not already set.
+		profile['detailp1'] = execTime
+		profile['detailp2'] = totalQueriesMade
+		# Set params for this script.
 		tmphandle = open(str(tmpfile), 'w')
-		tmphandle.write(tmphandleContents + "\n" + str(execTime) + "\n" + str(totalQueriesMade))
+		tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
 		tmphandle.close()
+		# Write out file.
 	except (FileNotFoundError):
 		print("Couldn't log execution time.")
+		try:	
+			profile = {
+			'main1'    : 0.01,
+			'main2'    : 0.01,
+			'detail1'  : 0.01,
+			'detail2'  : 0.01,
+			'detailp1' : execTime,
+			'detailp2' : totalQueriesMade
+			}
+			# Set zeroed params.
+			tmphandle = open(str(tmpfile), 'w')
+			tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
+			tmphandle.close()
+			# Write file.
+		except:
+			print("Couldn't save a fresh log either.")
+			# Well, to hell with it.
 	quit()
 
 ########################################
@@ -422,7 +451,7 @@ for incr in range(0,numberOfDays):
 											}
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except (KeyboardInterrupt):
+									except:
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 								else:
 									try:

@@ -172,12 +172,38 @@ def closeOut():
 	try:
 		tmphandlePath = open(str(tmpfile), 'rb')
 		tmphandleContents = tmphandlePath.read().decode()
+		profile = json.load(tmphandleContents)
 		tmphandlePath.close()
+		# Try to read from temp file.
+		for param in ['main1', 'main2']:
+			try:
+				profile[param]
+			except:
+				profile[param] = 0.01
+			# Zero out previous parameters, if not already set.
+		profile['detail1'] = execTime
+		profile['detail2'] = totalQueriesMade
+		# Set params for this script.
 		tmphandle = open(str(tmpfile), 'w')
-		tmphandle.write(tmphandleContents + "\n" + str(execTime) + "\n" + str(totalQueriesMade))
+		tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
 		tmphandle.close()
+		# Close file.
 	except (FileNotFoundError):
 		print("Couldn't log execution time.")
+		try:	
+			profile = {
+			'main1'    : 0.01,
+			'main2'    : 0.01,
+			'detail1'  : execTime,
+			'detail2'  : totalQueriesMade
+			}
+			# Set zeroed params.
+			tmphandle = open(str(tmpfile), 'w')
+			tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
+			tmphandle.close()
+			# Write out file.
+		except:
+			print("Couldn't save a fresh log either.")
 	quit()
 
 ########################################

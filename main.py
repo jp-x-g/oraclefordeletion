@@ -269,7 +269,7 @@ for incr in range(0,numberOfDays):
 				# Get a string of the content we want to store.
 				##########
 				# Stupid disgusting hack. Do this to process raw text of an AfD if you're a hoopty-ass.
-				#pageContent = "asdf"
+				##pageContent = "asdf"
 				##########
 				pageContent = pageContent.replace("_"," ")
 				afdDay['content'] = pageContent
@@ -398,7 +398,10 @@ aLog("FINISHED AT " + str(datetime.now(timezone.utc)) + " (" + str(round(execTim
 # Log how long it took.
 try:
 	tmphandle = open(str(tmpfile), 'w')
-	tmphandle.write(str(execTime) + "\n" + str(numberOfDays))
+	profile = {}
+	profile['main1'] = execTime
+	profile['main2'] = numberOfDays
+	tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
 	tmphandle.close()
 except (FileNotFoundError):
 	print("Couldn't log execution time.")

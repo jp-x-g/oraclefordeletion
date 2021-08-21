@@ -307,28 +307,33 @@ t = s.get(editTokenUrl)
 token = json.loads(t.text)['query']['tokens']['csrftoken']
 
 ########## This stuff below is going to parse the profiling data from the temp file.
+execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 try:
 	tmphandlePath = open(str(tmpfile), 'rb')
-	tmptxt = tmphandlePath.read().decode()
+	tmphandleContents = tmphandlePath.read().decode()
+	profile = json.load(tmphandleContents)
 	tmphandlePath.close()
-	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
-	tmplist = tmptxt.split("\n")
-	#print(tmplist)
-	tmplist.append("1")
-	totalTime =	float(tmplist[0]) + float(tmplist[2]) + float(tmplist[4]) + float(tmplist[6]) + execTime 
-	totalQueries = float(tmplist[1]) + float(tmplist[3]) + float(tmplist[5]) + float(4)
+	# Read profiling data from JSON.
+	for param in ['main1', 'main2', 'detail1', 'detail2', 'detailp1', 'detailp2']:
+		try:
+			profile[param]
+		except:
+			profile[param] = 0.01
+		# Zero out any parameter that wasn't set.
+	totalTime = (profile['main1'] + profile['detail1'] + profile['detailp1'] + profile['render'] + execTime)
+	totalQueries = profile['main2'] + profile['detail2'] + profile['detailp2'] + 5
 	profile = "\n----\n<center>''Completed in " + str(round(totalTime,3)) + "s (" + str(int(totalQueries)) + " queries, " + str(round((totalTime / totalQueries),5)) + "s per query) · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
 	profile = profile + "\n<!-- Detailed profiling information:"
-	profile = profile + "\n main       : " + str(tmplist[0])
-	profile = profile + "\n  > queries : " + str(tmplist[1])
-	profile = profile + "\n  > per     : " + str(float(tmplist[0])/float(tmplist[1]))
-	profile = profile + "\n detail     : " + str(tmplist[2])
-	profile = profile + "\n  > queries : " + str(tmplist[3])
-	profile = profile + "\n  > per     : " + str(float(tmplist[2])/float(tmplist[3]))
-	profile = profile + "\n detailpages: " + str(tmplist[4])
-	profile = profile + "\n  > queries : " + str(tmplist[5])
-	profile = profile + "\n  > per     : " + str(float(tmplist[4])/float(tmplist[5]))
-	profile = profile + "\n render     : " + str(tmplist[6])
+	profile = profile + "\n main       : " + str(profile['main1'])
+	profile = profile + "\n  > queries : " + str(profile['main2'])
+	profile = profile + "\n  > time per: " + str(profile['main1'] / profile['main2'])
+	profile = profile + "\n detail     : " + str(profile['detail1'])
+	profile = profile + "\n  > queries : " + str(profile['detail2'])
+	profile = profile + "\n  > time per: " + str(profile['detail1'] / profile['detail2'])
+	profile = profile + "\n detailpages: " + str(profile['detailp1'])
+	profile = profile + "\n  > queries : " + str(profile['detailp2'])
+	profile = profile + "\n  > time per: " + str(profile['detailp1'] / profile['detailp2'])
+	profile = profile + "\n render     : " + str(profile['render'])
 	profile = profile + "\n upload     : " + str(execTime)
 	profile = profile + "\n-->"
 	tmphandle = open(str(tmpfile), 'w')
