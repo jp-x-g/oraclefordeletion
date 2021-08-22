@@ -57,8 +57,10 @@ parser.add_argument("-q", "--querysize", metavar="N", help="Number of pairs to b
 parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.", default=0)
 parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
+parser.add_argument("-u", "--debug", help="Spam the ever-loving hell out of the terminal.", action="store_true")
 parser.add_argument("-c", "--configure", help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
 parser.add_argument("-x", "--explain", help="Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.", action="store_true")
+
 
 args = parser.parse_args()
 today = datetime.fromisoformat(str(args.latest))
@@ -113,6 +115,9 @@ verbose = 0
 if args.verbose:
 	verbose = 1
 
+debug = 0
+if args.debug:
+	debug = 1
 
 queryBatchSize = 25
 # This is half of the actual query batch size,
@@ -375,7 +380,9 @@ for incr in range(0,numberOfDays):
 								#ptitle = ptitle.replace(",", "%2C")
 								#Percent-encode commas, in hope of finding a bug.
 								if (rp['title'].find('Wikipedia:Articles for deletion/') != -1):
-									print("AfD found: " + ptitle)
+									if debug:
+										print("AfD found: " + ptitle)
+									#Spammy debug statement.
 									ptitle = ptitle[32:]
 									for ordinal in ["2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th"]:
 										# Couldn't find any article with more than 17 nominations, so not including these.
@@ -411,6 +418,7 @@ for incr in range(0,numberOfDays):
 											isopen = 1
 											if (ptext.find("<div class=\"") != -1) and (ptext.find("xfd-closed\"") != -1):
 												isopen = 0
+											# if (ptext.find("The result of the debate") != -1) or 
 											delsorts = ptext.count("<small class=\"delsort-notice\">")
 											sigs = ptext.count("[[User")
 											lines = ptext.count("\n")
@@ -430,8 +438,8 @@ for incr in range(0,numberOfDays):
 											vall = vkp + vdl + vsk + vsd + vmg + vrd + vtw + vus + vdr
 											#print("Delsorts: " + str(delsorts) + " Sigs: " + str(sigs)) 
 											### Debug v
-											dlData["pgs"][ptitle]
-											dlData["pgs"][ptitle]['afdinfo']
+											#print(dlData["pgs"][ptitle])
+											#dlData["pgs"][ptitle]['afdinfo']
 											### Debug ^
 											dlData["pgs"][ptitle]['afdinfo'] = {
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
@@ -454,13 +462,16 @@ for incr in range(0,numberOfDays):
 											}
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except (KeyboardInterrupt):
+									except:
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 										print(rp)
 										print(ptext)
 										# This isn't a "page was deleted, oopsie".
 										# This shouldn't be happening at all! If this trips, it's a bug.
 								else:
+									if debug:
+										print("Article found: " + ptitle)
+									# Spammy debug statement.
 									try:
 										if "missing" in rp.keys():
 											#print("IT'S A LION GET IN THE CAR")
@@ -494,7 +505,7 @@ for incr in range(0,numberOfDays):
 											"cats": cats,
 											"links": links
 											}
-									except (KeyboardInterrupt):
+									except:
 											#cursor = cursor + 1
 											aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 									#print("Article found: " + ptitle)
@@ -502,6 +513,7 @@ for incr in range(0,numberOfDays):
 									# This whole block above handles articles in the response.
 
 								#print("Title: " + ptitle + " / page title: " + rp['title'])
+								# Spammy debug statement.
 						query = ""
 						querylength = 0
 						# Reset the query and the counter variable for the next batch.

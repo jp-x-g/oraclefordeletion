@@ -478,6 +478,8 @@ for incr in range(0,numberOfDays):
 		else:
 			anchorSetYet = 0
 		#Set this to zero, which means that the renderer will put an anchor in the first entry for the day.
+		errorCount = 0
+		# We haven't messed up rendering any AfDs... yet.
 		opCount = 0
 		# Initialize count for open AfDs
 		clCount = 0
@@ -571,51 +573,51 @@ for incr in range(0,numberOfDays):
 				# Fix namespace errors in link string.
 				########################################
 				# Article links column
-				linkscolumn = linkscolumn.replace("·[[Talk:Talk:","·[[Talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Draft:","·[[Draft talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Talk:","[[Talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Draft:","[[Draft talk:")
 				# Sometimes people nominate weird namespaces at AfD.
-				linkscolumn = linkscolumn.replace("·[[Talk:User:","·[[User talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Wikipedia:","·[[Wikipedia talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Template:","·[[Template talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:User:","[[User talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Wikipedia:","[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Template:","[[Template talk:")
 				# Sometimes people nominate REALLY weird namespaces.
-				linkscolumn = linkscolumn.replace("·[[Talk:Wikipedia talk:","·[[Wikipedia talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Template talk:","·[[Template talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:File:","·[[File talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:File talk:","·[[File talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:MediaWiki:","·[[MediaWiki talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:MediaWiki talk:","·[[MediaWiki talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Help:","·[[Help talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Help talk:","·[[Help talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Category:","·[[Category talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Category talk:","·[[Category talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Portal:","·[[Portal talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Portal talk:","·[[Portal talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:TimedText:","·[[TimedText talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:TimedText talk:","·[[TimedText talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Module:","·[[Module talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Module talk:","·[[Module talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Wikipedia talk:","[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Template talk:","[[Template talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:File:","[[File talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:File talk:","[[File talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:MediaWiki:","[[MediaWiki talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:MediaWiki talk:","[[MediaWiki talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Help:","[[Help talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Help talk:","[[Help talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Category:","[[Category talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Category talk:","[[Category talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Portal:","[[Portal talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Portal talk:","[[Portal talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:TimedText:","[[TimedText talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:TimedText talk:","[[TimedText talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Module:","[[Module talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Module talk:","[[Module talk:")
 				# Sometimes it's April Fools' Day.
-				linkscolumn = linkscolumn.replace("·[[Talk:Gadget:","·[[Gadget talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Gadget talk:","·[[Gadget talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Gadget definition:","·[[Gadget definition talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Gadget definition talk:","·[[Gadget definition talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Gadget:","[[Gadget talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Gadget talk:","[[Gadget talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Gadget definition:","[[Gadget definition talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Gadget definition talk:","[[Gadget definition talk:")
 				# Some editors just want to watch the world burn.
-				linkscolumn = linkscolumn.replace("·[[Talk:Special:","·[[Special talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Special talk:","·[[Special talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Media:","·[[Media talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Media talk:","·[[Media talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Special:","[[Special talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Special talk:","[[Special talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Media:","[[Media talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Media talk:","[[Media talk:")
 				# Virtual namespaces.
-				linkscolumn = linkscolumn.replace("·[[Talk:Image:","·[[Image talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Image talk:","·[[Image talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:WP:","·[[Wikipedia talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:WPT:","·[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Image:","[[Image talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Image talk:","[[Image talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:WP:","[[Wikipedia talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:WPT:","[[Wikipedia talk:")
 				# Aliases.
-				linkscolumn = linkscolumn.replace("·[[Talk:Book:","·[[Book talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Book talk:","·[[Book talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Flow:","·[[Flow talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Flow talk:","·[[Flow talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Education Program:","·[[Education Program talk:")
-				linkscolumn = linkscolumn.replace("·[[Talk:Education Program talk:","·[[Education Program talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Book:","[[Book talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Book talk:","[[Book talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Flow:","[[Flow talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Flow talk:","[[Flow talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Education Program:","[[Education Program talk:")
+				linkscolumn = linkscolumn.replace("[[Talk:Education Program talk:","[[Education Program talk:")
 				# I don't even think this is possible, but why not.
 				s=s+linkscolumn
 				s=s+"\n|style=\"background:" + ratiocolor + "\"|" + ratio
@@ -693,10 +695,12 @@ for incr in range(0,numberOfDays):
 			except:
 				# If there is some bizarre mystery bug that makes no sense.
 				try:
+					errorCount = errorCount + 1
 					aLog("Couldn't process " + page)
 					o = o + "<!-- Couldn't process a page: " + page + "-->"
 					#o = o + "<!-- Couldn't process a page: " + str(dlData["pgs"][page])
 				except:
+					errorCount = errorCount + 1
 					aLog("Couldn't process a page, and couldn't even figure out what it was.")
 					o = o + "<!-- Couldn't process a page, and trying to tell what page it was failed. -->"
 
@@ -713,7 +717,10 @@ for incr in range(0,numberOfDays):
 		#        date    /   /   /     \   \   \   \
 		#	        total open uncom closed  %k  %d %m
 
-		ind[0] = dayDate
+		if (errorCount != 0):
+			ind[0] = dayDate + " (" + str(errorCount) + ")"
+		else:
+			ind[0] = dayDate
 		ind[1] = int(opCount + clCount)
 		ind[2] = int(opCount)
 		ind[3] = int(ind[3])

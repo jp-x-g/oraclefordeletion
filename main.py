@@ -356,6 +356,12 @@ for incr in range(0,numberOfDays):
 					# articleJson = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# print(json.dumps(articleJson))
 					if (article != ""):
+						if ((article[len(article)-1]) == " "):
+							while ((article[len(article)-1]) == " "):
+								article = article[:-1]
+								# Might as well account for three, four, a million trailing spaces at this point.
+							# Spent a while tracking this one down... it was "Chinese Language Institute  (2nd nomination)."
+							# Note the two spaces! So it was being put into the json as "Chinese Language Institute ". Trail my neko spaces...
 						#afdDay['pgs'].append(articleJson)
 						# print("Adding to list")
 						afdDay['pgs'][article] = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
