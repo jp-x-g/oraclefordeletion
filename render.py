@@ -48,6 +48,13 @@ apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
 totalQueriesMade = 0
 
+dots = [ "·" , "⋅" ]
+
+# This looks stupid, but it's actually smart.
+# #0 is · U+00B7 MIDDLE DOT
+# #1 is ⋅ U+22C5 DOT OPERATOR 
+# #0 will alphabetically sort above #1.
+
 
 #clearScreen = 0
 #if clearScreen:
@@ -223,7 +230,7 @@ def closeOut():
 		tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
 		tmphandle.close()
 		# Write out file.
-	except (FileNotFoundError):
+	except:
 		print("Couldn't log execution time.")
 		try:	
 			profile = {
@@ -491,7 +498,8 @@ for incr in range(0,numberOfDays):
 				bnocomments = "style=\"background:" + afdnocomments + "\"|"
 				# Beginning for AfD data cells
 				cellcolor = defaultcl
-				sortkey = "!111"
+				dts = [dots[1], dots[1]]
+				# Sort key: low, low
 				#print(page)
 				# Effective, but unbelievably spammy, debug line.
 				if (d['afdinfo']['open'] != 1):
@@ -499,20 +507,23 @@ for incr in range(0,numberOfDays):
 						ind[6] = ind[6] + 1
 						# Increment the "delete" counter in the day's index row.
 						cellcolor = delecl
-						sortkey = "!444"
 						# Dark red for closed AfDs where the article doesn't exist.
+						dts = [dots[1], dots[0]]
+						# Sort key: low, high
 					elif (d['pageinfo']['redirect'] != 0):
 						ind[7] = ind[7] + 1
 						# Increment the "merge" counter in the day's index row.
 						cellcolor = elsecl
-						sortkey = "!333"
 						# Dark yellow for closed AfDs where the article is a redirect.
+						dts = [dots[0], dots[1]]
+						# Sort key: high, low
 					else:
 						ind[5] = ind[5] + 1
 						# Increment the "keep" counter in the day's index row.
 						cellcolor = keepcl
-						sortkey = "!222"
 						# Dark green (i.e. keep) for closed AfDs.
+						dts = [dots[0], dots[0]]
+						# Sort key: high, high (will sort highest)
 				try:
 					#print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
 					if (d['afdinfo']['all'] == 0):
@@ -538,7 +549,7 @@ for incr in range(0,numberOfDays):
 				n = "\n|"
 				# Newline string (this just makes the code less ugly)
 				s=s+ "\n|-"
-				s=s+"\n|style=\"background:" + cellcolor + "\" |<span style=\"display:none\">" + sortkey + "</span>"
+				s=s+"\n|style=\"background:" + cellcolor + "\" |"
 				if d['afd']['relist'] > 0:
 					s=s+"'''"
 					# Bold it if it's a relist
@@ -550,7 +561,12 @@ for incr in range(0,numberOfDays):
 					s=s+"{{anchor|" + dayDate + "}}"
 					anchorSetYet = 1
 					# Add an anchor and disable the sentry variable.
-				linkscolumn="\n|<span class=\"plainlinks\">[[" + page + "|a]]·[[Talk:" + page + "|t]]·[{{fullurl:" + page + "|action=history}} h]</span>"
+				linkscolumn="\n|<span class=\"plainlinks\">[[" + page + "|a]]" +dts[0]+"[[Talk:" + page + "|t]]"+dts[1]+"[{{fullurl:" + page + "|action=history}} h]</span>"
+				# The dts[0] and dts[1] are the sort keys.
+				# Since these colums are the same thing no matter what,
+				# we can use two different Unicode dots to make them sort
+				# without throwing things off.
+				# To understand this, go way up and look at where dots was assigned.
 				########################################
 				# Fix namespace errors in link string.
 				########################################
@@ -653,17 +669,19 @@ for incr in range(0,numberOfDays):
 						else:
 							sd = n + b + str(d['afdinfo']['all'])
 							# Add normal background color for commented AfD to the line.
-						sd = sd + n + b + "−"
-						sd = sd + n + b + str(d['afdinfo']['size'])
-						sd = sd + n + b + "−"
-						sd = sd + n + b + "−"
+						sd = sd + n + "−"
+						sd = sd + n + str(d['afdinfo']['size'])
+						sd = sd + n + "−"
+						sd = sd + n + "−"
 						s = s + sd
 						# Render the light version of the AfD row (omitting XTools info).
 						# This is what will render if detail.py wasn't run.
 					except:
 						aLog("Failed to render AfD for" + d['afd']['afdtitle'])
-						s=s+n+b+n+b+n+b+n+b+n+b
-						# 
+						#s=s+n+b+n+b+n+b+n+b+n+b+n+b
+						#   1   2   3   4   5   6
+						s=s+n+n+n+n+n+n
+						#   1 2 3 4 5 6
 				if (d['afdinfo']['open'] != 1):
 					clCount = clCount + 1
 					cl = cl + s 

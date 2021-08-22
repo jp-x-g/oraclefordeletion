@@ -367,15 +367,16 @@ for incr in range(0,numberOfDays):
 					# End of block that iterates over each AfD entry.
 					##########
 				afdDay['count'] = afdCounter - 1
-				aLog("Loaded AfDs for " + dayDate + ". Count: " + str(afdCounter))
-				dayLogPath = str(pages) + "/" + str(jsonprefix) + dayDate + ".json"
 				if verbose:
-					aLog("Attempting to save parsed log to " + dayLogPath)
+					aLog("Loaded AfDs for " + dayDate + ". Count: " + str(afdCounter) + ". Attempting to save...")
+				dayLogPath = str(pages) + "/" + str(jsonprefix) + dayDate + ".json"
+				#if verbose:
+				#	aLog("Attempting to save parsed log to " + dayLogPath)
 				try:
 					dayLogFile = open(dayLogPath, 'w')
 					dayLogFile.write(json.dumps(afdDay, indent=2, ensure_ascii=False))
 					dayLogFile.close()
-					aLog("Successfully saved: " + dayLogPath)
+					aLog("Successfully saved: " + dayLogPath + " (" + str(afdCounter) + ")")
 				except:
 					aLog("!!! FAILED TO SAVE: " + dayLogPath)
 				##########

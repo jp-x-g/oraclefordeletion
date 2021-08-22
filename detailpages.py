@@ -375,7 +375,7 @@ for incr in range(0,numberOfDays):
 								#ptitle = ptitle.replace(",", "%2C")
 								#Percent-encode commas, in hope of finding a bug.
 								if (rp['title'].find('Wikipedia:Articles for deletion/') != -1):
-									#print("AfD found: " + ptitle)
+									print("AfD found: " + ptitle)
 									ptitle = ptitle[32:]
 									for ordinal in ["2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th"]:
 										# Couldn't find any article with more than 17 nominations, so not including these.
@@ -429,6 +429,10 @@ for incr in range(0,numberOfDays):
 											vmv = ptextl.count("move'''") + ptextl.count("rename'''") 
 											vall = vkp + vdl + vsk + vsd + vmg + vrd + vtw + vus + vdr
 											#print("Delsorts: " + str(delsorts) + " Sigs: " + str(sigs)) 
+											### Debug v
+											dlData["pgs"][ptitle]
+											dlData["pgs"][ptitle]['afdinfo']
+											### Debug ^
 											dlData["pgs"][ptitle]['afdinfo'] = {
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
 											"error": "0",
@@ -450,7 +454,7 @@ for incr in range(0,numberOfDays):
 											}
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except:
+									except (KeyboardInterrupt):
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 										print(rp)
 										print(ptext)
@@ -490,7 +494,7 @@ for incr in range(0,numberOfDays):
 											"cats": cats,
 											"links": links
 											}
-									except:
+									except (KeyboardInterrupt):
 											#cursor = cursor + 1
 											aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 									#print("Article found: " + ptitle)
