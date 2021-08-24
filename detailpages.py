@@ -575,7 +575,7 @@ for incr in range(0,numberOfDays):
 											# If it can't detect anything, it returns "ud".
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except (KeyboardInterrupt):
+									except:
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 										#print(rp)
 										#print(ptext)

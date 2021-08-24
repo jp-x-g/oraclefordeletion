@@ -82,6 +82,11 @@ verbose = 0
 if args.verbose:
 	verbose = 1
 
+overwrite = 0
+if args.overwrite:
+	overwrite = 1
+
+
 forReal = 1
 if args.dryrun:
 	forReal = 0
@@ -379,13 +384,16 @@ for incr in range(0,numberOfDays):
 				dayLogPath = str(pages) + "/" + str(jsonprefix) + dayDate + ".json"
 				#if verbose:
 				#	aLog("Attempting to save parsed log to " + dayLogPath)
-				try:
-					dayLogFile = open(dayLogPath, 'w')
-					dayLogFile.write(json.dumps(afdDay, indent=2, ensure_ascii=False))
-					dayLogFile.close()
-					aLog("Successfully created: " + dayLogPath + " (" + str(afdCounter) + ")")
-				except:
-					aLog("!!! FAILED TO SAVE: " + dayLogPath)
+				if (overwrite == 1):
+					try:
+						dayLogFile = open(dayLogPath, 'w')
+						dayLogFile.write(json.dumps(afdDay, indent=2, ensure_ascii=False))
+						dayLogFile.close()
+						aLog("Successfully created: " + dayLogPath + " (" + str(afdCounter) + ")")
+					except:
+						aLog("!!! FAILED TO SAVE: " + dayLogPath)
+				else:
+					aLog("Refusing to overwrite existing file.")
 				##########
 				# End of block that iterates over each page in the query's response (will be 1 for now).
 				##########

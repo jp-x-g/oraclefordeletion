@@ -848,14 +848,16 @@ for incr in range(0,numberOfDays):
 						for asdf in range(len(d['afdinfo']['delsorts']['sub'])):
 							try:
 								if emojis[d['afdinfo']['delsorts']['top'][asdf]] not in already:
-									s = s + emojis[d['afdinfo']['delsorts']['top'][asdf]]
+									if (len(already) < 6):
+										s = s + emojis[d['afdinfo']['delsorts']['top'][asdf]]
 								already.append(emojis[d['afdinfo']['delsorts']['top'][asdf]])
 								# Add emoji for the top-level cat, if there's an emoji for it.
 							except:
 								s = s
 							try:
 								if emojis[d['afdinfo']['delsorts']['sub'][asdf]] not in already:
-									s = s + emojis[d['afdinfo']['delsorts']['sub'][asdf]]
+									if (len(already) < 6):
+										s = s + emojis[d['afdinfo']['delsorts']['sub'][asdf]]
 								already.append(emojis[d['afdinfo']['delsorts']['sub'][asdf]])
 								# Add emoji for the sub cat, if there's an emoji for it.
 							except:
