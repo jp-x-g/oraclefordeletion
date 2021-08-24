@@ -51,6 +51,7 @@ parser = argparse.ArgumentParser(description="Oracle for Deletion, AfD log parse
 parser.add_argument("-b", "--back", metavar="DAYS", help="Number of days to parse. Default is 7. This will be overridden if you specify both \"latest\" and \"earliest\"!", default=69420)
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC)", default=today)
 parser.add_argument("-e", "--earliest", metavar="YYYY-MM-DD", help="Date to parse back to. Default is to determine it automatically by subtracting \"back\" from \"latest\".", default="1420-06-09")
+parser.add_argument("-o", "--overwrite", help="Overwrite existing data when saving skeletons. Only do this if you want to completely restart the reprocessing.", action="store_true")
 parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
 parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
@@ -382,7 +383,7 @@ for incr in range(0,numberOfDays):
 					dayLogFile = open(dayLogPath, 'w')
 					dayLogFile.write(json.dumps(afdDay, indent=2, ensure_ascii=False))
 					dayLogFile.close()
-					aLog("Successfully saved: " + dayLogPath + " (" + str(afdCounter) + ")")
+					aLog("Successfully created: " + dayLogPath + " (" + str(afdCounter) + ")")
 				except:
 					aLog("!!! FAILED TO SAVE: " + dayLogPath)
 				##########

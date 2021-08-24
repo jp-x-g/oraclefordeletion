@@ -140,7 +140,9 @@ arst4="$arst4 -o render.txt"
 
 python3 main.py        $arst1
 
-if [ "$fast" = 0 ]; then
+if [ "$fast" ]; then
+	arst2="$arst2"
+else
 	python3 detail.py      $arst2
 fi
 # Skip that nonsense if you're running it in fast mode.

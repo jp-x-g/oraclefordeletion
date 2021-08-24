@@ -24,6 +24,8 @@ import json
 # Required to parse json. Parse parse!
 import argparse
 # Required to parse arguments. Parse parse...!!
+import re
+# Required to parse regex. Parse parse... !!!!!
 
 ########################################
 # Set all configuration variables.
@@ -161,6 +163,7 @@ pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
 logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
 outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
+jsonPath = Path(os.getcwd() + "/" + configname + "/delsort.json")
 
 ########################################
 # Make sure those paths exist.
@@ -217,7 +220,7 @@ def closeOut():
 		tmphandle.write(json.dumps(profile, indent=2, ensure_ascii=False))
 		tmphandle.close()
 		# Write out file.
-	except (FileNotFoundError):
+	except:
 		print("Couldn't log execution time.")
 		try:	
 			profile = {
@@ -237,6 +240,109 @@ def closeOut():
 			print("Couldn't save a fresh log either.")
 			# Well, to hell with it.
 	quit()
+
+########################################
+# Function to identify and enumerate  delsorts in the page text.
+########################################
+
+def findsorts(thepage):
+	#print("finding sorts")
+	delsortsjson = {
+		"count": 0,
+		"all"  : [],
+		"top"  : [],
+		"sub"  : []
+		}
+	#print(thepage)
+	# Initialize delsorts as "none"
+	sortsrch = "[[Wikipedia:WikiProject Deletion sorting/"
+	#print(str(thepage.count(sortsrch)))
+	if(thepage.count(sortsrch) != 0):
+		#print("found some sorts")
+		delsortsjson["count"] = thepage.count(sortsrch)
+		loc = 0
+		for asdf in range(0,delsortsjson["count"]):
+			#print(loc)
+			loc = thepage.find(sortsrch, loc+1)
+			locend = thepage.find("|", loc+1)
+			thisSort = str(thepage[(loc+len(sortsrch)):locend])
+			delsortsjson["all"].append(thisSort)
+			if thisSort in dsJsonRev:
+				delsortsjson["top"].append(dsJsonRev[thisSort])
+				delsortsjson["sub"].append(thisSort)
+	#print(delsortsjson)
+	return delsortsjson
+
+
+
+########################################
+# Function to identify the close of an AfD.
+# Jacked shamelessly from Scottywong & Enterprisey
+# (https://github.com/enterprisey/afdstats/blob/master/public_html/afdstats.py)
+########################################
+
+def findresults(thepage):       #Parse through the text of an AfD to find how it was closed
+	resultsearch = re.search("The result (?:of the debate )?was(?:.*?)(?:'{3}?)(.*?)(?:'{3}?)", thepage, flags=re.IGNORECASE)
+	if resultsearch == None:
+		if "The following discussion is an archived debate of the proposed deletion of the article below" in thepage or "This page is an archive of the proposed deletion of the article below." in thepage or "'''This page is no longer live.'''" in thepage:
+			return "ud"
+		else:
+			return "op"
+	else:
+		result = resultsearch.group(1).lower()
+		if "no consensus" in result:
+			return "nc"
+		elif "merge" in result:
+			return "mg"
+		elif "redirect" in result:
+			return "rd"
+		elif "speedy keep" in result or "speedily kept" in result or "speedily keep" in result or "snow keep" in result or "snowball keep" in result or "speedy close" in result:
+			return "sk"
+		elif "speedy delete" in result or "speedily deleted" in result or "snow delete" in result or "snowball delete" in result:
+			return "sd"
+		elif "keep" in result:
+			return "kp"
+		elif "delete" in result:
+			return "dl"
+		elif "transwiki" in result:
+			return "tw"
+		elif ("userfy" in result) or ("userfied" in result) or ("incubat" in result) or ("draftify" in result):
+			return "us"
+		elif "withdraw" in result:
+			return "wd"
+		else:
+			return "ud"
+		# Returns "op", "nc", mg", "rd", "sk", "sd", "kp", "dl", "tw", "us", or "wd". If it can't detect anything, it returns "ud".
+
+########################################
+# This is very, very, very, very stupid.
+# Gives a lookup table for 1-deep jsons.
+########################################
+
+def reverseUpAJson(json):
+	rev = {}
+	for asdf in json:
+		for qwer in json[asdf]:
+			rev[qwer] = asdf
+	return rev
+
+########################################
+# Try to load a delsort json.
+# If it doesn't work, we don't NEED it.
+########################################
+
+dsJsonLoaded = 0
+
+try:
+	dsJsonFile = open(str(jsonPath), 'r')
+	dsJson = json.load(dsJsonFile)
+	dsJsonFile.close()
+	aLog("Successfully loaded delsort json.")
+	dsJsonRev = reverseUpAJson(dsJson)
+	dsJsonLoaded = 1
+except:
+	aLog("!!! Couldn't load delsort category json file.")
+
 
 ########################################
 # Get everybody and their stuff together.
@@ -271,7 +377,6 @@ if args.configure == True:
 # Okay -- three, two, one...
 ########################################
 
-
 if numberOfDays > 30:
 	word = "boat"
 	if numberOfDays > 60:
@@ -291,7 +396,6 @@ if numberOfDays > 30:
 		+ "!!!!! I sure hope you know what you're doing. !!!!!")
 	if numberOfDays > 60:
 		time.sleep(5)
-
 
 ########################################
 # Let's jam.
@@ -357,7 +461,7 @@ for incr in range(0,numberOfDays):
 						#query = query.replace(",", "%2C")
 						#query = query.replace('"', '%22')
 						#query = query.replace("'", "%27")
-						#query = query.replace("+", "%2B")
+						query = query.replace("+", "%2B")
 						# Stuff that might mess it up, but commented out to avoid chaos.
 						query = apiBase + query
 						# Prepend API base URL to send it out.
@@ -416,10 +520,11 @@ for incr in range(0,numberOfDays):
 											ptext = rp['revisions'][0]['slots']['main']['content']
 											ptextl = ptext.lower()
 											isopen = 1
-											if (ptext.find("<div class=\"") != -1) and (ptext.find("xfd-closed\"") != -1):
-												isopen = 0
-											# if (ptext.find("The result of the debate") != -1) or 
-											delsorts = ptext.count("<small class=\"delsort-notice\">")
+											#if (ptext.find("<div class=\"") != -1) and (ptext.find("xfd-closed\"") != -1):
+											#	isopen = 0
+											# Superseded by findresults(), 2021 08 22
+											#delsorts = ptext.count("<small class=\"delsort-notice\">")
+											# Superseded by findsorts(), 2021 08 23
 											sigs = ptext.count("[[User")
 											lines = ptext.count("\n")
 											vkp = ptextl.count("keep'''") + ptextl.count("oppose'''") + ptextl.count("keep all'''")
@@ -443,29 +548,37 @@ for incr in range(0,numberOfDays):
 											### Debug ^
 											dlData["pgs"][ptitle]['afdinfo'] = {
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
-											"error": "0",
-											"size": len(ptext),
-											"lines": lines,
-											"delsorts": delsorts,
-											"open": isopen,
-											"vkp": vkp,
-											"vdl": vdl,
-											"vsk": vsk,
-											"vsd": vsd,
-											"vmg": vmg,
-											"vrd": vrd,
-											"vtw": vtw,
-											"vus": vus,
-											"vdr": vdr,
-											"vmv": vmv,
-											"all": vall
+											"error"     : "0",
+											"size"      : len(ptext),
+											"lines"     : lines,
+											"delsorts"  : findsorts(ptext),
+											"open"      : isopen,
+											"close"     : "ud",
+											"vkp"       : vkp,
+											"vdl"       : vdl,
+											"vsk"       : vsk,
+											"vsd"       : vsd,
+											"vmg"       : vmg,
+											"vrd"       : vrd,
+											"vtw"       : vtw,
+											"vus"       : vus,
+											"vdr"       : vdr,
+											"vmv"       : vmv,
+											"all"       : vall
 											}
+											#print(dlData["pgs"][ptitle]['afdinfo'])
+											dlData["pgs"][ptitle]['afdinfo']['close'] = findresults(ptext)
+											if (findresults(ptext) == "op"):
+												dlData["pgs"][ptitle]['afdinfo']['open'] = 1
+											# Returns one of these:
+											# "op", "mg", "rd", "sk", "sd", "kp", "dl", "tw", "us", or "wd".
+											# If it can't detect anything, it returns "ud".
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except:
+									except (KeyboardInterrupt):
 										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
-										print(rp)
-										print(ptext)
+										#print(rp)
+										#print(ptext)
 										# This isn't a "page was deleted, oopsie".
 										# This shouldn't be happening at all! If this trips, it's a bug.
 								else:
@@ -528,7 +641,7 @@ for incr in range(0,numberOfDays):
 			dayLogFile = open(dayLogPath, 'w')
 			dayLogFile.write(json.dumps(dlData, indent=2, ensure_ascii=	False))
 			dayLogFile.close()
-			aLog("Successfully saved: " + dayLogPath)
+			aLog("Successfully propertized: " + dayLogPath)
 		except:
 			aLog("!!! FAILED TO SAVE: " + dayLogPath)
 		##########

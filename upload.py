@@ -56,7 +56,7 @@ apiBase = "https://en.wikipedia.org/w/api.php"
 dividerStart = "<!-- Everything below"
 # This is what the bot will interpret as the last line of header text on the page.
 
-divider = "\n<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->\n{{User:JPxG/Oracle/top}}"
+divider = "<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->\n{{User:JPxG/Oracle/top}}"
 # All this does is put a bunch of blank lines in the terminal.
 #clearScreen = 0
 #if clearScreen:
