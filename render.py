@@ -860,9 +860,10 @@ for incr in range(0,numberOfDays):
 								# Add emoji for the sub cat, if there's an emoji for it.
 							except:
 								s = s
+							s = s + " "
 							#print(d['afdinfo']['delsorts']['top'][asdf])
 							#print(d['afdinfo']['delsorts']['sub'][asdf])
-				except (KeyboardInterrupt):
+				except:
 					print("Couldn't parse delsorts")
 				################################################################################
 				# End delsort emoji parsing.
@@ -873,7 +874,7 @@ for incr in range(0,numberOfDays):
 				else:
 					cl = cl + s 
 					#If the AfD is closed, add it to the closed-AfD table string.
-			except (KeyboardInterrupt):
+			except:
 				# If there is some bizarre mystery bug that makes no sense.
 				try:
 					errorCount = errorCount + 1
