@@ -480,8 +480,8 @@ if numberOfDays > 30:
 # Let's jam.
 ########################################
 
-m = "<small><small>"
-n = "</small></small>"
+m = "<sup><sub>"
+n = "</sub></sup>"
 # These are used for formatting table headers.
 
 
@@ -566,8 +566,8 @@ for incr in range(0,numberOfDays):
 		except:
 			aLog("!!! FAILED TO OPEN: " + processingPath)
 		# Take the existing string, and add a new section header for each new day being processed.
-		m = "<small><small>"
-		n = "</small></small>"
+		m = "<sup><sub>"
+		n = "</sub></sup>"
 		# These are used for formatting table headers.
 		op = ""
 		cl = ""
@@ -583,7 +583,7 @@ for incr in range(0,numberOfDays):
 			op = op + "\n!"+m+"Page<br/>size"+n
 			op = op + "\n!"+m+"Page<br/>made"+n
 			op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
-			op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
+			#op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
 			op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
 			op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
 			op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
@@ -599,7 +599,7 @@ for incr in range(0,numberOfDays):
 			cl = cl + "\n!"+m+"Page<br/>size"+n
 			cl = cl + "\n!"+m+"Page<br/>made"+n
 			cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"+n
-			cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
+			#cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
 			cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"+n
 			cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"+n
 			cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"+n
@@ -808,10 +808,11 @@ for incr in range(0,numberOfDays):
 					else:
 						sd = new + b + str(d['afdinfo']['all'])
 						# Add normal background color for commented AfD to the line.
-					sd = sd + new + b + str(d['afdstats']['editors'])
-					sd = sd + new + b + str(d['afdinfo']['size'])
-					sd = sd + new + b + str(d['afdstats']['created_at'])[5:]
-					sd = sd + new + b + str(d['afdstats']['modified_at'])[5:]
+					#sd = sd + new + str(d['afdstats']['editors'])
+					# Commented out line for AfD editor count.
+					sd = sd + new + str(d['afdinfo']['size'])
+					sd = sd + new + str(d['afdstats']['created_at'])[5:]
+					sd = sd + new + str(d['afdstats']['modified_at'])[5:]
 					s = s + sd
 					# See above comment for why this is necessary.
 				except:
@@ -823,7 +824,8 @@ for incr in range(0,numberOfDays):
 						else:
 							sd = new + b + str(d['afdinfo']['all'])
 							# Add normal background color for commented AfD to the line.
-						sd = sd + new + "−"
+						#sd = sd + new + "−"
+						# Commented out line for AfD editor count.
 						sd = sd + new + str(d['afdinfo']['size'])
 						sd = sd + new + "−"
 						sd = sd + new + "−"
@@ -834,8 +836,8 @@ for incr in range(0,numberOfDays):
 						aLog("Failed to render AfD for" + d['afd']['afdtitle'])
 						#s=s+n+b+n+b+n+b+n+b+n+b+n+b
 						#   1   2   3   4   5   6
-						s=s+new+new+new+new+new+new
-						#   1   2   3   4   5   6
+						s=s+new+new+new+new+new
+						#   1   2   3   4   5
 				################################################################################
 				# This next thing will try to parse some emojis for the delsort.
 				################################################################################
@@ -959,8 +961,8 @@ for asdf in full:
 ################################################################################
 # Render a row for the month's averages.
 ################################################################################
-m = "<small><small>"
-n = "</small></small>"
+m = "<sup><sub>"
+n = "</sub></sup>"
 top = top + "\n|-"
 sort = "<span style=\"display:none\">" + dots[1] + "</span>"
 top = top + "\n| " + sort + "'''Average'''"
@@ -1024,7 +1026,7 @@ if (aggregate == 1):
 	top = top + "\n!"+m+"Page<br/>size"
 	top = top + "\n!"+m+"Page<br/>made"
 	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>!v #"
-	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
+	#top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
 	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>size"
 	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>made"
 	top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>last"

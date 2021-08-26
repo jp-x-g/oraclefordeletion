@@ -361,7 +361,7 @@ for incr in range(0,numberOfDays):
 					#articleJson = {article: {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# articleJson = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# print(json.dumps(articleJson))
-					if (article != ""):
+					if (article != "") and (article.find("boilerplate metadata vfd") == -1):
 						if ((article[len(article)-1]) == " "):
 							while ((article[len(article)-1]) == " "):
 								article = article[:-1]

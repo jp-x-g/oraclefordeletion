@@ -296,18 +296,20 @@ def findresults(thepage):       #Parse through the text of an AfD to find how it
 			return "mg"
 		elif "redirect" in result:
 			return "rd"
-		elif "speedy keep" in result or "speedily kept" in result or "speedily keep" in result or "snow keep" in result or "snowball keep" in result or "speedy close" in result:
+		elif "speedy keep" in result or "speedily kept" in result or "speedily keep" in result or "snow keep" in result or "snowball keep" in result or "speedy close" in result or "kept" in result:
 			return "sk"
-		elif "speedy delete" in result or "speedily deleted" in result or "snow delete" in result or "snowball delete" in result:
+		elif "speedy delete" in result or "speedily deleted" in result or "snow delete" in result or "snowball delete" in result or "deleted" in result:
 			return "sd"
-		elif "keep" in result:
-			return "kp"
 		elif "delete" in result:
 			return "dl"
 		elif "transwiki" in result:
 			return "tw"
-		elif ("userfy" in result) or ("userfied" in result) or ("incubat" in result) or ("draftify" in result):
+		elif "userfy" in result or "userfied" in result or "incubat" in result or "draftify" in result or "move to draft" in result or "draftified" in result or "move to [[draft:" in result or "move to [[user:" in result or "moved to [[draft:" in result or "moved to [[user:" in result:
 			return "us"
+		elif "keep" in result or "kept" in result or "moved to" in result:
+			return "kp"
+		#elif "procedural close" in result or "procedurally kept" in result or "procedural keep" in result or "procedural close" in result or "procedurally closed" in result or "wrong venue" in result or "wrong forum" in result:
+		#	return "pc"
 		elif "withdraw" in result:
 			return "wd"
 		else:
