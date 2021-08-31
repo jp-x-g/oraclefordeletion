@@ -326,14 +326,35 @@ for incr in range(0,numberOfDays):
 					# Chop off the beginning and end of the string, getting the actual link to the AfD page.
 					theSlice = theSlice[len(searchStr):theSlice.find("}}")]
 					# Initialize article title to the same as the AfD title (will be true unless it's a renom)
-					article = theSlice
 					# print(article)
 					# if verbose:
 						# print(theSlice + " (relist = " + str(relist) + ")")
+
+					########################################
+					# Remove naughty characters et cetera.
+					########################################
+
+					theSlice = theSlice.replace("‎","")
+					# This looks like it doesn't do anything, but it does!!
+					# It is removing U+200E LEFT-TO-RIGHT MARK.
+					if (theSlice.count("  ") != 0):
+						while(theSlice.count("  ") != 0):
+							print("Trimming")
+							theSlice = theSlice.replace("  "," ")
+							# Eliminate double, multiple spaces in the title string. These don't exist to MediaWiki:
+							# that is to say, {{Wikipedia:Articles for deletion/Dog  (2nd nomination)}} in the source
+							# will just load  [[Wikipedia:Articles for deletion/Dog (2nd nomination)]] as the page.
+							# There can't be a page with consecutive spaces! So the transclusion is just an error.
+
+
+					########################################
 					# The following block of code is a massive meme.
 					# Basically, it checks for if the page is a renomination.
 					# If so, it slices the string down to the actual page's title,
 					# and notes which nomination it is.
+					########################################
+
+					article = theSlice
 					for ordinal in ["2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th"]:
 						# Couldn't find any article with more than 17 nominations, so not including these.
 						# , "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th"]:
@@ -347,7 +368,6 @@ for incr in range(0,numberOfDays):
 					# Yes, people actually did this sometimes.
 					for ordinal in range(0,21):
 						# There are 21 items in the list, so we want 0 to 20 as indices.
-						# , "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th"]:
 						# print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
 						if (theSlice.find(" (" + ordsText[ordinal] + " nomination)") != -1):
 							# Trim the ordinal, i.e. "2nd" -> "2".
@@ -361,17 +381,19 @@ for incr in range(0,numberOfDays):
 					#articleJson = {article: {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# articleJson = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
 					# print(json.dumps(articleJson))
-					if (article != "") and (article.find("boilerplate metadata vfd") == -1):
+					if (article != "") and (article.find("boilerplate metadata vfd") == -1) and (article.find("{{Imbox") == -1) and (article.find("\n") == -1):
+						# Eliminate bug where large chunks of text at the beginning of the page would be stored as an AfD
 						if ((article[len(article)-1]) == " "):
-							while ((article[len(article)-1]) == " "):
 								article = article[:-1]
-								# Might as well account for three, four, a million trailing spaces at this point.
 							# Spent a while tracking this one down... it was "Chinese Language Institute  (2nd nomination)."
 							# Note the two spaces! So it was being put into the json as "Chinese Language Institute ". Trail my neko spaces...
 						#afdDay['pgs'].append(articleJson)
 						# print("Adding to list")
-						afdDay['pgs'][article] = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
-						afdCounter = afdCounter + 1
+						if (article.find("[[Wikipedia:Articles for deletion/Log/") == -1):
+							afdDay['pgs'][article] = {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
+							afdCounter = afdCounter + 1
+						else:
+							print("Poopity scoop")
 					#else:
 					#	if verbose:
 					#	afdDays[eachPage['title']]['pages'].append(theSlice[len(searchStr):theSlice.find("}}")])
