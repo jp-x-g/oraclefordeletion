@@ -7,11 +7,23 @@ if [ "$day" > 20 ]; then
 fi
 
 
+python3 main.py                 -o -v -b 1 -l 2021-06-22 -s 0.01
+python3 detail.py                  -v -b 1 -l 2021-06-22 -s 0.01
+python3 detailpages.py             -v -b 1 -l 2021-06-22 -s 0.01
+python3 render.py              -a -v -b 30 -l 2021-06-30 -o rendertest.txt
+python3 upload.py      -v -o User:JPxG/Oracle/2021-06 -i rendertest.txt -n "Attempt, once again, to fix two of the loathed 'AMPERSAND BUG' for 2021-06-22."
+
 python3 main.py                 -o -v -b 1 -l 2020-12-13 -s 0.01
 python3 detail.py                  -v -b 1 -l 2020-12-13 -s 0.01
 python3 detailpages.py             -v -b 1 -l 2020-12-13 -s 0.01
 python3 render.py              -a -v -b 31 -l 2020-12-31 -o rendertest.txt
 python3 upload.py      -v -o User:JPxG/Oracle/2020-12 -i rendertest.txt -n "Attempt to fix AfD boilerplate bug for 2020-12-13."
+
+python3 main.py                 -o -v -b 1 -l 2020-03-11 -s 0.01
+python3 detail.py                  -v -b 1 -l 2020-03-11 -s 0.01
+python3 detailpages.py             -v -b 1 -l 2020-03-11 -s 0.01
+python3 render.py              -a -v -b 31 -l 2020-03-31 -o rendertest.txt
+python3 upload.py      -v -o User:JPxG/Oracle/2020-03 -i rendertest.txt -n "Attempt to fix the dreaded 'ampersand bug' for 2020-03-11."
 
 python3 main.py                 -o -v -b 1 -l 2020-01-27 -s 0.01
 python3 detail.py                  -v -b 1 -l 2020-01-27 -s 0.01
@@ -127,7 +139,7 @@ python3 main.py                 -o -v -b 1 -l 2015-07-17 -s 0.01
 python3 detail.py                  -v -b 1 -l 2015-07-17 -s 0.01
 python3 detailpages.py             -v -b 1 -l 2015-07-17 -s 0.01
 python3 render.py              -a -v -b 31 -l 2015-07-31 -o rendertest.txt
-python3 upload.py      -v -o User:JPxG/Oracle/2015-07 -i rendertest.txt -n "Attempt to fix error on 2015-07-17."
+python3 upload.py      -v -o User:JPxG/Oracle/2015-07 -i rendertest.txt -n "Attempt to fix the dreaded 'ampersand bug' on 2015-07-17."
 
 python3 main.py                 -o -v -b 1 -l 2015-05-12 -s 0.01
 python3 detail.py                  -v -b 1 -l 2015-05-12 -s 0.01
@@ -140,6 +152,12 @@ python3 detail.py                  -v -b 1 -l 2015-03-29 -s 0.01
 python3 detailpages.py             -v -b 1 -l 2015-03-29 -s 0.01
 python3 render.py              -a -v -b 31 -l 2015-03-31 -o rendertest.txt
 python3 upload.py      -v -o User:JPxG/Oracle/2015-03 -i rendertest.txt -n "Attempt to fix error on 2015-03-29."
+
+python3 main.py                 -o -v -b 1 -l 2014-11-04 -s 0.01
+python3 detail.py                  -v -b 1 -l 2014-11-04 -s 0.01
+python3 detailpages.py             -v -b 1 -l 2014-11-04 -s 0.01
+python3 render.py              -a -v -b 30 -l 2014-11-30 -o rendertest.txt
+python3 upload.py      -v -o User:JPxG/Oracle/2014-11 -i rendertest.txt -n "Attempt to fix render error on 2014-11-04"
 
 python3 main.py                 -o -v -b 1 -l 2014-10-11 -s 0.01
 python3 detail.py                  -v -b 1 -l 2014-10-11 -s 0.01

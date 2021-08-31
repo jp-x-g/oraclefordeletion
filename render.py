@@ -507,7 +507,7 @@ for asdf in full:
 		#print(asdf)
 		# For every type of close in the index except "op", put the total of how many there were.
 		top = top + "\n!style=\"background:" + clcol[asdf] + "\"|"+m+asdf.upper()+n
-print(top)
+#print(top)
 
 #totind = ["<span style=\"display:none\">!!!999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
 totind = {
@@ -542,6 +542,10 @@ grad = createGradient(keepest, middest, 50) + createGradient(midder, dellest, 51
 # The next one is 56% (a sixteenth) along the second gradient, not 50, to avoid double-counting it and making two steps the same color.
 
 errorList = []
+redLinkList = []
+redLinkAfds = {}
+allErrorCount = 0
+allRedLinkCount = 0
 # No error pages for the day yet.
 for incr in range(0,numberOfDays):
 # This will go from 0 (today) to numberOfDays (the furthest we want to go back)
@@ -611,6 +615,7 @@ for incr in range(0,numberOfDays):
 			anchorSetYet = 0
 		#Set this to zero, which means that the renderer will put an anchor in the first entry for the day.
 		errorCount = 0
+		redLinkCount = 0
 		# We haven't messed up rendering any AfDs... yet.
 		# Initialize count for open AfDs
 		# Initialize count for closed AfDs
@@ -646,7 +651,8 @@ for incr in range(0,numberOfDays):
 				b = "style=\"background:" + afdbg + "\"|"
 				bnocomments = "style=\"background:" + afdnocomments + "\"|"
 				# Beginning for AfD data cells
-				print(page)
+				if verbose:
+					print(page)
 				# Effective, but unbelievably spammy, debug line that prints every page title as it's processed.
 				cellcolor = clcol[d['afdinfo']['close']]
 				# Set cell color by taking the "clcol" entry with the index of the AfD close.
@@ -715,7 +721,8 @@ for incr in range(0,numberOfDays):
 					s=s+"{{anchor|" + dayDate + "}}"
 					anchorSetYet = 1
 					# Add an anchor and disable the sentry variable.
-				linkscolumn="\n|<span class=\"plainlinks\">"+dts[0]+"[[" + page + "|a]]"+dts[1]+"[[Talk:" + page + "|t]]"+dts[2]+"[{{fullurl:" + page + "|action=history}} h]"+dts[3]+"</span>"
+				linkscolumn="\n|<span class=\"plainlinks\">"+dts[0]+"[[:" + page + "|a]]"+dts[1]+"[[Talk:" + page + "|t]]"+dts[2]+"[{{fullurl:" + page + "|action=history}} h]"+dts[3]+"</span>"
+				# Add a colon to the page link, because on January 2, 2008, someone nominated the freaking Xbox logo at AfD and it'll just embed the whole thing otherwise.
 				# The dts[0] and dts[1] are the sort keys.
 				# Since these colums are the same thing no matter what,
 				# we can use two different Unicode dots to make them sort
@@ -881,26 +888,46 @@ for incr in range(0,numberOfDays):
 			except:
 				# If there is some bizarre mystery bug that makes no sense.
 				try:
-					errorCount = errorCount + 1
-					errorList.append(page)
-					aLog("Couldn't process " + page)
-					o = o + "<!-- Couldn't process a page: " + page + "-->"
-					#o = o + "<!-- Couldn't process a page: " + str(dlData["pgs"][page])
+					try:
+						# If it can pull the afdinfo and afdstats, but they're empty (means the AfD was deleted)
+						print("!! AfD info says: " + str(d['afdinfo']['error']))
+						print("!! AfD stats say: " + str(d['afdstats']['error']))
+						# If these stats can't be pulled, it'll throw an error into the except block.
+						# Otherwise, we know that it was a redlink!
+						redLinkList.append(page)
+						aLog("!!Deleted AfD(?): " + page)
+						o = o + "<!-- Probably a deleted AfD: " + page + "-->"
+						redLinkAfds[page] = d['afd']['afdtitle']
+						#print(redLinkAfds)
+						redLinkCount = redLinkCount + 1
+					except:
+						# If it can't pull the stats for the page (likely means the propertizers messed up)
+						errorList.append(page)
+						aLog("Couldn't process " + page)
+						o = o + "<!-- Couldn't process a page: " + page + "-->"
+						#o = o + "<!-- Couldn't process a page: " + str(dlData["pgs"][page])
+						errorCount = errorCount + 1
 				except:
 					errorCount = errorCount + 1
 					errorList.append("UNKNOWN")
 					aLog("Couldn't process a page, and couldn't even figure out what it was.")
 					o = o + "<!-- Couldn't process a page, and trying to tell what page it was failed. -->"
 		################################################################################
+		# Add that day's redlink and error counts to the totals.
+		################################################################################
+		allRedLinkCount = allRedLinkCount + redLinkCount
+		allErrorCount = allErrorCount + errorCount
+		################################################################################
 		# Render a row for that day, in the index summary at the top of the page.
 		################################################################################
 		top = top + "\n|-"
-		if (errorCount == 0):
-			top = top + "\n| " + "[[#" + str(dayDate) + "|" + str(dayDate) + "]]"
-		else:
-			top = top + "\n| " + "[[#" + str(dayDate) + "|" + str(dayDate) + "]] (" + str(errorCount) + ")"
+		top = top + "\n| " + "[[#" + str(dayDate) + "|" + str(dayDate) + "]]"
+		if (errorCount != 0):
+			top = top + " (" + str(errorCount) + ")"
 			# If there's errors, put them in parentheses next to the date.
-		print(ind)
+		if (redLinkCount != 0):
+			top = top + " ."
+		#print(ind)
 		closed = (ind["total"] - ind["op"])
 		top = top + "\n| " + str(ind["total"])
 		if (ind["op"] == 0):
@@ -920,6 +947,7 @@ for incr in range(0,numberOfDays):
 					top = top + "\n| "
 				else:
 					top = top + "\n| " + str(ind[asdf])
+		################################################################################
 		# Add all the stuff to the index table for the top.
 		################################################################################
 		if (aggregate == 0):
@@ -955,7 +983,7 @@ top = top + "\n|" + sort + str(closed)
 for asdf in full:
 	## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
 	if (asdf != "op"):
-		# For every type of close in the index except "op", put the total of how many there were.
+		# For every type of close in the index aside from "op", put the total of how many there were.
 		top = top + "\n|" + sort + str(totind[asdf])
 # Add all the stuff to the index table for the top.
 ################################################################################
@@ -980,7 +1008,7 @@ top = top + "\n|" + sort + str(closed / numberOfDays)[0:5]
 for asdf in full:
 	## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
 	if (asdf != "op"):
-		# For every type of close in the index except "op", put the total of how many there were.
+		# For every type of close in the index aside from "op", put the total of how many there were.
 		top = top + "\n|" + sort + m + str(float(100.0 * (totind[asdf] / closed)))[0:4] + "%" + n
 # Add all the stuff to the index table for the top.
 ################################################################################
@@ -1008,10 +1036,16 @@ top = top + "\n|}\n"
 # Composite table-of-contents index table with "total" row.
 if (aggregate == 1):
 	top = "<onlyinclude>" + top
+	if redLinkList:
+		top = top + "\n:''Unretrievable AfDs (" + str(allRedLinkCount) + "): "
+		for err in redLinkList:
+			top = top + "[[Wikipedia:Articles for deletion/" + redLinkAfds[err] + "|" + err + "]], "
+			#print("[[Wikipedia:Articles for deletion/" + redLinkAfds[err] + "|" + err + "]], ")
+		top = top[:-2] + "''"
 	if errorList:
-		top = top + "\n:''Errors: "
+		top = top + "\n:''Unknown errors (" + str(allErrorCount) + "): "
 		for err in errorList:
-			top = top + err + ", "
+			top = top + "[[Wikipedia:Articles for deletion/" + err + "|" + err + "]], "
 		top = top[:-2] + "''"
 		# Trim that last freakin' comma.
 	# Record all the errors in a HTML note.

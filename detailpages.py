@@ -45,6 +45,7 @@ jsonprefix = "AfD-log-"
 tmpfilename = "tmp.txt"
 
 apiBase = "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=*&rvprop=content&formatversion=2&format=json&titles="
+apiBare = "https://en.wikipedia.org/w/api.php"
 today = datetime.utcnow().date()
 
 ########################################
@@ -435,6 +436,7 @@ for incr in range(0,numberOfDays):
 		querylength = 0
 		# How many pages have been added to current query.
 		query = ""
+		queries = []
 		#print(dlData["pgs"])
 		for page in dlData["pgs"]:
 			try:
@@ -446,10 +448,11 @@ for incr in range(0,numberOfDays):
 					querylength = querylength + 1
 					cursor = cursor + 1
 					# This will actually hit the XTools API.
-					urls = [apiBase + page, apiBase + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"]]
+					#urls = [apiBase + page, apiBase + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"]]
+					#queries.append(page)
+					#queries.append("Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"])
 					query = query + page + "|" + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"] + "|"
 					# Add another argument for the article and also for its AfD.
-					#Increment the pagecount so we can know what's going on.
 					#print(query)
 					if (querylength >= queryBatchSize) or (cursor >= len(dlData["pgs"])):
 						query = query[:-1]
@@ -457,37 +460,65 @@ for incr in range(0,numberOfDays):
 						# query = query.replace("%", "%25")
 						# # "Percent sign" needs to be encoded first, or it will mess up later ones, lol.
 						# Commented out 2021-08-18, it is causing weird stuff to happen.
-						query = query.replace("&", "%26")
-						query = query.replace("?", "%3F")
+						#query = query.replace("&", "%26")
+						#query = query.replace("?", "%3F")
+						#query = query.replace("+", "%2B")
 						# Percent-encode stuff that will mess up the query/processing.
 						#query = query.replace(",", "%2C")
 						#query = query.replace('"', '%22')
 						#query = query.replace("'", "%27")
-						query = query.replace("+", "%2B")
-						# Stuff that might mess it up, but commented out to avoid chaos.
-						query = apiBase + query
+						# These should work in theory, but I'm commenting them out because they mess stuff up.
+
+						# Using the params{} thing in the requests.get seems to fix the dreaded "ampersand bug"
+						# without requiring us to encode it manually, so all these lines above are unnecessary.
+						
+						#query = apiBase + query
 						# Prepend API base URL to send it out.
 						if verbose:
 							print("Requesting " + str(querylength) + " pages, query #" + str(totalQueriesMade + 1))
-						#print(query)
-						# Reset query and query length for next run.
+						print(query)
+						# Way down below, we reset the query and query length for next run.
 						if forReal:
 							# print("Doing it for real.")
 							time.sleep(sleepTime)
-							r = requests.get(query, allow_redirects=False)
+							#r = requests.get(query, allow_redirects=False)
+							# https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=*&rvprop=content&formatversion=2&format=json&titles=
+							# https://en.wikipedia.org/w/api.php
+							print(queries)
+							r = requests.get(apiBare, params={
+								"action": "query",
+								"prop": "revisions",
+								"rvslots": "*",
+								"rvprop": "content",
+								"formatversion": "2",
+								"format": "json",
+								"titles": query
+								})
 							# Actually hit the URL in this line, and get a page, which will be of type "Response"
 							totalQueriesMade = totalQueriesMade + 1
 							# Increment "total queries made"
 							r = r.text
 							# Make it so that "r" is the text of the response, not a "Response" of the response
+							#print(r)
 							r = json.loads(r)
 							for rp in r['query']['pages']:
+								if debug:
+									print("Received title: " + str(rp['title']))
 								ptitle = rp['title']
-								#ptitle = ptitle.replace(",", "%2C")
-								#Percent-encode commas, in hope of finding a bug.
+								ptitle = ptitle.replace("%26", "&")
+								ptitle = ptitle.replace("%3F", "?")
+								ptitle = ptitle.replace("%2B", "+")
+								#  De-percent-encode the responses, I suppose.
+								#ptitle = ptitle.replace("%2C", ",")
+								#ptitle = ptitle.replace('%22', '"')
+								#ptitle = ptitle.replace("%27", "'")
+								# These work in theory, but not in practice.
+								if debug:
+									print("Fixed title: " + str(ptitle))
 								if (rp['title'].find('Wikipedia:Articles for deletion/') != -1):
 									if debug:
 										print("AfD found: " + ptitle)
+										#print(rp)
 									#Spammy debug statement.
 									ptitle = ptitle[32:]
 									for ordinal in ["2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th"]:
@@ -551,6 +582,7 @@ for incr in range(0,numberOfDays):
 											dlData["pgs"][ptitle]['afdinfo'] = {
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
 											"error"     : "0",
+											"pageid"    : rp['pageid'],
 											"size"      : len(ptext),
 											"lines"     : lines,
 											"delsorts"  : findsorts(ptext),
@@ -577,8 +609,8 @@ for incr in range(0,numberOfDays):
 											# If it can't detect anything, it returns "ud".
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except:
-										aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
+									except (KeyboardInterrupt):
+										aLog("!!!!!!!!!! Serious error in storing AfD info for: " + ptitle)
 										#print(rp)
 										#print(ptext)
 										# This isn't a "page was deleted, oopsie".
@@ -609,16 +641,17 @@ for incr in range(0,numberOfDays):
 											links = ptextl.count("[[") - (files + cats)
 											dlData["pgs"][ptitle]['pageinfo'] = {
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
-											"error": "0",
-											"redirect": redirect,
-											"size": len(ptext),
-											"lines": lines,
-											"refs": refs,
-											"sections": sections,
-											"templates": templates,
-											"files": files,
-											"cats": cats,
-											"links": links
+											"error"     : "0",
+											"pageid"    : rp['pageid'],
+											"redirect"  : redirect,
+											"size"      : len(ptext),
+											"lines"     : lines,
+											"refs"      : refs,
+											"sections"  : sections,
+											"templates" : templates,
+											"files"     : files,
+											"cats"      : cats,
+											"links"     : links
 											}
 									except:
 											#cursor = cursor + 1
@@ -631,6 +664,7 @@ for incr in range(0,numberOfDays):
 								# Spammy debug statement.
 						query = ""
 						querylength = 0
+						queries = []
 						# Reset the query and the counter variable for the next batch.
 			except (KeyboardInterrupt):
 				aLog("ABORTING EXECUTION: KeyboardInterrupt")

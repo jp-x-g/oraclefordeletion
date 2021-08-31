@@ -323,6 +323,7 @@ for incr in range(0,numberOfDays):
 					# Check and see if it's a relist.
 					if (theSlice.find("<!--Relisted-->") != -1):
 						relist = 1
+
 					# Chop off the beginning and end of the string, getting the actual link to the AfD page.
 					theSlice = theSlice[len(searchStr):theSlice.find("}}")]
 					# Initialize article title to the same as the AfD title (will be true unless it's a renom)
@@ -345,8 +346,13 @@ for incr in range(0,numberOfDays):
 							# that is to say, {{Wikipedia:Articles for deletion/Dog  (2nd nomination)}} in the source
 							# will just load  [[Wikipedia:Articles for deletion/Dog (2nd nomination)]] as the page.
 							# There can't be a page with consecutive spaces! So the transclusion is just an error.
-
-
+					if (theSlice.count("{{{pg|") != 0):
+						theSlice = theSlice.replace("{{{pg|","")
+						theSlice = theSlice.replace("}}}","")
+						# These start showing up once you go back far enough (first instance was in 2008)
+					if (theSlice.count("|") != 0):
+						theSlice = theSlice[0:theSlice.find("|")]
+						# If there is a pipe in the title of the AfD page (this really did happen, in the log for 2010 May 27)
 					########################################
 					# The following block of code is a massive meme.
 					# Basically, it checks for if the page is a renomination.
@@ -383,10 +389,9 @@ for incr in range(0,numberOfDays):
 					# print(json.dumps(articleJson))
 					if (article != "") and (article.find("boilerplate metadata vfd") == -1) and (article.find("{{Imbox") == -1) and (article.find("\n") == -1):
 						# Eliminate bug where large chunks of text at the beginning of the page would be stored as an AfD
-						if ((article[len(article)-1]) == " "):
-								article = article[:-1]
-							# Spent a while tracking this one down... it was "Chinese Language Institute  (2nd nomination)."
-							# Note the two spaces! So it was being put into the json as "Chinese Language Institute ". Trail my neko spaces...
+						article = article.strip()
+						# Spent a while tracking this one down... it was "Chinese Language Institute  (2nd nomination)."
+						# Note the two spaces! So it was being put into the json as "Chinese Language Institute ". Trail my neko spaces...
 						#afdDay['pgs'].append(articleJson)
 						# print("Adding to list")
 						if (article.find("[[Wikipedia:Articles for deletion/Log/") == -1):
