@@ -355,7 +355,7 @@ for incr in range(0,numberOfDays):
 						##########
 						# End of codeblock that runs twice for each page (page 	and Afd)
 						##########
-				aLog(str(totalQueriesMade) + ": " + page + " completed (page " + str(int(pageQueriesMade / 2)) + " of " + str(dlData["count"]) + ", on log page " + str(incr+1) + " of " + str(numberOfDays) + ")")
+				aLog(str(totalQueriesMade) + " (entry " + str(int(pageQueriesMade / 2)) + " of " + str(dlData["count"]) + ", on page " + str(incr+1) + " of " + str(numberOfDays) + "): " + page + " completed")
 				##########
 				# End of codeblock that runs over every page in the day's AfD log.
 				##########

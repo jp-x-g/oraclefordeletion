@@ -63,7 +63,7 @@ parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with i
 parser.add_argument("-u", "--debug", help="Spam the ever-loving hell out of the terminal.", action="store_true")
 parser.add_argument("-c", "--configure", help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
 parser.add_argument("-x", "--explain", help="Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.", action="store_true")
-
+parser.add_argument("-z", "--zero", help="Put in fake placeholder values for AfD information, to run the parser on lists of normal pages", action="store_true")
 
 args = parser.parse_args()
 today = datetime.fromisoformat(str(args.latest))
@@ -121,6 +121,11 @@ if args.verbose:
 debug = 0
 if args.debug:
 	debug = 1
+
+dummy = 0
+if args.zero:
+	print("Zeroing out AfD info fields")
+	dummy = 1
 
 queryBatchSize = 25
 # This is half of the actual query batch size,
@@ -548,6 +553,28 @@ for incr in range(0,numberOfDays):
 											"scrapetime": datetime.now(timezone.utc).isoformat(),
 											"error": "missing"
 											}
+											if (dummy == 1):
+												dlData["pgs"][ptitle]['afdinfo'] = {
+												"scrapetime": datetime.now(timezone.utc).isoformat(),
+												"error"     : "0",
+												"pageid"    : 1,
+												"size"      : 1,
+												"lines"     : 1,
+												"delsorts"  : findsorts(ptext),
+												"open"      : 1,
+												"close"     : "ud",
+												"vkp"       : 1,
+												"vdl"       : 1,
+												"vsk"       : 1,
+												"vsd"       : 1,
+												"vmg"       : 1,
+												"vrd"       : 1,
+												"vtw"       : 1,
+												"vus"       : 1,
+												"vdr"       : 1,
+												"vmv"       : 1,
+												"all"       : 10
+												}
 										else:
 											#print(rp)
 											ptext = rp['revisions'][0]['slots']['main']['content']
@@ -579,42 +606,87 @@ for incr in range(0,numberOfDays):
 											#print(dlData["pgs"][ptitle])
 											#dlData["pgs"][ptitle]['afdinfo']
 											### Debug ^
-											dlData["pgs"][ptitle]['afdinfo'] = {
-											"scrapetime": datetime.now(timezone.utc).isoformat(),
-											"error"     : "0",
-											"pageid"    : rp['pageid'],
-											"size"      : len(ptext),
-											"lines"     : lines,
-											"delsorts"  : findsorts(ptext),
-											"open"      : isopen,
-											"close"     : "ud",
-											"vkp"       : vkp,
-											"vdl"       : vdl,
-											"vsk"       : vsk,
-											"vsd"       : vsd,
-											"vmg"       : vmg,
-											"vrd"       : vrd,
-											"vtw"       : vtw,
-											"vus"       : vus,
-											"vdr"       : vdr,
-											"vmv"       : vmv,
-											"all"       : vall
-											}
-											#print(dlData["pgs"][ptitle]['afdinfo'])
-											dlData["pgs"][ptitle]['afdinfo']['close'] = findresults(ptext)
-											if (findresults(ptext) == "op"):
-												dlData["pgs"][ptitle]['afdinfo']['open'] = 1
+											if (dummy == 0):
+												dlData["pgs"][ptitle]['afdinfo'] = {
+												"scrapetime": datetime.now(timezone.utc).isoformat(),
+												"error"     : "0",
+												"pageid"    : rp['pageid'],
+												"size"      : len(ptext),
+												"lines"     : lines,
+												"delsorts"  : findsorts(ptext),
+												"open"      : isopen,
+												"close"     : "ud",
+												"vkp"       : vkp,
+												"vdl"       : vdl,
+												"vsk"       : vsk,
+												"vsd"       : vsd,
+												"vmg"       : vmg,
+												"vrd"       : vrd,
+												"vtw"       : vtw,
+												"vus"       : vus,
+												"vdr"       : vdr,
+												"vmv"       : vmv,
+												"all"       : vall
+												}
+												#print(dlData["pgs"][ptitle]['afdinfo'])
+												dlData["pgs"][ptitle]['afdinfo']['close'] = findresults(ptext)
+												if (findresults(ptext) == "op"):
+													dlData["pgs"][ptitle]['afdinfo']['open'] = 1
 											# Returns one of these:
 											# "op", "mg", "rd", "sk", "sd", "kp", "dl", "tw", "us", or "wd".
 											# If it can't detect anything, it returns "ud".
 											# print(dlData["pgs"][ptitle])
 											# This whole block above handles AfDs in the response.
-									except (KeyboardInterrupt):
+											if (dummy == 1):
+												dlData["pgs"][ptitle]['afdinfo'] = {
+												"scrapetime": datetime.now(timezone.utc).isoformat(),
+												"error"     : "0",
+												"pageid"    : 1,
+												"size"      : 1,
+												"lines"     : 1,
+												"delsorts"  : findsorts(ptext),
+												"open"      : 1,
+												"close"     : "ud",
+												"vkp"       : 1,
+												"vdl"       : 1,
+												"vsk"       : 1,
+												"vsd"       : 1,
+												"vmg"       : 1,
+												"vrd"       : 1,
+												"vtw"       : 1,
+												"vus"       : 1,
+												"vdr"       : 1,
+												"vmv"       : 1,
+												"all"       : 10
+												}
+									except:
 										aLog("!!!!!!!!!! Serious error in storing AfD info for: " + ptitle)
 										#print(rp)
 										#print(ptext)
 										# This isn't a "page was deleted, oopsie".
 										# This shouldn't be happening at all! If this trips, it's a bug.
+										if (dummy == 1):
+											dlData["pgs"][ptitle]['afdinfo'] = {
+											"scrapetime": datetime.now(timezone.utc).isoformat(),
+											"error"     : "0",
+											"pageid"    : 1,
+											"size"      : 1,
+											"lines"     : 1,
+											"delsorts"  : findsorts("meow"),
+											"open"      : 1,
+											"close"     : "ud",
+											"vkp"       : 1,
+											"vdl"       : 1,
+											"vsk"       : 1,
+											"vsd"       : 1,
+											"vmg"       : 1,
+											"vrd"       : 1,
+											"vtw"       : 1,
+											"vus"       : 1,
+											"vdr"       : 1,
+											"vmv"       : 1,
+											"all"       : 10
+											}
 								else:
 									if debug:
 										print("Article found: " + ptitle)

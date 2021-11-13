@@ -42,3 +42,35 @@ Advanced or bizarre tasks (like scanning 100 days of nominations from the AfD lo
 > ``python3 upload.py -i render3.txt -o User:Example/AfD_mid-December``
 
 > ``python3 upload.py -i render4.txt -o User:Example/AfD_beginning_of_December``
+
+## All scripts and their usage
+
+
+
+
+###run-batch.sh
+This script runs all five components in order, and passes arguments to them.
+Usage looks like, for example, this:
+> bash run-batch.sh -v 1 -s 0.1 -b 31 -l 2021-01-31 -o User:JPxG/sandbox99
+
+The flags work the same way here as they do in the individual components (and specifying no options will cause it to simply process the last 7 days):
+> -o    title of the output page on Wikipedia
+> -b    how many days to go back
+> -l    the latest day to parse (YYYY-MM-DD)
+> -s    sleep time between API queries (in seconds, will take decimals)
+> -w 1  Overwrite existing files when scraping skeletons (this will clean damaged json, but may ruin lots of finished pages)
+> -f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month will take ~1 minute instead of ~30)
+> -g 1  enable aggregate output (one big table, instead of new sections/tables for different days)
+> -v 1  enable verbose mode
+> -h 1  print this help message and exit
+> -a 1  print every individual component's help message and exit
+> -c 1  print every individual component's configuration details and exit
+
+Note: -g, -v, -h, -a, -c cannot be supplied bare. This means you must supply them as '-v 1', '-v asdf', et cetera, or the script will go berserk. If you don't want to run these flags, just don't specify them at all.
+
+Also note that individual components have more flags, which provide finer control, and are not available from this shell script. If you want to specify a password from the command line, for example, running upload.py manually will allow you to do this with '-p'. See the component helps for more information (you can do so by invoking this script with '-a 1').
+
+
+###render-year.sh
+This will render, and upload, a summary page for the year specified. It will not fetch anything from the API to get information, so you must have all the AfDs downloaded and detailed prior to running this. Usage is just the 
+> bash render-year.sh 2014
