@@ -38,16 +38,26 @@ Basic and straightforward tasks (like scanning a range of days from the AfD logs
 
 Advanced or bizarre tasks (like scanning 100 days of nominations from the AfD logs, getting page stats for 28 of them, rendering a separate table for each week, and uploading them all to separate pages) should be done by running each component individually.
 > ``python3 main.py -b 100 -l 2020-12-31``
-``python3 detail.py -b 28 -l 2020-12-31``
-``python3 detailpages.py -b 28 -l 2020-12-31``
-``python3 render.py -b 7 -l 2020-12-31 -o render1.txt``
-``python3 render.py -b 7 -l 2020-12-24 -o render2.txt``
-``python3 render.py -b 7 -l 2020-12-17 -o render3.txt``
-``python3 render.py -b 7 -l 2020-12-10 -o render4.txt``
-``python3 upload.py -i render1.txt -o User:Example/AfD_end_of_December``
-``python3 upload.py -i render2.txt -o User:Example/AfD_late_December``
-``python3 upload.py -i render3.txt -o User:Example/AfD_mid-December``
-``python3 upload.py -i render4.txt -o User:Example/AfD_beginning_of_December``
+
+> ``python3 detail.py -b 28 -l 2020-12-31``
+
+> ``python3 detailpages.py -b 28 -l 2020-12-31``
+
+> ``python3 render.py -b 7 -l 2020-12-31 -o render1.txt``
+
+> ``python3 render.py -b 7 -l 2020-12-24 -o render2.txt``
+
+> ``python3 render.py -b 7 -l 2020-12-17 -o render3.txt``
+
+> ``python3 render.py -b 7 -l 2020-12-10 -o render4.txt``
+
+> ``python3 upload.py -i render1.txt -o User:Example/AfD_end_of_December``
+
+> ``python3 upload.py -i render2.txt -o User:Example/AfD_late_December``
+
+> ``python3 upload.py -i render3.txt -o User:Example/AfD_mid-December``
+
+> ``python3 upload.py -i render4.txt -o User:Example/AfD_beginning_of_December``
 
 ## Program scripts
 
@@ -181,30 +191,42 @@ This is just a bunch of ``run-batch.sh`` invocations, with the proper date range
 ### run-batch.sh
 This script runs all five components in order, and passes arguments to them automatically.
 Usage looks like, for example, this:
-> bash run-batch.sh -v 1 -s 0.1 -b 31 -l 2021-01-31 -o User:JPxG/sandbox99
+> ``bash run-batch.sh -v 1 -s 0.1 -b 31 -l 2021-01-31 -o User:JPxG/sandbox99``
 
 The flags work the same way here as they do in the individual components (and specifying no options will cause it to simply process the last 7 days):
-> ``-o    title of the output page on Wikipedia``
+> ``-o  ``
 
-> ``-b    how many days to go back``
+*title of the output page on Wikipedia*
+> ``-b  ``
 
-> ``-l    the latest day to parse (YYYY-MM-DD)``
+*how many days to go back*
+> ``-l  ``
 
-> ``-s    sleep time between API queries (in seconds, will take decimals)``
+*the latest day to parse (YYYY-MM-DD)*
+> ``-s  ``
 
-> ``-w 1  Overwrite existing files when scraping skeletons (this will clean damaged json, but may ruin lots of finished pages)``
+*sleep time between API queries (in seconds, will take decimals)*
+> ``-w 1``
 
-> ``-f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month will take ~1 minute instead of ~30)``
+*Overwrite existing files when scraping skeletons (this will clean damaged json, but may ruin lots of finished pages)*
+> ``-f 1``
 
-> ``-g 1  enable aggregate output (one big table, instead of new sections/tables for different days)``
+*skip XTools queries to make less detailed table, cuts execution time by about 95% (a month will take ~1 minute instead of ~30)*
+> ``-g 1``
 
-> ``-v 1  enable verbose mode``
+*enable aggregate output (one big table, instead of new sections/tables for different days)*
+> ``-v 1``
 
-> ``-h 1  print this help message and exit``
+*enable verbose mode*
+> ``-h 1``
 
-> ``-a 1  print every individual component's help message and exit``
+*print this help message and exit*
+> ``-a 1``
 
-> ``-c 1  print every individual component's configuration details and exit``
+*print every individual component's help message and exit*
+> ``-c 1``
+
+*print every individual component's configuration details and exit*
 
 Note: ``-g``, ``-v``, ``-h``, ``-a``, and ``-c`` **cannot be supplied bare**. This means you must supply them as '``-v 1``', '``-v asdf``', et cetera, or the script will go berserk. If you don't want to run these flags, just don't specify them at all.
 
