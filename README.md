@@ -26,6 +26,8 @@ It contains five scripts, intended to be run in sequence (except for detail.py, 
 
 > [upload.py (5 of 5)](#uploadpy)
 
+> [renderarticles.py (alternate rendering program)](#renderarticlespy)
+
 **[Batch scripts (to batch multiple programs together)](#batch-scripts)**
 > [batch-year.sh](#batch-yearsh)
 
@@ -240,6 +242,11 @@ Oracle for Deletion, output renderer (4 of 5). Note that all times and dates use
 ```
 
 This one runs almost instantaneously, since there are no API queries.
+
+### renderarticles.py
+> [back to top](#table-of-contents)
+
+This is an alternate version of ``render.py`` for articles rather than AfDs; it generates tables similar to those created by ``render.py``, but ignores AfDs and instead shows extended information about the articles. This is useful if, say, you have a long list of articles that you want to know more about, and don't want to use analysis tools on each one individually.
 
 ### upload.py
 > [back to top](#table-of-contents)
