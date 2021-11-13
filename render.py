@@ -10,12 +10,7 @@ import time
 from pathlib import Path
 # For filesystem interactions. Read read! Write write!
 import requests
-# For scraping webpages. Scrape scrape!
-from html.parser import HTMLParser
-# Required to use BeautifulSoup. Parse parse!
-from bs4 import BeautifulSoup
-# The real meat and potatoes of the HTML parsing. Slurp slurp!
-# Documentation for this is recommended reading to get how the program works.
+# For scraping webpages. Scrape scrape!from datetime import datetime
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
@@ -60,7 +55,7 @@ totalQueriesMade = 0
 # Parse arguments from command line.
 ########################################
 
-parser = argparse.ArgumentParser(description="Oracle for Deletion, output renderer (4 of 4). Note that all times and dates used by this program are in UTC, including in the runlog.", epilog="This one runs almost instantaneously, since there are no API queries.")
+parser = argparse.ArgumentParser(description="Oracle for Deletion, output renderer (4 of 5). Note that all times and dates used by this program are in UTC, including in the runlog.", epilog="This one runs almost instantaneously, since there are no API queries.")
 parser.add_argument("-o", "--output", metavar="blahblah.txt", help="Output file, which will be saved in " + os.getcwd() + dataname + "/" + outputname + "/. Default is \"AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt\".)", default="insanely weird string that nobody would ever type in on purpose.txt")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="DATE", help="Date to parse back from (YYYY-MM-DD). Default is today (UTC).", default=today)

@@ -11,11 +11,6 @@ from pathlib import Path
 # For filesystem interactions. Read read! Write write!
 import requests
 # For scraping webpages. Scrape scrape!
-from html.parser import HTMLParser
-# Required to use BeautifulSoup. Parse parse!
-from bs4 import BeautifulSoup
-# The real meat and potatoes of the HTML parsing. Slurp slurp!
-# Documentation for this is recommended reading to get how the program works.
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
@@ -52,7 +47,7 @@ today = datetime.utcnow().date()
 # Parse arguments from command line.
 ########################################
 
-parser = argparse.ArgumentParser(description="Oracle for Deletion, page info detailer (3 of 4). This will get wikitext from the en.wiki API, and use it to populate the JSON files of AfD log pages with information for both the articles (pageinfo) and and their deletion discussions (afdinfo). Feature counts (like refs, sections, and !votes) are approximate, and will miss some things. Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="This one runs very quickly, since the en.wiki API allows batched queries.")
+parser = argparse.ArgumentParser(description="Oracle for Deletion, page info detailer (3 of 5). This will get wikitext from the en.wiki API, and use it to populate the JSON files of AfD log pages with information for both the articles (pageinfo) and and their deletion discussions (afdinfo). Feature counts (like refs, sections, and !votes) are approximate, and will miss some things. Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="This one runs very quickly, since the en.wiki API allows batched queries.")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC).", default=today)
 parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)

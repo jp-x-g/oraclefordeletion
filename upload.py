@@ -11,11 +11,6 @@ from pathlib import Path
 # For filesystem interactions. Read read! Write write!
 import requests
 # For scraping webpages. Scrape scrape!
-from html.parser import HTMLParser
-# Required to use BeautifulSoup. Parse parse!
-from bs4 import BeautifulSoup
-# The real meat and potatoes of the HTML parsing. Slurp slurp!
-# Documentation for this is recommended reading to get how the program works.
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
@@ -67,7 +62,7 @@ divider = "<!-- Everything below here will be replaced by the bot when the page 
 # Parse arguments from command line.
 ########################################
 
-parser = argparse.ArgumentParser(description="Oracle for Deletion, uploader.", epilog="Wow!")
+parser = argparse.ArgumentParser(description="Oracle for Deletion, uploader (5 of 5).", epilog="Wow!")
 #parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 #parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC).", default=today)
 parser.add_argument("-n", "--note", metavar="TEXT", help="Comment to add to edit summary.", default="Updating with")

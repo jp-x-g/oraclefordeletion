@@ -11,11 +11,6 @@ from pathlib import Path
 # For filesystem interactions. Read read! Write write!
 import requests
 # For scraping webpages. Scrape scrape!
-from html.parser import HTMLParser
-# Required to use BeautifulSoup. Parse parse!
-from bs4 import BeautifulSoup
-# The real meat and potatoes of the HTML parsing. Slurp slurp!
-# Documentation for this is recommended reading to get how the program works.
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
@@ -52,7 +47,7 @@ totalQueriesMade = 0
 # Parse arguments from command line.
 ########################################
 
-parser = argparse.ArgumentParser(description="Oracle for Deletion, page stats detailer (2 of 4). This will take the JSON files of AfD log pages and use XTools to populate it with statistics (like number of revisions, creation date, et cetera) for both the articles (pagestats) and and their deletion discussions (afdstats). Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="Be aware that this one takes forever to run, as XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while.")
+parser = argparse.ArgumentParser(description="Oracle for Deletion, page stats detailer (2 of 5). This will take the JSON files of AfD log pages and use XTools to populate it with statistics (like number of revisions, creation date, et cetera) for both the articles (pagestats) and and their deletion discussions (afdstats). Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="Be aware that this one takes forever to run, as XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while.")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC).", default=today)
 parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)

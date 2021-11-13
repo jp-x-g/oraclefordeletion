@@ -10,11 +10,6 @@ from pathlib import Path
 # For filesystem interactions. Read read! Write write!
 import requests
 # For scraping webpages. Scrape scrape!
-from html.parser import HTMLParser
-# Required to use BeautifulSoup. Parse parse!
-from bs4 import BeautifulSoup
-# The real meat and potatoes of the HTML parsing. Slurp slurp!
-# Documentation for this is recommended reading to get how the program works.
 from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
@@ -50,7 +45,7 @@ today = datetime.utcnow().date()
 # Parse arguments from command line.
 ########################################
 
-parser = argparse.ArgumentParser(description="Oracle for Deletion, AfD log parser (1 of 4). This will retrieve the wikitext of AfD log pages, and parse the entries from them into JSON files. It also accompanies the entries with basic information from the log page: the title of the page, the title of the AfD page, relist status, and how many previous nominations the article has had. Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="This will run pretty quickly, even though it doesn't batch its API queries. Take care to specify reasonable dates; AfD was called VfD (and worked differently) prior to 2005-08-28, and Wikipedia did not exist prior to January 2001.")
+parser = argparse.ArgumentParser(description="Oracle for Deletion, AfD log parser (1 of 5). This will retrieve the wikitext of AfD log pages, and parse the entries from them into JSON files. It also accompanies the entries with basic information from the log page: the title of the page, the title of the AfD page, relist status, and how many previous nominations the article has had. Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="This will run pretty quickly, even though it doesn't batch its API queries. Take care to specify reasonable dates; AfD was called VfD (and worked differently) prior to 2005-08-28, and Wikipedia did not exist prior to January 2001.")
 parser.add_argument("-b", "--back", metavar="DAYS", help="Number of days to parse. Default is 7. This will be overridden if you specify both \"latest\" and \"earliest\"!", default=69420)
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC)", default=today)
 parser.add_argument("-e", "--earliest", metavar="YYYY-MM-DD", help="Date to parse back to. Default is to determine it automatically by subtracting \"back\" from \"latest\".", default="1420-06-09")
