@@ -63,7 +63,7 @@ Oracle for Deletion, AfD log parser (1 of 5). This will retrieve the wikitext of
 accompanies the entries with basic information from the log page: the title of the page, the title of the AfD page, relist status, and how many previous
 nominations the article has had. Note that all dates used by this program are in UTC, including timestamps in the runlog.
 
-Optional arguments:
+**Optional arguments:**
 ```
 -h, --help                           Show this help message and exit.
 -b DAYS, --back DAYS                 Number of days to parse. Default is 7. This will be overridden
@@ -92,7 +92,7 @@ Oracle for Deletion, page stats detailer (2 of 5). This will take the JSON files
 number of revisions, creation date, et cetera) for both the articles (pagestats) and and their deletion discussions (afdstats). Note that all dates used by
 this program are in UTC, including timestamps in the runlog.
 
-Optional arguments:
+**Optional arguments:**
 ```
 -h, --help                           Show this help message and exit.
 -b DAYS, --back DAYS                 Days to go back. Default is 7.
@@ -123,7 +123,7 @@ Oracle for Deletion, page info detailer (3 of 4). This will get wikitext from th
 information for both the articles (pageinfo) and and their deletion discussions (afdinfo). Feature counts (like refs, sections, and !votes) are
 approximate, and will miss some things. Note that all dates used by this program are in UTC, including timestamps in the runlog.
 
-Optional arguments:
+**Optional arguments:**
 ```
 -h, --help                           Show this help message and exit.
 -b DAYS, --back DAYS                 Days to go back. Default is 7.
@@ -155,7 +155,7 @@ Usage: ``render.py [-h] [-o blahblah.txt] [-b DAYS] [-l DATE] [-a,] [-v] [-c]``
 
 Oracle for Deletion, output renderer (4 of 5). Note that all times and dates used by this program are in UTC, including in the runlog.
 
-optional arguments:
+**Optional arguments:**
 ```
 -h, --help                           Show this help message and exit.
 -o blah.txt, --output blah.txt       Output file, which will be saved in data/output/.
@@ -175,7 +175,7 @@ Usage: ``upload.py [-h] [-n TEXT] [-i blahblah.txt] [-o User:JohnDoe/OfD] [-u Jo
 
 Oracle for Deletion, uploader (5 of 5).
 
-optional arguments:
+**Optional arguments:**
 ```
 -h, --help                           Show this help message and exit.
 -n TEXT, --note TEXT                 Comment to add to edit summary.
@@ -205,17 +205,21 @@ Usage looks like, for example, this:
 
 The flags work the same way here as they do in the individual components (and specifying no options will cause it to simply process the last 7 days):
 ```
--o    title of the output page on Wikipedia
--b    how many days to go back
--l    the latest day to parse (YYYY-MM-DD)
--s    sleep time between API queries (in seconds, will take decimals)
--w 1  Overwrite existing files when scraping skeletons (this will clean damaged json, but may uin lots of finished pages)
--f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month ill take ~1 minute instead of ~30)
--g 1  enable aggregate output (one big table, instead of new sections/tables for different days)
--v 1  enable verbose mode
--h 1  print this help message and exit
--a 1  print every individual component's help message and exit
--c 1  print every individual component's configuration details and exit
+-o                                   title of the output page on Wikipedia
+-b                                   how many days to go back
+-l                                   the latest day to parse (YYYY-MM-DD)
+-s                                   sleep time between API queries in seconds (will take decimals)
+-w 1                                 Overwrite existing files when scraping skeletons (this will
+                                       clean damaged json, but may ruin lots of finished pages)
+-f 1                                 skip XTools queries to make less detailed table.
+                                       Cuts execution time by about 95% (a month will take
+                                       about one minute instead of thirty)
+-g 1                                 enable aggregate output (one big table, instead of new
+                                       sections/tables for different days)
+-v 1                                 enable verbose mode
+-h 1                                 print this help message and exit
+-a 1                                 print every individual component's help message and exit
+-c 1                                 print every individual component's config details and exit
 ```
 
 Note: ``-g``, ``-v``, ``-h``, ``-a``, and ``-c`` **cannot be supplied bare**. This means you must supply them as '``-v 1``', '``-v asdf``', et cetera, or the script will go berserk. If you don't want to run these flags, just don't specify them at all.
