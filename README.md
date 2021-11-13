@@ -69,15 +69,15 @@ Optional arguments:
 -b DAYS, --back DAYS                 Number of days to parse. Default is 7. This will be overridden
                                      if you specify both "latest" and "earliest"!
 -l YYYY-MM-DD, --latest YYYY-MM-DD   Date to parse back from. Default is today (UTC)
--e YYYY-MM-DD, --earliest YYYY-MM-DD Date to parse back to. Default is to determine it automatically
-                                     by subtracting "back" from "latest".
+-e YYYY-MM-DD, --earliest YYYY-MM-DD Date to parse back to. Default is to determine it 
+                                     automatically by subtracting "back" from "latest".
 -o, --overwrite                      Overwrite existing data when saving skeletons. Only do this if
                                      you want to completely restart the reprocessing.
--s S, --sleep S                      Time, in seconds, to delay between receiving an API response and
-                                     sending the next request. Default is 0.5.
+-s S, --sleep S                      Time, in seconds, to delay between receiving an API response
+                                     and sending the next request. Default is 0.5.
 -d, --dryrun                         Run the script without actually sending queries to the API.
                                      This may break stuff.
--v, --verbose                        Spam the terminal AND runlog with insanely detailed information.
+-v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
 -c, --configure                      Set up directories and runlog, then show config data and exit.
 -x, --explain                        Display detailed info about what this program does, then exit.
 ```
