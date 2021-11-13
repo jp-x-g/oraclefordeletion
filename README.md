@@ -65,18 +65,18 @@ nominations the article has had. Note that all dates used by this program are in
 
 Optional arguments:
 ```
--h, --help                           Show this help message and exit
+-h, --help                           Show this help message and exit.
 -b DAYS, --back DAYS                 Number of days to parse. Default is 7. This will be overridden
-                                     if you specify both "latest" and "earliest"!
+                                       if you specify both "latest" and "earliest"!
 -l YYYY-MM-DD, --latest YYYY-MM-DD   Date to parse back from. Default is today (UTC)
 -e YYYY-MM-DD, --earliest YYYY-MM-DD Date to parse back to. Default is to determine it 
-                                     automatically by subtracting "back" from "latest".
+                                       automatically by subtracting "back" from "latest".
 -o, --overwrite                      Overwrite existing data when saving skeletons. Only do this if
-                                     you want to completely restart the reprocessing.
+                                       you want to completely restart the reprocessing.
 -s S, --sleep S                      Time, in seconds, to delay between receiving an API response
-                                     and sending the next request. Default is 0.5.
+                                       and sending the next request. Default is 0.5.
 -d, --dryrun                         Run the script without actually sending queries to the API.
-                                     This may break stuff.
+                                       This may break stuff.
 -v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
 -c, --configure                      Set up directories and runlog, then show config data and exit.
 -x, --explain                        Display detailed info about what this program does, then exit.
@@ -94,15 +94,22 @@ this program are in UTC, including timestamps in the runlog.
 
 Optional arguments:
 ```
--h, --help                          Show this help message and exit
--b DAYS, --back DAYS                Days to go back. Default is 7.
--l YYYY-MM-DD, --latest YYYY-MM-DD  Date to parse back from. Default is today (UTC).
--s S, --sleep S                     Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.
--m MAX, --max MAX                   Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.                     
--d, --dryrun                        Run the script without actually sending queries to the API. This may break stuff.
--v, --verbose                       Spam the terminal AND runlog with insanely detailed information. Wheee!
--c, --configure                     Set up directories and runlog, then show configuration data and exit.
--x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.
+-h, --help                           Show this help message and exit.
+-b DAYS, --back DAYS                 Days to go back. Default is 7.
+-l YYYY-MM-DD, --latest YYYY-MM-DD   Date to parse back from. Default is today (UTC).
+-s S, --sleep S                      Time, in seconds, to delay between receiving an API response
+                                       and sending the next request. Default is 0.5.
+-m MAX, --max MAX                    Maximum queries to make before stopping. Default is 0 (parse
+                                       all entries in the specified interval). Setting this will
+                                       probably cut off execution in the middle of a logpage, so 
+                                       it's pretty stupid to do this unless you know what you're
+                                       doing, or you're testing the script.                     
+-d, --dryrun                         Run the script without actually sending queries to the API.
+                                       This may break stuff.
+-v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
+-c, --configure                      Set up directories and runlog, then show config data and exit.
+-x, --explain                        Display detailed info about what this program does, then exit
+                                       (incl. a full list of fields it gets from the API).
 ```
                         
 Be aware that this one takes forever to run, as XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3
@@ -118,18 +125,27 @@ approximate, and will miss some things. Note that all dates used by this program
 
 Optional arguments:
 ```
--h, --help                          Show this help message and exit
--b DAYS, --back DAYS                Days to go back. Default is 7.
--l YYYY-MM-DD, --latest YYYY-MM-DD  Date to parse back from. Default is today (UTC).
--s S, --sleep S                     Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.
--q N, --querysize N                 Number of pairs to batch in each query. Default (and maximum allowed by the API) is 25.
--m MAX, --max MAX                   Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.
--d, --dryrun                        Run the script without actually sending queries to the API. This may break stuff.
--v, --verbose                       Spam the terminal AND runlog with insanely detailed information. Wheee!
--u, --debug                         Spam the ever-loving hell out of the terminal.
--c, --configure                     Set up directories and runlog, then show configuration data and exit.
--x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.
--z, --zero                          Put in fake placeholder values for AfD information, to run the parser on lists of normal pages
+-h, --help                           Show this help message and exit.
+-b DAYS, --back DAYS                 Days to go back. Default is 7.
+-l YYYY-MM-DD, --latest YYYY-MM-DD   Date to parse back from. Default is today (UTC).
+-s S, --sleep S                      Time, in seconds, to delay between receiving an API response
+                                       and sending the next request. Default is 0.5.
+-q N, --querysize N                  Number of pairs to batch in each query. Default (and maximum
+                                       allowed by the API) is 25.
+-m MAX, --max MAX                    Maximum queries to make before stopping. Default is 0 (parse
+                                       all entries in the specified interval). Setting this will
+                                       probably cut off execution in the middle of a logpage, so
+                                       it's pretty stupid to do this unless you know what you're
+                                       doing, or you're testing the script.
+-d, --dryrun                         Run the script without actually sending queries to the API.
+                                       This may break stuff.
+-v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
+-u, --debug                          Spam the ever-loving hell out of the terminal.
+-c, --configure                      Set up directories and runlog, then show config data & exit.
+-x, --explain                        Display detailed info about what this program does & exit.
+                                       (including a full list of the fields it gets from the API)
+-z, --zero                           Put in fake placeholder values for AfD information, to run
+                                       the parser on lists of normal pages.
 ```
 
 This one runs very quickly, since the en.wiki API allows batched queries.
@@ -141,13 +157,15 @@ Oracle for Deletion, output renderer (4 of 5). Note that all times and dates use
 
 optional arguments:
 ```
--h, --help                          show this help message and exit
--o blah.txt, --output blah.txt      Output file, which will be saved in /home/x/2k2k/soft/mine/afddata/output/. Default is "AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt".)
--b DAYS, --back DAYS                Days to go back. Default is 7.
--l DATE, --latest DATE              Date to parse back from (YYYY-MM-DD). Default is today (UTC).
--a,, --aggregate                    Whether to eliminate the daily headings and just make one huge table for the whole interval.
--v, --verbose                       Spam the terminal AND runlog with detailed information. Wheee!
--c, --configure                     Set up directories and runlog, then show configuration data and exit.
+-h, --help                           Show this help message and exit.
+-o blah.txt, --output blah.txt       Output file, which will be saved in data/output/.
+                                       Default is "AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt".)
+-b DAYS, --back DAYS                 Days to go back. Default is 7.
+-l DATE, --latest DATE               Date to parse back from (YYYY-MM-DD). Default is today (UTC).
+-a,, --aggregate                     Whether to eliminate the daily headings and just make one
+                                       huge table for the whole interval.
+-v, --verbose                        Spam the terminal AND runlog with detailed info. Wheee!
+-c, --configure                      Set up directories and runlog, then show config data & exit.
 ```
 
 This one runs almost instantaneously, since there are no API queries.
@@ -159,16 +177,20 @@ Oracle for Deletion, uploader (5 of 5).
 
 optional arguments:
 ```
--h, --help                          show this help message and exit
--n TEXT, --note TEXT                Comment to add to edit summary.
--i blah.txt, --input blah.txt       Input file to read, out of /home/x/2k2k/soft/mine/afd/data/output/. Default is render.txt.
--o User:Foo/O, --output User:Foo/O  Wikipedia page to post the file to. Default is User:JPxG/Oracle. Be careful with this one, because it is easy to do something stupid.
--u Foo@OfD, --username Foo@OfD      Specify username to authenticate with. Default is to read from cfg/login.txt.
--p hunter2, --password hunter2      Specify password to authenticate with. Default is to read from cfg/login.txt.
--d, --dryrun                        Run the script without actually editing the page.
--v, --verbose                       Spam the terminal AND runlog with insanely detailed information. Wheee!
--c, --configure                     Set up directories and runlog, then show configuration data and exit.
--x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.
+-h, --help                           Show this help message and exit.
+-n TEXT, --note TEXT                 Comment to add to edit summary.
+-i blah.txt, --input blah.txt        Input file to read, out of data/output/.
+                                       Default is render.txt.
+-o User:Foo/O, --output User:Foo/O   en.wp page to post the file to. Default is User:JPxG/Oracle.
+                                       Be careful with this; it is easy to do something stupid.
+-u Foo@OfD, --username Foo@OfD       Specify username to authenticate with.
+                                       Default is to read from cfg/login.txt.
+-p hunter2, --password hunter2       Specify password to authenticate with.
+                                       Default is to read from cfg/login.txt.
+-d, --dryrun                         Run the script without actually editing the page.
+-v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
+-c, --configure                      Set up directories and runlog, then show config data & exit.
+-x, --explain                        Display detailed info about what this program does & exit.
 ```
 
 ## Batch scripts
