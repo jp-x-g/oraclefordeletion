@@ -14,19 +14,22 @@ It contains five scripts, intended to be run in sequence, and a shell script tha
 
 ## Table of contents
 **[Programs (to run the software directly)](#all-scripts-and-their-usage)**
-> [main.py (1 of 5)](#main.py)
+> [main.py (1 of 5)](#mainpy)
 
-> [detail.py (2 of 5)](#detail.py)
+> [detail.py (2 of 5)](#detailpy)
 
-> [detailpages.py (3 of 5)](#detailpages.py)
+> [detailpages.py (3 of 5)](#detailpagespy)
 
-> [render.py (4 of 5)](#render.py)
+> [render.py (4 of 5)](#renderpy)
 
-> [upload.py (5 of 5)](#upload.py)
+> [upload.py (5 of 5)](#uploadpy)
 
 **[Batch scripts (to batch multiple programs together)](#batch-scripts)**
+> [batch-year.sh](#batch-yearsh)
 
+> [run-batch.sh](#run-batchsh)
 
+> [render-year.sh](#render-yearsh)
 
 **If you have no idea what to do with this software, do this and you will learn how to use it:**
 > ``cd oraclefordeletion``
@@ -79,7 +82,8 @@ Optional arguments:
 -d, --dryrun                         Run the script without actually sending queries to the API. This may break stuff.
 -v, --verbose                        Spam the terminal AND runlog with insanely detailed information. Wheee!
 -c, --configure                      Set up directories and runlog, then show configuration data and exit.
--x, --explain                        Display specific, detailed information about what this program does, then exit.```
+-x, --explain                        Display specific, detailed information about what this program does, then exit.
+```
 
 This will run pretty quickly, even though it doesn't batch its API queries. Take care to specify reasonable dates; AfD was called VfD (and worked
 differently) prior to 2005-08-28, and Wikipedia did not exist prior to January 2001.
@@ -101,7 +105,8 @@ Optional arguments:
 -d, --dryrun                        Run the script without actually sending queries to the API. This may break stuff.
 -v, --verbose                       Spam the terminal AND runlog with insanely detailed information. Wheee!
 -c, --configure                     Set up directories and runlog, then show configuration data and exit.
--x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.```
+-x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.
+```
                         
 Be aware that this one takes forever to run, as XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3
 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while.
@@ -127,7 +132,8 @@ Optional arguments:
 -u, --debug                         Spam the ever-loving hell out of the terminal.
 -c, --configure                     Set up directories and runlog, then show configuration data and exit.
 -x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.
--z, --zero                          Put in fake placeholder values for AfD information, to run the parser on lists of normal pages```
+-z, --zero                          Put in fake placeholder values for AfD information, to run the parser on lists of normal pages
+```
 
 This one runs very quickly, since the en.wiki API allows batched queries.
 
@@ -144,7 +150,8 @@ optional arguments:
 -l DATE, --latest DATE              Date to parse back from (YYYY-MM-DD). Default is today (UTC).
 -a,, --aggregate                    Whether to eliminate the daily headings and just make one huge table for the whole interval.
 -v, --verbose                       Spam the terminal AND runlog with detailed information. Wheee!
--c, --configure                     Set up directories and runlog, then show configuration data and exit.```
+-c, --configure                     Set up directories and runlog, then show configuration data and exit.
+```
 
 This one runs almost instantaneously, since there are no API queries.
 
@@ -164,7 +171,8 @@ optional arguments:
 -d, --dryrun                        Run the script without actually editing the page.
 -v, --verbose                       Spam the terminal AND runlog with insanely detailed information. Wheee!
 -c, --configure                     Set up directories and runlog, then show configuration data and exit.
--x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.```
+-x, --explain                       Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.
+```
 
 ## Batch scripts
 
@@ -177,27 +185,19 @@ Usage looks like, for example, this:
 > ``bash run-batch.sh -v 1 -s 0.1 -b 31 -l 2021-01-31 -o User:JPxG/sandbox99``
 
 The flags work the same way here as they do in the individual components (and specifying no options will cause it to simply process the last 7 days):
-> ``-o    title of the output page on Wikipedia``
-
-> ``-b    how many days to go back``
-
-> ``-l    the latest day to parse (YYYY-MM-DD)``
-
-> ``-s    sleep time between API queries (in seconds, will take decimals)``
-
-> ``-w 1  Overwrite existing files when scraping skeletons (this will clean damaged json, but may ruin lots of finished pages)``
-
-> ``-f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month will take ~1 minute instead of ~30)``
-
-> ``-g 1  enable aggregate output (one big table, instead of new sections/tables for different days)``
-
-> ``-v 1  enable verbose mode``
-
-> ``-h 1  print this help message and exit``
-
-> ``-a 1  print every individual component's help message and exit``
-
-> ``-c 1  print every individual component's configuration details and exit``
+```
+-o    title of the output page on Wikipedia
+-b    how many days to go back
+-l    the latest day to parse (YYYY-MM-DD)
+-s    sleep time between API queries (in seconds, will take decimals)
+-w 1  Overwrite existing files when scraping skeletons (this will clean damaged json, but may uin lots of finished pages)
+-f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month ill take ~1 minute instead of ~30)
+-g 1  enable aggregate output (one big table, instead of new sections/tables for different days)
+-v 1  enable verbose mode
+-h 1  print this help message and exit
+-a 1  print every individual component's help message and exit
+-c 1  print every individual component's configuration details and exit
+```
 
 Note: ``-g``, ``-v``, ``-h``, ``-a``, and ``-c`` **cannot be supplied bare**. This means you must supply them as '``-v 1``', '``-v asdf``', et cetera, or the script will go berserk. If you don't want to run these flags, just don't specify them at all.
 
