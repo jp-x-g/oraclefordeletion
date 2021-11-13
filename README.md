@@ -233,7 +233,7 @@ Oracle for Deletion, output renderer (4 of 5). Note that all times and dates use
                                        Default is "AfD-render-YYYY-MM-DD-to-YY-MM-DD.txt".)
 -b DAYS, --back DAYS                 Days to go back. Default is 7.
 -l DATE, --latest DATE               Date to parse back from (YYYY-MM-DD). Default is today (UTC).
--a,, --aggregate                     Whether to eliminate the daily headings and just make one
+-a, --aggregate                      Whether to eliminate the daily headings and just make one
                                        huge table for the whole interval.
 -v, --verbose                        Spam the terminal AND runlog with detailed info. Wheee!
 -c, --configure                      Set up directories and runlog, then show config data & exit.
