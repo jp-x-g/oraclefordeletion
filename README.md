@@ -1,4 +1,6 @@
-![The Oracle contemplating the haze of general notability guidelines.](/logo.jpg)
+<p align="center">
+	<img src="https://raw.githubusercontent.com/jp-x-g/oraclefordeletion/main/logo.jpg" alt="Oracle for Deletion logo" width="400" height="400">
+</p>
 
 This is a piece of software intended to provide a simple yet powerful utility to Wikipedia editors who participate in, monitor, and close discussions at [AfD](https://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion).
 
