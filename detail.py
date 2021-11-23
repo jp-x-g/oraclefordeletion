@@ -20,6 +20,9 @@ import json
 import argparse
 # Required to parse arguments. Parse parse...!!
 
+# There's another requirement -- toolforge -- which is only necessary if you're using the SQL mode.
+# This is a relatively uncommon package, so I will only bother to import it if you specify SQL mode.
+
 ########################################
 # Set all configuration variables.
 ########################################
@@ -51,6 +54,7 @@ parser = argparse.ArgumentParser(description="Oracle for Deletion, page stats de
 parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Default is 7.", default=7)
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC).", default=today)
 parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
+parser.add_argument("-q", "--sql", help="Use direct SQL queries instead of the XTools API to get article information. This will run much faster, but can only be done when running the software from Toolforge servers.", action="store_true")
 parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.", default=0)
 parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
@@ -88,6 +92,11 @@ if args.explain:
 	print("last_edit_id         | number    | revision id for last edit")
 	print("assessment           | string    | \"C\", \"Stub\", \"???\", et cetera.")
 	quit()
+
+useSql = 0
+if args.sql:
+	useSql = 1
+	import toolforge
 
 verbose = 0
 if args.verbose:
@@ -258,9 +267,46 @@ if numberOfDays > 30:
 # Let's jam.
 ########################################
 
+# initialize dict of all namespaces and their namespace codes
+namespaces = {
+	"Talk": "1",
+	"User": "2",
+	"User talk": "3",
+	"Wikipedia": "4",
+	"Wikipedia talk": "5",
+	"File": "6",
+	"File talk": "7",
+	"MediaWiki": "8",
+	"MediaWiki talk": "9",
+	"Template": "10",
+	"Template talk": "11",
+	"Help": "12",
+	"Help talk": "13",
+	"Category": "14",
+	"Category talk": "15",
+	"Portal": "100",
+	"Portal talk": "101",
+	"Draft": "118",
+	"Draft talk": "119",
+	"TimedText": "710",
+	"TimedText talk": "711",
+	"Module": "828",
+	"Module talk": "829",
+	"Gadget": "2300",
+	"Gadget talk": "2301",
+	"Gadget definition": "2302",
+	"Gadget definition talk": "2303"
+}
 # initialize afdDay, which we'll be using to store all the day for the data.
 afdDay = {}
 # this will go from 0 (today) to numberOfDays (the furthest we want to go back)
+if useSql == 1:
+	wpDatabase = "enwiki_p"
+	conn = toolforge.connect(wpDatabase)
+	cur = conn.cursor()
+	aLog("SQL connection established to " + wpDatabase)
+
+
 for incr in range(0,numberOfDays):
 	try:
 		# the day we're going to be dealing with is today minus the increment:
@@ -287,65 +333,108 @@ for incr in range(0,numberOfDays):
 		pageQueriesMade = 0
 		for page in dlData["pgs"]:
 			try:
-				#Increment the pagecount so we can know what's going on.
-				# This iterates over every page in that day's AfD.
-				#print(page)
-				key = dlData["pgs"][page]
-				#print(key)
-				if ((forReal) and (page != "")):
-					# This will actually hit the XTools API.
-					if verbose:
-						aLog("Attempting to contact API for " + page)
-					urls = [apiBase + page.replace("&","%26").replace("?","%3F"), apiBase + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"].replace("&","%26").replace("?","%3F")]
-					# This makes an array for the two API URLs we're gonna 	hit.
-					# We need to percent-encode the ampersand and question mark so it doesn't make XTools sad :(
-					for incre in [0, 1]:
-						if ((limitMaxQueries == True) and (totalQueriesMade > maxQueriesToMake)):
-							print("!!! Test is over, go home.")
-							closeOut()
-						# We want to get page info and AfD info.
-						# These are mostly the same thing.
-						# So can just run the same code twice with small changes.
-						storeIn = ["pagestats", "afdstats"][incre]
-						time.sleep(sleepTime)
-						# Okay, now we are ready to hit the API.
-						r = requests.get(urls[incre])
-						# Actually hit the URL in this line, and get a page, which will be of type "Response"
-						r = r.text
-						# Make it so that "r" is the text of the response, not a "Response" of the response
-						r = json.loads(r)
-						# Make it so that "r" is the parsed JSON of "r", not text
-						if "error" in r.keys():
-							pageQueriesMade = pageQueriesMade + 1
-							totalQueriesMade = totalQueriesMade + 1
-							toStore = {
-							"scrapetime": datetime.now(timezone.utc).isoformat(),
-							"error": r["error"]}
-							dlData["pgs"][page][storeIn] = toStore
-						else:
-							#print(r)
-							pageQueriesMade = pageQueriesMade + 1
-							totalQueriesMade = totalQueriesMade + 1
-							toStore = {
-							"scrapetime": datetime.now(timezone.utc).isoformat(),
-							"error": "0",
-							"watchers": r["watchers"], 
-							"pageviews": r["pageviews"], 
-							"pageviews_offset": r["pageviews_offset"], 
-							"revisions": r["revisions"], 
-							"editors": r["editors"], 
-							"minor_edits": r["minor_edits"], 
-							"author": r["author"], 
-							"author_editcount": r["author_editcount"], 
-							"created_at": r["created_at"], 
-							"created_rev_id": r["created_rev_id"], 
-							"modified_at": r["modified_at"], 
-							"secs_since_last_edit": r["secs_since_last_edit"], 
-							"last_edit_id": r["last_edit_id"], 
-							"assessment": r["assessment"]["value"]}
-							dlData["pgs"][page][storeIn] = toStore
-							if verbose:
-								print(storeIn + " retrieved (" + str(totalQueriesMade) + ")")
+				if (useSql == 0):
+					#Increment the pagecount so we can know what's going on.
+					# This iterates over every page in that day's AfD.
+					#print(page)
+					key = dlData["pgs"][page]
+					#print(key)
+					if ((forReal) and (page != "")):
+						# This will actually hit the XTools API.
+						if verbose:
+							aLog("Attempting to contact API for " + page)
+						urls = [apiBase + page.replace("&","%26").replace("?","%3F"), apiBase + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"].replace("&","%26").replace("?","%3F")]
+						# This makes an array for the two API URLs we're gonna 	hit.
+						# We need to percent-encode the ampersand and question mark so it doesn't make XTools sad :(
+						for incre in [0, 1]:
+							if ((limitMaxQueries == True) and (totalQueriesMade > maxQueriesToMake)):
+								print("!!! Test is over, go home.")
+								closeOut()
+							# We want to get page info and AfD info.
+							# These are mostly the same thing.
+							# So can just run the same code twice with small changes.
+							storeIn = ["pagestats", "afdstats"][incre]
+							time.sleep(sleepTime)
+							# Okay, now we are ready to hit the API.
+							r = requests.get(urls[incre])
+							# Actually hit the URL in this line, and get a page, which will be of type "Response"
+							r = r.text
+							# Make it so that "r" is the text of the response, not a "Response" of the response
+							r = json.loads(r)
+							# Make it so that "r" is the parsed JSON of "r", not text
+							if "error" in r.keys():
+								pageQueriesMade = pageQueriesMade + 1
+								totalQueriesMade = totalQueriesMade + 1
+								toStore = {
+								"scrapetime": datetime.now(timezone.utc).isoformat(),
+								"error": r["error"]}
+								dlData["pgs"][page][storeIn] = toStore
+							else:
+								#print(r)
+								pageQueriesMade = pageQueriesMade + 1
+								totalQueriesMade = totalQueriesMade + 1
+								toStore = {
+								"scrapetime": datetime.now(timezone.utc).isoformat(),
+								"error": "0",
+								"watchers": r["watchers"], 
+								"pageviews": r["pageviews"], 
+								"pageviews_offset": r["pageviews_offset"], 
+								"revisions": r["revisions"], 
+								"editors": r["editors"], 
+								"minor_edits": r["minor_edits"], 
+								"author": r["author"], 
+								"author_editcount": r["author_editcount"], 
+								"created_at": r["created_at"], 
+								"created_rev_id": r["created_rev_id"], 
+								"modified_at": r["modified_at"], 
+								"secs_since_last_edit": r["secs_since_last_edit"], 
+								"last_edit_id": r["last_edit_id"], 
+								"assessment": r["assessment"]["value"]}
+								dlData["pgs"][page][storeIn] = toStore
+								if verbose:
+									print(storeIn + " retrieved (" + str(totalQueriesMade) + ")")
+				else:
+					# If we are bypassing XTools and running the queries directly.
+					print("Not implemented yet lol.")
+					# Set page title to "pagetitle" and namespace code to "ns".
+					pagetitle = page
+					ns = 0
+					if (page.find(":") != -1):
+						n = page[0:page.find(":")]
+						if (n in namespaces):
+							ns = namespaces[n]
+							pagetitle = page[page.find(":")+1:]
+					pagetitle = pagetitle.replace(" ","_")
+					    #"scrapetime": "2021-08-27T06:32:17.618923+00:00",
+        				#"error": "0",
+        				#"watchers": 0,
+        				#"pageviews": 0,
+        				#"pageviews_offset": 30,
+        				#"revisions": 15,
+        				#"editors": 7,
+        				#"minor_edits": 0,
+        				#"author": "Coffee",
+        				#"author_editcount": 47575,
+        				#"created_at": "2016-06-02",
+        				#"created_rev_id": 723424722,
+        				#"modified_at": "2016-06-04 16:17",
+        				#"secs_since_last_edit": 164988898,
+        				#"last_edit_id": 723691396,
+        				#"assessment": "???"
+
+
+					dbQuery = ""
+					dbQuery += "SELECT COUNT(*) AS revisions, COUNT(case rev_minor_edit when 1 then 1 else null end) AS minor_edits, COUNT(DISTINCT rev_actor) AS editors, MIN(rev_timestamp) AS first_timestamp, MIN(rev_id) AS first_rev, MAX(rev_timestamp) AS last_timestamp, MAX(rev_id) AS last_rev, actor_name AS page_author"
+					dbQuery += "FROM revision "
+					dbQuery += "INNER JOIN actor "
+					dbQuery += "ON revision.rev_actor = actor.actor_id "
+					dbQuery += "INNER JOIN page "
+					dbQuery += "ON revision.rev_page = page.page_id "
+					dbQuery += "WHERE page_title = $t"
+					dbQuery += "AND page_namespace = $n;"
+
+					dbQuery = "SELECT page_id"
+					dbResponse = cur.execute(dbQuery, pagetitle, namespace)
 						#print(page)
 						##########
 						# End of codeblock that runs twice for each page (page 	and Afd)

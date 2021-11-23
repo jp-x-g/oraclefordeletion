@@ -18,7 +18,7 @@
 #python3 render.py      -v -b 31 -l 2021-06-30 -o render.txt
 #python3 upload.py      -v -o User:JPxG/sandbox68 -n "Parsing June 2021"
 
-while getopts v:h:c:a:g:f:s:b:l:o:w: flag
+while getopts v:h:c:a:g:f:s:b:l:o:w:q flag
 do
 	case "${flag}" in
 		v) verbose=1;;
@@ -32,6 +32,7 @@ do
 		l) last=${OPTARG};;
 		o) output=${OPTARG};;
 		w) overwrite=${OPTARG};;
+		q) sql=1;;
 	esac
 done
 
@@ -51,8 +52,9 @@ if [ "$help" = 1 ]; then
 	echo "  -b    how many days to go back"
 	echo "  -l    the latest day to parse (YYYY-MM-DD)"
 	echo "  -s    sleep time between API queries (in seconds, will take decimals)"
-	echo "  -w 1  Overwrite existing files when scraping skeletons (this will clean damaged json, but may ruin lots of finished pages)"
+	echo "  -w 1  overwrite existing files when scraping skeletons (this will clean damaged json, but may ruin lots of finished pages)"
 	echo "  -f 1  skip XTools queries to make less detailed table, cuts execution time by about 95% (a month will take ~1 minute instead of ~30)"
+	echo "  -q 1  detail table with SQL queries instead of XTools queries, also cuts execution time by a lot but can only be used if you are running this from a Toolforge account or Toolforge SSH tunnel"
 	echo "  -g 1  enable aggregate output (one big table, instead of new sections/tables for different days)"
 	echo "  -v 1  enable verbose mode"
 	echo "  -h 1  print this help message and exit"
@@ -101,6 +103,15 @@ if [ "$aggregate" = 1 ]; then
 	# upload.py doesn't take -a
 fi
 # If last.
+
+if [ "$aggregate" = 1 ]; then
+	# main.py doesn't take this flag.
+	arst2="$arst4 -q"
+	# detailpages.py doesn't take this flag.
+	# render.py doesn't take this flag.
+	# upload.py doesn't take this flag.
+fi
+# If you want it to use the SQL queries.
 
 if [ "$overwrite" = 1 ]; then
 	arst1="$arst1 -o"

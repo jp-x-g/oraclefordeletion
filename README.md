@@ -114,6 +114,9 @@ Usage: ``detail.py [-h] [-b DAYS] [-l YYYY-MM-DD] [-s S] [-m MAX] [-d] [-v] [-c]
 -l YYYY-MM-DD, --latest YYYY-MM-DD   Date to parse back from. Default is today (UTC).
 -s S, --sleep S                      Time, in seconds, to delay between receiving an API response
                                        and sending the next request. Default is 0.5.
+-q, --sql                            Use direct SQL queries instead of the XTools API to get
+                                       article information. This will run much faster, but can
+                                       only be done when running the software from Toolforge.
 -m MAX, --max MAX                    Maximum queries to make before stopping. Default is 0 (parse
                                        all entries in the specified interval). Setting this will
                                        probably cut off execution in the middle of a logpage, so 
@@ -126,8 +129,7 @@ Usage: ``detail.py [-h] [-b DAYS] [-l YYYY-MM-DD] [-s S] [-m MAX] [-d] [-v] [-c]
 -x, --explain                        Display detailed info about what this program does, then exit
                                        (incl. a full list of fields it gets from the API).
 ```
-                        
-Be aware that this one takes forever to run, as XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while.
+Be aware that this one takes forever to run (up to 30 minutes for a month of AfDs), unless you are running it from a Toolforge account. XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while.
 
 These fields are retrieved for both the article at AfD and the AfD nomination page itself.
 
