@@ -26,7 +26,7 @@ import argparse
 ########################################
 # Set all configuration variables.
 ########################################
-version = "0.2"
+version = "1.0"
 userRunning = "JPxG"
 
 # File system stuff below.
@@ -411,57 +411,131 @@ for incr in range(0,numberOfDays):
 								if verbose:
 									print(storeIn + " retrieved (" + str(totalQueriesMade) + ")")
 				else:
-					# If we are bypassing XTools and running the queries directly.
-					print("Not implemented yet.")
-					# Set page title to "pagetitle" and namespace code to "ns".
-					pagetitle = page
-					ns = 0
-					if (page.find(":") != -1):
-						n = page[0:page.find(":")]
-						if (n in namespaces):
-							ns = namespaces[n]
-							pagetitle = page[page.find(":")+1:]
-					pagetitle = pagetitle.replace(" ","_")
-					    #"scrapetime": "2021-08-27T06:32:17.618923+00:00",
-        				#"error": "0",
-        				#"watchers": 0,
-        				#"pageviews": 0,
-        				#"pageviews_offset": 30,
-        				#"revisions": 15,
-        				#"editors": 7,
-        				#"minor_edits": 0,
-        				#"author": "Coffee",
-        				#"author_editcount": 47575,
-        				#"created_at": "2016-06-02",
-        				#"created_rev_id": 723424722,
-        				#"modified_at": "2016-06-04 16:17",
-        				#"secs_since_last_edit": 164988898,
-        				#"last_edit_id": 723691396,
-        				#"assessment": "???"
+					for incre in [0,1]:
+						storeIn = ["pagestats", "afdstats"][incre]
+						p = [page, "Wikipedia:Articles_for_deletion/" + page][incre]
+						# If we are bypassing XTools and running the queries directly.
+						#print("Not implemented yet.")
+						# Set page title to "pagetitle" and namespace code to "ns".
+						pagetitle = p
+						ns = 0
+						if (p.find(":") != -1):
+							n = p[0:p.find(":")]
+							if (n in namespaces):
+								ns = namespaces[n]
+								pagetitle = p[p.find(":")+1:]
+						pagetitle = pagetitle.replace(" ","_")
+	
+						#print(f"Namespace: {ns}, page: {pagetitle}")
+					    	#"scrapetime": "2021-08-27T06:32:17.618923+00:00",
+        					#"error": "0",
+        					#"watchers": 0,
+        					#"pageviews": 0,
+        					#"pageviews_offset": 30,
+        					#"revisions": 15,
+        					#"editors": 7,
+        					#"minor_edits": 0,
+        					#"author": "Coffee",
+        					#"author_editcount": 47575,
+        					#"created_at": "2016-06-02",
+        					#"created_rev_id": 723424722,
+        					#"modified_at": "2016-06-04 16:17",
+        					#"secs_since_last_edit": 164988898,
+        					#"last_edit_id": 723691396,
+        					#"assessment": "???"
+	
+        					# "Skon" is pageid 16601866.
+	
+						dbQuery = ""
+						dbQuery += "SELECT COUNT(*) AS revisions, COUNT(case rev_minor_edit when 1 then 1 else null end) AS minor_edits, COUNT(DISTINCT rev_actor) AS editors, MIN(rev_timestamp) AS first_timestamp, MIN(rev_id) AS first_rev, MAX(rev_timestamp) AS last_timestamp, MAX(rev_id) AS last_rev, actor_name AS page_author "
+	
+						#dbQuery = "SELECT COUNT(*) AS revisions "
+						dbQuery += "FROM revision "
+						dbQuery += "INNER JOIN actor "
+						dbQuery += "ON revision.rev_actor = actor.actor_id "
+						dbQuery += "INNER JOIN page "
+						dbQuery += "ON revision.rev_page = page.page_id "
+						dbQuery += "WHERE page_title = %s "
+						dbQuery += "AND page_namespace = %s;"
+						#dbQuery += f"WHERE page_title = {pagetitle} "
+						#dbQuery += f"AND page_namespace = {ns};"
+						#print(cur.mogrify(dbQuery, (pagetitle, ns)))
+						dbResponse = cur.execute(dbQuery, (pagetitle, ns))
+						#dbResponse = cur.execute(dbQuery)
+						
+						#print("Pee pee poo poo")
+						#print(dbResponse)
+						r = cur.fetchone()
+						#print(r)
+	
+						#revisions	minor_edits		editors		first_timestamp
+						#	0			1				2			3
 
-        				# "Skon" is pageid 16601866.
+						#first_rev	last_timestamp	last_rev	page_author
+						#	4			5				6			7
+
+						# "No matching results found for: Georgia State Route 39 Spur (Jakin)"
+
+						pageQueriesMade = pageQueriesMade + 1
+						totalQueriesMade = totalQueriesMade + 1
+
+						# Format timestamps properly.
+						# We get this:
+						
+						# 20210725162407
+						# 01234567890123
+
+						# We store this:
+						# 2021-07-25T16:24:07.000000+00:00
 
 
-					dbQuery = ""
-					dbQuery += "SELECT COUNT(*) AS revisions, COUNT(case rev_minor_edit when 1 then 1 else null end) AS minor_edits, COUNT(DISTINCT rev_actor) AS editors, MIN(rev_timestamp) AS first_timestamp, MIN(rev_id) AS first_rev, MAX(rev_timestamp) AS last_timestamp, MAX(rev_id) AS last_rev, actor_name AS page_author "
+						if (r[0] == 0):
+							toStore = {
+							"scrapetime": datetime.now(timezone.utc).isoformat(),
+							"error": "SQL - No matching results found for:" + page}
+							dlData["pgs"][page][storeIn] = toStore
+						else:
+							cts = str(r[3]).replace("b'","'")[1:-1]
+							cts = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8] + "T" + cts[8:10] + ":" + cts[10:12] + ":" + cts[12:] + ".000000+00:00"
+							# Modify to be in ISO format.
 
-					dbQuery = "SELECT COUNT(*) AS revisions "
-					dbQuery += "FROM revision "
-					dbQuery += "INNER JOIN actor "
-					dbQuery += "ON revision.rev_actor = actor.actor_id "
-					dbQuery += "INNER JOIN page "
-					dbQuery += "ON revision.rev_page = page.page_id "
-					dbQuery += "WHERE page_title = '%s' "
-					dbQuery += "AND page_namespace = %s;"
-					print(dbQuery)
-					dbResponse = cur.execute(dbQuery, (pagetitle, ns))
-					#dbQuery = "SELECT COUNT(*) FROM revision WHERE rev_page = 16601866"
-					dbResponse = cur.execute(dbQuery)
-					#dbResponse = cur.execute("SELECT COUNT(*) FROM revision WHERE page_title='Jesus'")
-					print(dbResponse)
-					for i in dbResponse:
-						print(i)
-					#print(page)
+							mts = str(r[5]).replace("b'","'")[1:-1]
+							mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + "T" + mts[8:10] + ":" + mts[10:12] + ":" + mts[12:] + ".000000+00:00"
+							# Modify to be in ISO format.
+
+							original = datetime.fromisoformat(cts)
+							delta = datetime.now(timezone.utc) - original
+							seconds = int(delta.total_seconds())
+							# Get total seconds since last edit.
+
+							#print(r[7])
+							#print(str(r[7]))
+							#print(str(r[7]).replace("b'","'"))
+							toStore = {
+							"scrapetime": datetime.now(timezone.utc).isoformat(),
+							"error": "0",
+							"watchers": -1, 
+							"pageviews": -1, 
+							"pageviews_offset": -1, 
+							"revisions": r[0], 
+							"editors": r[2],
+							"minor_edits": r[1],
+							"author": str(r[7]).replace("b'","'")[1:-1],
+							"author_editcount": -1,
+							"created_at": cts,
+							"created_rev_id": r[4],
+							"modified_at": mts,
+							"secs_since_last_edit": seconds,
+							"last_edit_id": r[6],
+							"assessment": "not retrieved",
+							}
+						#print(toStore)
+						dlData["pgs"][page][storeIn] = toStore
+						if verbose:
+							print(storeIn + " retrieved (" + str(totalQueriesMade) + ")")
+	
+	
+						#print(page)
 					##########
 					# End of codeblock that runs twice for each page (page 	and Afd)
 					##########
