@@ -104,7 +104,7 @@ if [ "$aggregate" = 1 ]; then
 fi
 # If last.
 
-if [ "$aggregate" = 1 ]; then
+if [ "$sql" = 1 ]; then
 	# main.py doesn't take this flag.
 	arst2="$arst4 -q"
 	# detailpages.py doesn't take this flag.

@@ -97,6 +97,8 @@ useSql = 0
 if args.sql:
 	useSql = 1
 	import toolforge
+	import pymysql
+	# Required by the toolforge library anyway and allows you to connect without it.
 
 verbose = 0
 if args.verbose:
@@ -135,6 +137,8 @@ pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
 logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
 outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
+
+sqlLoginPath = Path("/home/x/2k2k/soft/mine/toolforge/replica.my.cnf")
 
 ########################################
 # Make sure those paths exist.
@@ -300,9 +304,22 @@ namespaces = {
 # initialize afdDay, which we'll be using to store all the day for the data.
 afdDay = {}
 # this will go from 0 (today) to numberOfDays (the furthest we want to go back)
+
 if useSql == 1:
 	wpDatabase = "enwiki_p"
-	conn = toolforge.connect(wpDatabase)
+	#conn = toolforge.connect(wpDatabase)
+	authPath = open(str(sqlLoginPath), 'rb')
+	authContents = authPath.read().decode()
+	authPath.close()
+	authContents = authContents.split("\n")
+	#password = hunter2hunter2hu
+	#012345678901234567890123456
+	#user = U12345
+
+	user = authContents[2][7:]
+	password = authContents[1][11:]
+
+	conn = pymysql.connections.Connection(user='u33558', password='ZirMRVHXm4DDX6CH', database=wpDatabase, host='127.0.0.1', port=3306)
 	cur = conn.cursor()
 	aLog("SQL connection established to " + wpDatabase)
 
@@ -395,7 +412,7 @@ for incr in range(0,numberOfDays):
 									print(storeIn + " retrieved (" + str(totalQueriesMade) + ")")
 				else:
 					# If we are bypassing XTools and running the queries directly.
-					print("Not implemented yet lol.")
+					print("Not implemented yet.")
 					# Set page title to "pagetitle" and namespace code to "ns".
 					pagetitle = page
 					ns = 0
@@ -422,23 +439,32 @@ for incr in range(0,numberOfDays):
         				#"last_edit_id": 723691396,
         				#"assessment": "???"
 
+        				# "Skon" is pageid 16601866.
+
 
 					dbQuery = ""
-					dbQuery += "SELECT COUNT(*) AS revisions, COUNT(case rev_minor_edit when 1 then 1 else null end) AS minor_edits, COUNT(DISTINCT rev_actor) AS editors, MIN(rev_timestamp) AS first_timestamp, MIN(rev_id) AS first_rev, MAX(rev_timestamp) AS last_timestamp, MAX(rev_id) AS last_rev, actor_name AS page_author"
+					dbQuery += "SELECT COUNT(*) AS revisions, COUNT(case rev_minor_edit when 1 then 1 else null end) AS minor_edits, COUNT(DISTINCT rev_actor) AS editors, MIN(rev_timestamp) AS first_timestamp, MIN(rev_id) AS first_rev, MAX(rev_timestamp) AS last_timestamp, MAX(rev_id) AS last_rev, actor_name AS page_author "
+
+					dbQuery = "SELECT COUNT(*) AS revisions "
 					dbQuery += "FROM revision "
 					dbQuery += "INNER JOIN actor "
 					dbQuery += "ON revision.rev_actor = actor.actor_id "
 					dbQuery += "INNER JOIN page "
 					dbQuery += "ON revision.rev_page = page.page_id "
-					dbQuery += "WHERE page_title = $t"
-					dbQuery += "AND page_namespace = $n;"
-
-					dbQuery = "SELECT page_id"
-					dbResponse = cur.execute(dbQuery, pagetitle, namespace)
-						#print(page)
-						##########
-						# End of codeblock that runs twice for each page (page 	and Afd)
-						##########
+					dbQuery += "WHERE page_title = '%s' "
+					dbQuery += "AND page_namespace = %s;"
+					print(dbQuery)
+					dbResponse = cur.execute(dbQuery, (pagetitle, ns))
+					#dbQuery = "SELECT COUNT(*) FROM revision WHERE rev_page = 16601866"
+					dbResponse = cur.execute(dbQuery)
+					#dbResponse = cur.execute("SELECT COUNT(*) FROM revision WHERE page_title='Jesus'")
+					print(dbResponse)
+					for i in dbResponse:
+						print(i)
+					#print(page)
+					##########
+					# End of codeblock that runs twice for each page (page 	and Afd)
+					##########
 				aLog(str(totalQueriesMade) + " (entry " + str(int(pageQueriesMade / 2)) + " of " + str(dlData["count"]) + ", on page " + str(incr+1) + " of " + str(numberOfDays) + "): " + page + " completed")
 				##########
 				# End of codeblock that runs over every page in the day's AfD log.
@@ -446,8 +472,8 @@ for incr in range(0,numberOfDays):
 			except (KeyboardInterrupt):
 				aLog("ABORTING EXECUTION: KeyboardInterrupt")
 				quit()
-			except:
-				aLog("!!!!!!!!!! FAILED TO PROCESS !!!!!!!!!!")
+			#except:
+			#	aLog("!!!!!!!!!! FAILED TO PROCESS !!!!!!!!!!")
 		if verbose:
 			aLog("Attempting to save parsed log to " + dayLogPath)
 		try:
