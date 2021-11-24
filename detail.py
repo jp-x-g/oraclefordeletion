@@ -496,12 +496,16 @@ for incr in range(0,numberOfDays):
 							dlData["pgs"][page][storeIn] = toStore
 						else:
 							cts = str(r[3]).replace("b'","'")[1:-1]
-							cts = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8] + "T" + cts[8:10] + ":" + cts[10:12] + ":" + cts[12:] + ".000000+00:00"
+							#cts = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8] + "T" + cts[8:10] + ":" + cts[10:12] + ":" + cts[12:] + ".000000+00:00"
 							# Modify to be in ISO format.
+							cts = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8]
+							# Actually, it should just be like "2021-07-25".
 
 							mts = str(r[5]).replace("b'","'")[1:-1]
 							mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + "T" + mts[8:10] + ":" + mts[10:12] + ":" + mts[12:] + ".000000+00:00"
 							# Modify to be in ISO format.
+							mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + " " + mts[8:10] + ":" + mts[10:12]
+							# Actually, it should just be like "2021-07-25 16:24".
 
 							original = datetime.fromisoformat(cts)
 							delta = datetime.now(timezone.utc) - original
