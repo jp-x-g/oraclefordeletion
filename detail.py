@@ -114,6 +114,7 @@ if (args.max != 0):
 	limitMaxQueries = True
 	maxQueriesToMake = args.max
 
+totalQueriesMade = 0
 numberOfDays = int(args.back)
 sleepTime = float(args.sleep)
 
@@ -176,6 +177,8 @@ def closeOut():
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	aLog("FINISHED AT  : " + str(datetime.now(timezone.utc)))
 	aLog("DAYS: " + str(numberOfDays) + " / ENTRIES: " + str(totalQueriesMade / 2.0) + " / QUERIES: " + str(totalQueriesMade))
+	if (totalQueriesMade == 0):
+		totalQueriesMade = 0.1
 	aLog("TIME: " + str(round(execTime,3)) + "s / " + str(round((execTime / totalQueriesMade),3)) + "s per query")
 	try:
 		tmphandlePath = open(str(tmpfile), 'r')
@@ -319,7 +322,7 @@ if useSql == 1:
 	user = authContents[2][7:]
 	password = authContents[1][11:]
 
-	conn = pymysql.connections.Connection(user='u12345', password='1234567890123456', database=wpDatabase, host='127.0.0.1', port=3306)
+	conn = pymysql.connections.Connection(user=user, password=password, database=wpDatabase, host='127.0.0.1', port=3306)
 	cur = conn.cursor()
 	aLog("SQL connection established to " + wpDatabase)
 
@@ -463,7 +466,6 @@ for incr in range(0,numberOfDays):
 						dbResponse = cur.execute(dbQuery, (pagetitle, ns))
 						#dbResponse = cur.execute(dbQuery)
 						
-						#print("Pee pee poo poo")
 						#print(dbResponse)
 						r = cur.fetchone()
 						#print(r)
@@ -481,13 +483,11 @@ for incr in range(0,numberOfDays):
 
 						# Format timestamps properly.
 						# We get this:
-						
 						# 20210725162407
 						# 01234567890123
 
 						# We store this:
 						# 2021-07-25T16:24:07.000000+00:00
-
 
 						if (r[0] == 0):
 							toStore = {
@@ -496,18 +496,18 @@ for incr in range(0,numberOfDays):
 							dlData["pgs"][page][storeIn] = toStore
 						else:
 							cts = str(r[3]).replace("b'","'")[1:-1]
-							#cts = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8] + "T" + cts[8:10] + ":" + cts[10:12] + ":" + cts[12:] + ".000000+00:00"
+							original = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8] + "T" + cts[8:10] + ":" + cts[10:12] + ":" + cts[12:] + ".000000+00:00"
 							# Modify to be in ISO format.
 							cts = cts[0:4] + "-" + cts[4:6] + "-" + cts[6:8]
-							# Actually, it should just be like "2021-07-25".
+							# The one we store as "date created", which looks like "2021-07-25".
 
 							mts = str(r[5]).replace("b'","'")[1:-1]
-							mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + "T" + mts[8:10] + ":" + mts[10:12] + ":" + mts[12:] + ".000000+00:00"
+							# mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + "T" + mts[8:10] + ":" + mts[10:12] + ":" + mts[12:] + ".000000+00:00"
 							# Modify to be in ISO format.
 							mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + " " + mts[8:10] + ":" + mts[10:12]
 							# Actually, it should just be like "2021-07-25 16:24".
 
-							original = datetime.fromisoformat(cts)
+							original = datetime.fromisoformat(original)
 							delta = datetime.now(timezone.utc) - original
 							seconds = int(delta.total_seconds())
 							# Get total seconds since last edit.

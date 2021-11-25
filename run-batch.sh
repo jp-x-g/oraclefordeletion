@@ -76,7 +76,6 @@ if [ "$verbose" = 1 ]; then
 fi
 # If verbose is set, then add -v to the argument string.
 
-
 if [ "$all" = 1 ]; then
 	arst1="$arst1 -h"
 	arst2="$arst2 -h"
@@ -106,7 +105,7 @@ fi
 
 if [ "$sql" = 1 ]; then
 	# main.py doesn't take this flag.
-	arst2="$arst4 -q"
+	arst2="$arst2 -q"
 	# detailpages.py doesn't take this flag.
 	# render.py doesn't take this flag.
 	# upload.py doesn't take this flag.

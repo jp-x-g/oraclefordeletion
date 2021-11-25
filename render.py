@@ -1042,6 +1042,8 @@ top = top + "\n|" + sort + str(closed / numberOfDays)[0:5]
 for asdf in full:
 	## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
 	if (asdf != "op"):
+		if (closed == 0):
+			closed = 0.1
 		# For every type of close in the index aside from "op", put the total of how many there were.
 		top = top + "\n|" + sort + m + str(float(100.0 * (totind[asdf] / closed)))[0:4] + "%" + n
 # Add all the stuff to the index table for the top.

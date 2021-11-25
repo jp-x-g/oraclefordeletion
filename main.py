@@ -279,6 +279,7 @@ for incr in range(0,numberOfDays):
 					pageContent = eachPage['revisions'][0]['slots']['main']['content']
 				except:
 					aLog("!!! Failed to retrieve page content for that day.")
+					pageContent = "Failed to retrieve content."
 				# Get a string of the content we want to store.
 				##########
 				# Stupid disgusting hack. Do this to process raw text of an AfD series, if you're a weirdo.
