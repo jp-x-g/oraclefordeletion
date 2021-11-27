@@ -173,12 +173,12 @@ def aLog(argument):
 # Function to be done with the program.
 ########################################
 
-def closeOut():
+def closeOut(totalQueriesMade):
+	if (totalQueriesMade == 0):
+		totalQueriesMade = 0.1
 	execTime = (datetime.now(timezone.utc) - startTime).total_seconds()
 	aLog("FINISHED AT  : " + str(datetime.now(timezone.utc)))
 	aLog("DAYS: " + str(numberOfDays) + " / ENTRIES: " + str(totalQueriesMade / 2.0) + " / QUERIES: " + str(totalQueriesMade))
-	if (totalQueriesMade == 0):
-		totalQueriesMade = 0.1
 	aLog("TIME: " + str(round(execTime,3)) + "s / " + str(round((execTime / totalQueriesMade),3)) + "s per query")
 	try:
 		tmphandlePath = open(str(tmpfile), 'r')
@@ -266,8 +266,8 @@ if numberOfDays > 30:
 		print("This probably isn't going to work the way you want.")
 	print("!!!!!  WARNING: This is a " + word + "load of pages.  !!!!!\n"
 		+ "!!!!! I sure hope you know what you're doing. !!!!!")
-	if numberOfDays > 60:
-		time.sleep(5)
+	#if numberOfDays > 60:
+		#time.sleep(5)
 
 
 ########################################
@@ -416,7 +416,7 @@ for incr in range(0,numberOfDays):
 				else:
 					for incre in [0,1]:
 						storeIn = ["pagestats", "afdstats"][incre]
-						p = [page, "Wikipedia:Articles_for_deletion/" + page][incre]
+						p = [page, "Wikipedia:Articles_for_deletion/" + dlData["pgs"][page]["afd"]["afdtitle"]][incre]
 						# If we are bypassing XTools and running the queries directly.
 						#print("Not implemented yet.")
 						# Set page title to "pagetitle" and namespace code to "ns".
@@ -567,5 +567,5 @@ for incr in range(0,numberOfDays):
 	except (KeyboardInterrupt):
 		aLog("ABORTING EXECUTION: KeyboardInterrupt")
 		quit()
-closeOut()
+closeOut(totalQueriesMade)
 # Log how long it took.

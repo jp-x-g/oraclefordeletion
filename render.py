@@ -474,7 +474,7 @@ if args.configure == True:
 
 if numberOfDays > 30:
 	word = "boat"
-	time.sleep(1)
+	#time.sleep(1)
 	if numberOfDays > 60:
 		word = "crap"
 	if numberOfDays > 120:
@@ -490,8 +490,8 @@ if numberOfDays > 30:
 		print("This probably isn't going to work the way you want.")
 	print("!!!!!  WARNING: This is a " + word + "load of pages.  !!!!!"
 		+ "!!!!!     Your output is going to be HUGE     !!!!!")
-	if numberOfDays > 60:
-		time.sleep(5)
+	#if numberOfDays > 60:
+		#time.sleep(5)
 
 ########################################
 # Let's jam.
