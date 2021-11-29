@@ -144,7 +144,7 @@ def aLog(argument):
 		dalogContents = dalogPath.read().decode()
 		dalogPath.close()
 		dalog = open(str(logFilePath), 'w')
-		dalog.write(dalogContents + argument)
+		dalog.write("\n" + dalogContents + argument)
 		dalog.close()
 		print(argument)
 	except (FileNotFoundError):
