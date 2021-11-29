@@ -4,7 +4,6 @@
 
 backby=$1
 
-
 DAYS=$(cal $(date +"%m %Y") | awk 'NF {DAYS = $NF}; END {print DAYS}')
 # Days of the current month. Props to sleeplessbeastie.eu who came up with this
 
@@ -27,18 +26,20 @@ echo "$topday"
 #echo "$topday"
 #echo "$topday"
 
-python3 main.py                 -o -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
-python3 detail.py               -q -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01 -o enwiki.analytics.db.svc.wikimedia.cloud
-python3 detailpages.py             -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
+cd /data/project/jpxg-test/oraclefordeletion
+
+python3 main.py                 -o -b $goback -l $YYYY-$MM-$DAYS -s 0.01
+python3 detail.py               -q -b $goback -l $YYYY-$MM-$DAYS -s 0.01 -o enwiki.analytics.db.svc.wikimedia.cloud
+python3 detailpages.py             -b $goback -l $YYYY-$MM-$DAYS -s 0.05
 cp data/tmp/tmp.txt data/tmp/tmp2.txt
 
-python3 render.py               -a -v -b $DAYS   -l $YYYY-$MM-$DAYS -o render.txt
-python3 upload.py     			   -v -o User:JPxG/Oracle/$YYYY-$MM -n "Updating from Toolforge."
+python3 render.py               -a -b $DAYS   -l $YYYY-$MM-$DAYS -o render.txt
+python3 upload.py     			   -o User:JPxG/Oracle/$YYYY-$MM -n "Updating from Toolforge."
 # Render and upload the monthly page.
 
 mv data/tmp/tmp2.txt data/tmp/tmp.txt
-python3 render.py                  -v -b $DAYS   -l $YYYY-$MM-$DD   -o render.txt
-python3 upload.py     			   -v -o User:JPxG/Oracle -n "Updating with Toolforge."
+python3 render.py                  -b $DAYS   -l $YYYY-$MM-$DD   -o render.txt
+python3 upload.py     			   -o User:JPxG/Oracle -n "Updating with Toolforge."
 # Render and upload the dashboard
 
 

@@ -4,7 +4,6 @@
 
 backby=$1
 
-
 DAYS=$(cal $(date +"%m %Y") | awk 'NF {DAYS = $NF}; END {print DAYS}')
 # Days of the current month. Props to sleeplessbeastie.eu who came up with this
 
