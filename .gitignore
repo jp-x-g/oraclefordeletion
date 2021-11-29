@@ -3,7 +3,14 @@
 # Folders 
 data/*
 pages-old/*
-cfg/*
+
+# Authentication
+cfg/login*
+cfg/replica*
+cfg/login.txt
+cfg/replica.my.cnf
+cfg/*.txt
+cfg/*.cnf
 
 # Miscellaneous stuff
 notes.py
