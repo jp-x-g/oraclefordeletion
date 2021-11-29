@@ -61,7 +61,9 @@ parser.add_argument("-x", "--explain", help="Display specific, detailed informat
 parser.add_argument("-z", "--zero", help="Put in fake placeholder values for AfD information, to run the parser on lists of normal pages", action="store_true")
 
 args = parser.parse_args()
-today = datetime.fromisoformat(str(args.latest))
+#today = datetime.fromisoformat(str(args.latest))
+# Commenting out in lieu of Python 3.5 compatible line below.
+today = datetime.strptime(str(args.latest), "%Y-%m-%d")
 
 if args.explain:
 	print("This is the third in a series of scripts.")
