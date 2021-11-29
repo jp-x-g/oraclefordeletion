@@ -32,12 +32,12 @@ python3 detail.py               -q -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
 python3 detailpages.py             -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
 
 python3 render.py               -a -v -b $DAYS   -l $YYYY-$MM-$DAYS -o render.txt
-python3 upload.py     			   -v -o User:JPxG/Oracle/$YYYY-$MM
+python3 upload.py     			   -v -o User:JPxG/Oracle/$YYYY-$MM-test
 # Render and upload the monthly page.
 
 python3 render.py                  -v -b $DAYS   -l $YYYY-$MM-$DD   -o render.txt
-python3 upload.py     			   -v -o User:JPxG/Oracle
-# Render and upload the dashboard
+python3 upload.py     			   -v -o User:JPxG/Oracle9
+# Render and upload the dashboard.
 
 
 #python3 detail.py                  -v -b 1 -l 2014-10-05 -s 0.01

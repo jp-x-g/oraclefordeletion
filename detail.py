@@ -143,7 +143,7 @@ logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
 outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
 
 # sqlLoginPath = Path("/home/x/2k2k/soft/mine/toolforge/replica.my.cnf")
-sqlLoginPath = Path("~/replica.my.cnf")
+sqlLoginPath = Path(os.getcwd() + "/cfg/replica.my.cnf")
 
 
 ########################################
