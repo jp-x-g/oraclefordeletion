@@ -33,16 +33,16 @@ python3 detail.py               -q -b $goback -l $YYYY-$MM-$DAYS -s 0.01 -o enwi
 python3 detailpages.py             -b $goback -l $YYYY-$MM-$DAYS -s 0.05
 cp data/tmp/tmp.txt data/tmp/tmp2.txt
 
-python3 render.py               -a -b $DAYS   -l $YYYY-$MM-$DAYS -o render.txt
+python3 render.py               -a -b $DAYS   -l $YYYY-$MM-$DAYS -o render2.txt
 python3 upload.py     			   -o User:JPxG/Oracle/$YYYY-$MM -n "Updating from Toolforge."
 # Render and upload the monthly page.
 
 mv data/tmp/tmp2.txt data/tmp/tmp.txt
-python3 render.py                  -b $DAYS   -l $YYYY-$MM-$DD   -o render.txt
+python3 render.py                  -b $DAYS   -l $YYYY-$MM-$DD   -o render2.txt
 python3 upload.py     			   -o User:JPxG/Oracle -n "Updating with Toolforge."
 # Render and upload the dashboard
 
-rm render.txt
+rm render2.txt
 
 #python3 detail.py                  -v -b 1 -l 2014-10-05 -s 0.01
 #python3 detailpages.py             -v -b 1 -l 2014-10-05 -s 0.01
