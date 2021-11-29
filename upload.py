@@ -347,7 +347,7 @@ if forReal == 1:
 		"token": token,
 		"title": pagename,
 		"text": r + "\n" + payload + pro,
-		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
+		"summary": args.note + " ([[WP:OFD|Oracle for Deletion]], version " + version + ")",
 		"format": "json"
 		})
 	edit = edit.text
@@ -361,7 +361,7 @@ else:
 		"token": token,
 		"title": pagename,
 		"text": r + "\n" + payload + pro,
-		"summary": args.note + " [Oracle for Deletion, version " + version + " :^)]",
+		"summary": args.note + " ([[WP:OFD|Oracle for Deletion]], version " + version + ")",
 		"format": "json"
 		}
 	print(data)
