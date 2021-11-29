@@ -45,7 +45,7 @@ tmpfilename = "tmp.txt"
 
 # Page names below.
 inputPage = "render.txt"
-pagename = "User:JPxG/Oracle"
+pagename = "User:JPxG/Oracle9"
 apiBase = "https://en.wikipedia.org/w/api.php"
 
 dividerStart = "<!-- Everything below"

@@ -62,7 +62,9 @@ parser.add_argument("-c", "--configure", help="Set up directories and runlog, th
 parser.add_argument("-x", "--explain", help="Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.", action="store_true")
 
 args = parser.parse_args()
-today = datetime.fromisoformat(str(args.latest))
+#today = datetime.fromisoformat(str(args.latest))
+# Commenting out in lieu of Python 3.5 compatible line below.
+today = datetime.strptime(str(args.latest), "%Y-%m-%d")
 
 if args.explain:
 	print("This is the second in a series of scripts.")

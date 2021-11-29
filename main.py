@@ -40,22 +40,23 @@ stupidKludge = 0
 # Set this to 1 if you want to do the dumbest, most lazy hack nonsense in history.
 
 today = datetime.utcnow().date()
+# This SHOULD be fine in 3.5. May have to change later.
 
 ########################################
 # Parse arguments from command line.
 ########################################
 
 parser = argparse.ArgumentParser(description="Oracle for Deletion, AfD log parser (1 of 5). This will retrieve the wikitext of AfD log pages, and parse the entries from them into JSON files. It also accompanies the entries with basic information from the log page: the title of the page, the title of the AfD page, relist status, and how many previous nominations the article has had. Note that all dates used by this program are in UTC, including timestamps in the runlog.", epilog="This will run pretty quickly, even though it doesn't batch its API queries. Take care to specify reasonable dates; AfD was called VfD (and worked differently) prior to 2005-08-28, and Wikipedia did not exist prior to January 2001.")
-parser.add_argument("-b", "--back", metavar="DAYS", help="Number of days to parse. Default is 7. This will be overridden if you specify both \"latest\" and \"earliest\"!", default=69420)
-parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC)", default=today)
-parser.add_argument("-e", "--earliest", metavar="YYYY-MM-DD", help="Date to parse back to. Default is to determine it automatically by subtracting \"back\" from \"latest\".", default="1420-06-09")
-parser.add_argument("-o", "--overwrite", help="Overwrite existing data when saving skeletons. Only do this if you want to completely restart the reprocessing.", action="store_true")
-parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
-parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
-parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
-parser.add_argument("-c", "--configure", help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
-parser.add_argument("-x", "--explain", help="Display specific, detailed information about what this program does, then exit.", action="store_true")
-parser.add_argument("-i", "--input", help="Use alternate input file for list of articles/AfDs (will disregard other options)", default="Don't use one, doofus.")
+parser.add_argument("-b", "--back",      metavar="DAYS",       help="Number of days to parse. Default is 7. This will be overridden if you specify both \"latest\" and \"earliest\"!", default=69420)
+parser.add_argument("-l", "--latest",    metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC)", default=today)
+parser.add_argument("-e", "--earliest",  metavar="YYYY-MM-DD", help="Date to parse back to. Default is to determine it automatically by subtracting \"back\" from \"latest\".", default="1420-06-09")
+parser.add_argument("-o", "--overwrite",                       help="Overwrite existing data when saving skeletons. Only do this if you want to completely restart the reprocessing.", action="store_true")
+parser.add_argument("-s", "--sleep",     metavar="S",          help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
+parser.add_argument("-d", "--dryrun",                          help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
+parser.add_argument("-v", "--verbose",                         help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
+parser.add_argument("-c", "--configure",                       help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
+parser.add_argument("-x", "--explain",                         help="Display specific, detailed information about what this program does, then exit.", action="store_true")
+parser.add_argument("-i", "--input",                           help="Use alternate input file for list of articles/AfDs (will disregard other options)", default="Don't use one, doofus.")
 
 # , or determined automatically if you specify \"back\" and \"earliest\".
 #Too hard to implement now, may do later.
@@ -104,7 +105,7 @@ else:
 
 if (args.earliest == "1420-06-09"):
 	useAltStartDate = False
-	earliestDay = (today - timedelta(days=(numberOfDays - 1)))
+	earliestDay     = (today - timedelta(days=(numberOfDays - 1)))
 	# If it's still the default value, and hasn't been specified.
 else:
 	if (args.back != 69420):
@@ -112,7 +113,7 @@ else:
 		print("!!! Ignoring supplied interval, going by earliest and latest !!!")
 		print("!!!  Double-check and make sure this is what you want to do  !!!")
 #	earliestDay = datetime.fromisoformat(str(args.earliest))
-	earliestDay = datetime.strptime(str(args.earliest), "%Y-%m-%d")
+	earliestDay  = datetime.strptime(str(args.earliest), "%Y-%m-%d")
 	numberOfDays = (today - earliestDay).days + 1
 	# If we've specified an earliest and latest day, we'll compute numberOfDays from them.
 
@@ -123,9 +124,13 @@ if (args.input != "Don't use one, doofus."):
 	inputFileName = args.input
 	useInputFile = 1
 	numberOfDays = 1
-	earliestDay = datetime.fromisoformat("2001-01-01")
-	today = datetime.fromisoformat("2001-01-01")
-	earliest = datetime.fromisoformat("2001-01-01")
+	#earliestDay  = datetime.fromisoformat("2001-01-01")
+	#today        = datetime.fromisoformat("2001-01-01")
+	#earliest     = datetime.fromisoformat("2001-01-01")
+	# Comment these out for 3.5 compatibility. Replacing with lines below.
+	earliestDay  = datetime.strptime("2001-01-01", "%Y-%m-%d")
+	today        = datetime.strptime("2001-01-01", "%Y-%m-%d")
+	earliest     = datetime.strptime("2001-01-01", "%Y-%m-%d")
 	# If we're using an input file, then just like, whatever, man.
 
 
