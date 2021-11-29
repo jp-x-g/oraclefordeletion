@@ -33,12 +33,12 @@ python3 detailpages.py             -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
 cp tmp/tmp.txt tmp/tmp2.txt
 
 python3 render.py               -a -v -b $DAYS   -l $YYYY-$MM-$DAYS -o render.txt
-python3 upload.py     			   -v -o User:JPxG/Oracle/$YYYY-$MM
+python3 upload.py     			   -v -o User:JPxG/Oracle/$YYYY-$MM -n "Updating from local instance. "
 # Render and upload the monthly page.
 
 mv tmp/tmp2.txt tmp/tmp.txt
 python3 render.py                  -v -b $DAYS   -l $YYYY-$MM-$DD   -o render.txt
-python3 upload.py     			   -v -o User:JPxG/Oracle
+python3 upload.py     			   -v -o User:JPxG/Oracle -n "Updating from local instance. "
 # Render and upload the dashboard
 
 

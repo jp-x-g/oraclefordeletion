@@ -23,7 +23,7 @@ import argparse
 ########################################
 # Set all configuration variables.
 ########################################
-version = "1.0"
+version = "2.0"
 userRunning = "JPxG"
 
 today = datetime.utcnow().date()
