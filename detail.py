@@ -55,6 +55,7 @@ parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Defau
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC).", default=today)
 parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
 parser.add_argument("-q", "--sql", help="Use direct SQL queries instead of the XTools API to get article information. This will run much faster, but can only be done when running the software from Toolforge servers.", action="store_true")
+parser.add_argument("-h", "--host", help="Host for SQL server (default is 127.0.0.1 for SSH tunnel on localhost, else it should be enwiki.analytics.db.svc.wikimedia.cloud).", default="127.0.0.1")
 parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.", default=0)
 parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
@@ -102,6 +103,7 @@ if args.sql:
 	# Commenting this out, 2021 November 29 -- it's not used in the code anyway
 	import pymysql
 	# Required by the toolforge library anyway and allows you to connect without it.
+	sqlHost = args.host
 
 verbose = 0
 if args.verbose:
@@ -326,8 +328,7 @@ if useSql == 1:
 
 	user = authContents[2][7:]
 	password = authContents[1][11:]
-
-	conn = pymysql.connections.Connection(user=user, password=password, database=wpDatabase, host='127.0.0.1', port=3306)
+	conn = pymysql.connections.Connection(user=user, password=password, database=wpDatabase, host=sqlHost, port=3306)
 	cur = conn.cursor()
 	aLog("SQL connection established to " + wpDatabase)
 
