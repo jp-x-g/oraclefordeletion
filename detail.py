@@ -329,7 +329,7 @@ if useSql == 1:
 
 	user = authContents[2][7:]
 	password = authContents[1][11:]
-	conn = pymysql.connections.Connection(user=user, password=password, database=wpDatabase, host=sqlHost, port=3306)
+	conn = pymysql.connections.Connection(user=user, password=password, database=wpDatabase, host=sqlHost, port=3306, charset="utf8")
 	cur = conn.cursor()
 	aLog("SQL connection established to " + wpDatabase)
 
