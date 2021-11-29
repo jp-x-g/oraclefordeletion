@@ -656,7 +656,7 @@ for incr in range(0,numberOfDays):
 												"vmv"       : 1,
 												"all"       : 10
 												}
-									except KeyboardInterrupt:
+									except:
 										aLog("!!!!!!!!!! Serious error in storing AfD info for: " + ptitle)
 										#print(rp)
 										#print(ptext)
@@ -722,7 +722,7 @@ for incr in range(0,numberOfDays):
 											"cats"      : cats,
 											"links"     : links
 											}
-									except KeyboardInterrupt:
+									except:
 											#cursor = cursor + 1
 											aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
 									#print("Article found: " + ptitle)
