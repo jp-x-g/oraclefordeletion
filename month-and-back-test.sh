@@ -28,7 +28,8 @@ echo "$topday"
 #echo "$topday"
 
 python3 main.py                 -o -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
-python3 detail.py               -q -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01 -h enwiki.analytics.db.svc.wikimedia.cloud
+python3 detail.py               -q -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01 -o enwiki.analytics.db.svc.wikimedia.cloud
+#python3 detail.py               -q -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01 
 python3 detailpages.py             -v -b $goback -l $YYYY-$MM-$DAYS -s 0.01
 
 python3 render.py               -a -v -b $DAYS   -l $YYYY-$MM-$DAYS -o render.txt

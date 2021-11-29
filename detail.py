@@ -45,6 +45,7 @@ tmpfilename = "tmp.txt"
 apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
 today = datetime.utcnow().date()
 totalQueriesMade = 0
+sqlHost = "127.0.0.1"
 
 ########################################
 # Parse arguments from command line.
@@ -55,7 +56,7 @@ parser.add_argument("-b", "--back", metavar="DAYS", help="Days to go back. Defau
 parser.add_argument("-l", "--latest", metavar="YYYY-MM-DD", help="Date to parse back from. Default is today (UTC).", default=today)
 parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
 parser.add_argument("-q", "--sql", help="Use direct SQL queries instead of the XTools API to get article information. This will run much faster, but can only be done when running the software from Toolforge servers.", action="store_true")
-parser.add_argument("-h", "--host", help="Host for SQL server (default is 127.0.0.1 for SSH tunnel on localhost, else it should be enwiki.analytics.db.svc.wikimedia.cloud).", default="127.0.0.1")
+parser.add_argument("-o", "--host", help="Host for SQL server (default is 127.0.0.1 for SSH tunnel on localhost, else it should be enwiki.analytics.db.svc.wikimedia.cloud).", default=sqlHost)
 parser.add_argument("-m", "--max", help="Maximum queries to make before stopping. Default is 0 (parse all entries in the specified interval). Setting this will probably cut off execution in the middle of a logpage, so it's pretty stupid to do this unless you know what you're doing, or you're testing the script.", default=0)
 parser.add_argument("-d", "--dryrun", help="Run the script without actually sending queries to the API. This may break stuff.", action="store_true")
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
@@ -513,7 +514,11 @@ for incr in range(0,numberOfDays):
 							mts = mts[0:4] + "-" + mts[4:6] + "-" + mts[6:8] + " " + mts[8:10] + ":" + mts[10:12]
 							# Actually, it should just be like "2021-07-25 16:24".
 
-							original = datetime.fromisoformat(original)
+							#2021-07-25 16:24:31.000000+00:00
+							#01234567890123456789012345678912
+
+							original = datetime.strptime(original[0:19] + "+0000", "%Y-%m-%dT%H:%M:%S%z")
+							#original = datetime.fromisoformat(original)
 							delta = datetime.now(timezone.utc) - original
 							seconds = int(delta.total_seconds())
 							# Get total seconds since last edit.
