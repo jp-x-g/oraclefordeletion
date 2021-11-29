@@ -55,13 +55,18 @@ parser.add_argument("-d", "--dryrun", help="Run the script without actually send
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
 parser.add_argument("-c", "--configure", help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
 parser.add_argument("-x", "--explain", help="Display specific, detailed information about what this program does, then exit.", action="store_true")
+parser.add_argument("-i", "--input", help="Use alternate input file for list of articles/AfDs (will disregard other options)", default="Don't use one, doofus.")
 
 # , or determined automatically if you specify \"back\" and \"earliest\".
 #Too hard to implement now, may do later.
 
 args = parser.parse_args()
-today = datetime.fromisoformat(str(args.latest))
-earliest = datetime.fromisoformat(str(args.earliest))
+#today = datetime.fromisoformat(str(args.latest))
+#earliest = datetime.fromisoformat(str(args.earliest))
+# Commenting these out to replace with strptime, for Python 3.5 compatibility
+
+today = datetime.strptime(str(args.latest), "%Y-%m-%d")
+earliest = datetime.strptime(str(args.earliest), "%Y-%m-%d")
 
 if args.explain:
 	print("This is the first in a series of scripts.")
@@ -76,6 +81,7 @@ if args.explain:
 	quit()
 
 print(args)
+
 verbose = 0
 if args.verbose:
 	verbose = 1
@@ -83,7 +89,6 @@ if args.verbose:
 overwrite = 0
 if args.overwrite:
 	overwrite = 1
-
 
 forReal = 1
 if args.dryrun:
@@ -106,11 +111,23 @@ else:
 		print("!!!   WARNING: Too many date parameters have been supplied   !!!")
 		print("!!! Ignoring supplied interval, going by earliest and latest !!!")
 		print("!!!  Double-check and make sure this is what you want to do  !!!")
-	earliestDay = datetime.fromisoformat(str(args.earliest))
+#	earliestDay = datetime.fromisoformat(str(args.earliest))
+	earliestDay = datetime.strptime(str(args.earliest), "%Y-%m-%d")
 	numberOfDays = (today - earliestDay).days + 1
 	# If we've specified an earliest and latest day, we'll compute numberOfDays from them.
 
 daysDelta = timedelta(days=numberOfDays)
+
+useInputFile = 0
+if (args.input != "Don't use one, doofus."):
+	inputFileName = args.input
+	useInputFile = 1
+	numberOfDays = 1
+	earliestDay = datetime.fromisoformat("2001-01-01")
+	today = datetime.fromisoformat("2001-01-01")
+	earliest = datetime.fromisoformat("2001-01-01")
+	# If we're using an input file, then just like, whatever, man.
+
 
 # Set configuration variables from args.
 # This is awkward, but I wrote the script before I wrote the arg parser, lol.
@@ -142,6 +159,27 @@ data.mkdir(mode=0o777, exist_ok = True)
 pages.mkdir(mode=0o777, exist_ok = True)
 config.mkdir(mode=0o777, exist_ok = True)
 tmp.mkdir(mode=0o777, exist_ok = True)
+
+########################################
+# Function to read from the input file (if we're doing that)
+########################################
+def openInputFile(name):
+	inputPath = open(str(name), 'rb')
+	inputContents = inputPath.read().decode()
+	inputPath.close()
+	inputContents = inputContents.split("\n")
+	# Read the stuff out of the file.
+
+	stringystrangy = "\n\n"
+	# Initialize blank sequence.
+
+	for i in range(0, len(inputContents)):
+		stringystrangy += "\n{{Wikipedia:Articles for deletion/" + str(inputContents[i]) + "}}"
+	# Add each line of the file to stringystrangy
+	#print(stringystrangy)
+	return stringystrangy
+
+
 
 ########################################
 # Function to log to the logfile.
@@ -254,7 +292,7 @@ for incr in range(0,numberOfDays):
 		if forReal:
 			# print("Doing it for real.")
 			time.sleep(sleepTime)
-			if (stupidKludge != 1):
+			if (useInputFile == 0):
 				r = requests.get(theWikitextUrl, allow_redirects=False)
 				## Actually hit the URL in this line, and get a page, which will be of type "Response"
 				r = r.text
@@ -265,11 +303,11 @@ for incr in range(0,numberOfDays):
 				# Now we're going to store the stuff into an array.
 				###################################################
 				# Do this for each page in the response (not currently necessary, but why not).
-			if (stupidKludge == 1):
+			if (useInputFile == 1):
 				r = {
 					"query":{
 						"pages":{
-							"stupid kludge"
+							"Dummy information (will be overwritten in a few lines)"
 								}
 							}
 					}
@@ -283,8 +321,8 @@ for incr in range(0,numberOfDays):
 				# Get a string of the content we want to store.
 				##########
 				# Stupid disgusting hack. Do this to process raw text of an AfD series, if you're a weirdo.
-				if (stupidKludge == 1):
-					pageContent = "\n\n\n{{Wikipedia:Articles for deletion/Mallard II}}\n{{Wikipedia:Articles for deletion/Salisbury Island (California)}}\n{{Wikipedia:Articles for deletion/Bartoo Island}}\n{{Wikipedia:Articles for deletion/List of Estonian entomologists}}\n{{Wikipedia:Articles for deletion/Cheugy}}\n{{Wikipedia:Articles for deletion/2019 deaths in the United States, July–December}}\n{{Wikipedia:Articles for deletion/Sturgeon Bar}}\n{{Wikipedia:Articles for deletion/Mud Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Fordson Island}}\n{{Wikipedia:Articles for deletion/Stony Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Powder House Island}}\n{{Wikipedia:Articles for deletion/Fox Island (Detroit River)}}\n{{Wikipedia:Articles for deletion/Elba Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Swan Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Round Island (Detroit River)}}\n{{Wikipedia:Articles for deletion/Meso Island}}\n{{Wikipedia:Articles for deletion/Hickory Island}}\n{{Wikipedia:Articles for deletion/Edmond Island}}\n{{Wikipedia:Articles for deletion/Horse Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Cherry Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Celeron Island}}\n{{Wikipedia:Articles for deletion/Iyopawa Island}}\n{{Wikipedia:Articles for deletion/Sterling Island}}\n{{Wikipedia:Articles for deletion/Strong Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Sisters Island (Michigan)}}\n{{Wikipedia:Articles for deletion/Millman Island}}\n{{Wikipedia:Articles for deletion/Kauslers Island}}\n{{Wikipedia:Articles for deletion/Gard Island}}\n{{Wikipedia:Articles for deletion/Foleys Island}}\n{{Wikipedia:Articles for deletion/Smiths Island}}\n{{Wikipedia:Articles for deletion/Richardson Island}}\n{{Wikipedia:Articles for deletion/Jakes Island}}\n{{Wikipedia:Articles for deletion/Simms Island}}\n{{Wikipedia:Articles for deletion/Silva Island}}\n{{Wikipedia:Articles for deletion/Ogilvie Island}}\n{{Wikipedia:Articles for deletion/Aramburu Island}}\n{{Wikipedia:Articles for deletion/Corinthian Island}}\n{{Wikipedia:Articles for deletion/Bird Island (San Mateo County, California)}}\n{{Wikipedia:Articles for deletion/Triumph Tiger 900 (2020)}}\n{{Wikipedia:Articles for deletion/1-Nonadecanol}}\n{{Wikipedia:Articles for deletion/Moore Tract}}\n{{Wikipedia:Articles for deletion/Little Holland Tract}}\n{{Wikipedia:Articles for deletion/Little Hastings Tract}}\n{{Wikipedia:Articles for deletion/1-Heptadecanol}}\n{{Wikipedia:Articles for deletion/Rough and Ready Island}}\n{{Wikipedia:Articles for deletion/Brewer Island}}\n{{Wikipedia:Articles for deletion/Tubbs Island}}\n{{Wikipedia:Articles for deletion/Russ Island}}\n{{Wikipedia:Articles for deletion/Knight Island (California)}}\n{{Wikipedia:Articles for deletion/Island No. 2}}\n{{Wikipedia:Articles for deletion/Island No. 1}}\n{{Wikipedia:Articles for deletion/Green Island (California)}}\n{{Wikipedia:Articles for deletion/Edgerly Island}}\n{{Wikipedia:Articles for deletion/Coon Island (California)}}\n{{Wikipedia:Articles for deletion/Wood Island (Marin County)}}\n{{Wikipedia:Articles for deletion/Little Island (Napa County)}}\n{{Wikipedia:Articles for deletion/Bull Island (California)}}\n{{Wikipedia:Articles for deletion/Neils Island}}\n{{Wikipedia:Articles for deletion/Deer Island (Marin County)}}\n{{Wikipedia:Articles for deletion/Day Island (California)}}\n{{Wikipedia:Articles for deletion/Burdell Island}}\n{{Wikipedia:Articles for deletion/Randall Island}}\n{{Wikipedia:Articles for deletion/Spinner Island}}\n{{Wikipedia:Articles for deletion/Montezuma Island}}\n{{Wikipedia:Articles for deletion/Middle Ground Island}}\n{{Wikipedia:Articles for deletion/Goat Island (Solano County)}}\n{{Wikipedia:Articles for deletion/Chain Island}}\n{{Wikipedia:Articles for deletion/Deadman Island (Solano County)}}\n{{Wikipedia:Articles for deletion/Bradmoor Island}}\n{{Wikipedia:Articles for deletion/Hastings Tract}}\n{{Wikipedia:Articles for deletion/Holland Tract}}\n{{Wikipedia:Articles for deletion/Palm Tract}}\n{{Wikipedia:Articles for deletion/Orwood Tract}}\n{{Wikipedia:Articles for deletion/Hog Island (San Joaquin County)}}\n{{Wikipedia:Articles for deletion/Wright-Elmwood Tract}}\n{{Wikipedia:Articles for deletion/Shin Kee Tract}}\n{{Wikipedia:Articles for deletion/Terminous Tract}}\n{{Wikipedia:Articles for deletion/Stewart Tract}}\n{{Wikipedia:Articles for deletion/Shima Tract}}\n{{Wikipedia:Articles for deletion/Rio Blanco Tract}}\n{{Wikipedia:Articles for deletion/Webb Tract}}\n{{Wikipedia:Articles for deletion/Empire Tract}}\n{{Wikipedia:Articles for deletion/Rindge Tract}}\n{{Wikipedia:Articles for deletion/Atlas Tract}}\n{{Wikipedia:Articles for deletion/Widdows Island}}\n{{Wikipedia:Articles for deletion/Ward Island (California)}}\n{{Wikipedia:Articles for deletion/Vulcan Island (California)}}\n{{Wikipedia:Articles for deletion/Tule Island}}\n{{Wikipedia:Articles for deletion/Tinsley Island}}\n{{Wikipedia:Articles for deletion/Spud Island}}\n{{Wikipedia:Articles for deletion/Shenkel Island}}\n{{Wikipedia:Articles for deletion/Mallard Island}}\n{{Wikipedia:Articles for deletion/Long Island (California)}}\n{{Wikipedia:Articles for deletion/Little Venice Island}}\n{{Wikipedia:Articles for deletion/Liberty Island (California)}}\n{{Wikipedia:Articles for deletion/Kimball Island}}\n{{Wikipedia:Articles for deletion/Ida Island}}\n{{Wikipedia:Articles for deletion/Headreach Island}}\n{{Wikipedia:Articles for deletion/Hammer Island}}\n{{Wikipedia:Articles for deletion/French Island (California)}}\n{{Wikipedia:Articles for deletion/Eucalyptus Island}}\n{{Wikipedia:Articles for deletion/Brannan Island}}\n{{Wikipedia:Articles for deletion/Browns Island (San Joaquin County)}}\n{{Wikipedia:Articles for deletion/Atherton Island}}\n{{Wikipedia:Articles for deletion/Acker Island}}\n{{Wikipedia:Articles for deletion/Keith Gill}}\n{{Wikipedia:Articles for deletion/2021 Ivorian parliamentary election}}\n{{Wikipedia:Articles for deletion/DALL-E}}\n{{Wikipedia:Articles for deletion/Simp}}\n{{Wikipedia:Articles for deletion/2021 Somali presidential election}}\n{{Wikipedia:Articles for deletion/2021 Chadian presidential election}}\n{{Wikipedia:Articles for deletion/2021 Ecuadorian general election}}\n{{Wikipedia:Articles for deletion/2021 Uzbek presidential election}}\n{{Wikipedia:Articles for deletion/GPT-2}}\n{{Wikipedia:Articles for deletion/Octadecanol}}\n{{Wikipedia:Articles for deletion/Extremely online}}\n{{Wikipedia:Articles for deletion/List of elections, 1701–1800}}\n{{Wikipedia:Articles for deletion/List of elections before 1701}}\n{{Wikipedia:Articles for deletion/2021 Cape Verdean presidential election}}\n{{Wikipedia:Articles for deletion/2021 Cape Verdean parliamentary election}}\n{{Wikipedia:Articles for deletion/2021 Albanian parliamentary election}}\n{{Wikipedia:Articles for deletion/2021 Moroccan general election}}\n{{Wikipedia:Articles for deletion/Silver Dollar Island}}\n{{Wikipedia:Articles for deletion/Arbuckle Island}}\n{{Wikipedia:Articles for deletion/Tyler Island (California)}}\n{{Wikipedia:Articles for deletion/Union Island (California)}}\n{{Wikipedia:Articles for deletion/Roberts Island}}\n{{Wikipedia:Articles for deletion/Rhode Island (California)}}\n{{Wikipedia:Articles for deletion/Quimby Island}}\n{{Wikipedia:Articles for deletion/Prospect Island (California)}}\n{{Wikipedia:Articles for deletion/Mildred Island}}\n{{Wikipedia:Articles for deletion/Medford Island}}\n{{Wikipedia:Articles for deletion/Little Mandeville Island}}\n{{Wikipedia:Articles for deletion/Fay Island}}\n{{Wikipedia:Articles for deletion/Decker Island}}\n{{Wikipedia:Articles for deletion/Dead Horse Island}}\n{{Wikipedia:Articles for deletion/Coney Island (California)}}\n{{Wikipedia:Articles for deletion/West Island (California)}}\n{{Wikipedia:Articles for deletion/Sutter Island}}\n{{Wikipedia:Articles for deletion/Bradford Island}}\n{{Wikipedia:Articles for deletion/Wheeler Island (California)}}\n{{Wikipedia:Articles for deletion/Van Sickle Island}}\n{{Wikipedia:Articles for deletion/Snag Island}}\n{{Wikipedia:Articles for deletion/Simmons Island}}\n{{Wikipedia:Articles for deletion/Grizzly Island}}\n{{Wikipedia:Articles for deletion/Freeman Island (California)}}\n{{Wikipedia:Articles for deletion/Dutton Island}}\n{{Wikipedia:Articles for deletion/Chipps Island}}\n{{Wikipedia:Articles for deletion/Hammond Island (California)}}\n{{Wikipedia:Articles for deletion/Rat Rock (California)}}\n{{Wikipedia:Articles for deletion/Hooks Island}}\n{{Wikipedia:Articles for deletion/Joice Island}}\n{{Wikipedia:Articles for deletion/Gateway Generating Station}}\n{{Wikipedia:Articles for deletion/WhopperCoin}}\n{{Wikipedia:Articles for deletion/1-Pentadecanol}}"
+				if (useInputFile == 1):
+					pageContent = openInputFile(inputFileName)
 				##########
 				pageContent = pageContent.replace("_"," ")
 				afdDay['content'] = pageContent

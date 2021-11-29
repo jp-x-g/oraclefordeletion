@@ -1,3 +1,38 @@
+
+bash render-year.sh 2020
+bash render-year.sh 2019
+bash render-year.sh 2018
+bash render-year.sh 2017
+bash render-year.sh 2016
+bash render-year.sh 2015
+bash render-year.sh 2014
+bash render-year.sh 2013
+bash render-year.sh 2012
+bash render-year.sh 2011
+bash render-year.sh 2010
+bash render-year.sh 2009
+bash render-year.sh 2008
+bash render-year.sh 2007
+bash render-year.sh 2006
+bash render-year.sh 2005
+bash render-year.sh 2004
+
+python3 main.py                 -o -v -b 1 -l 2002-01-09 -s 0.01
+python3 detail.py                  -v -b 1 -l 2002-01-09 -s 0.01
+python3 detailpages.py             -v -b 1 -l 2002-01-09 -s 0.01 -z
+python3 renderarticles.py       -a -v -b 1 -l 2002-01-09 -o rendertest.txt
+python3 upload.py      -v -o User:JPxG/Oracle/Mypages -i rendertest.txt -n "Update."
+
+
+python3 main.py                 -o -v -b 1 -i test.txt -s 0.01;python3 detail.py                  -v -b 1 -l 2001-01-01 -s 0.01;python3 detailpages.py             -v -b 1 -l 2001-01-01 -s 0.01 -z;python3 renderarticles.py       -a -v -b 1 -l 2001-01-01 -o rendertest.txt;python3 upload.py      -v -o User:JPxG/Oracle/Largest_AfDs -i rendertest.txt -n "Update with new software."
+
+python3 main.py                 -o -v -b 30 -l 2021-09-30 -s 0.01
+python3 detail.py                  -v -b 30 -l 2021-09-30 -s 0.01
+python3 detailpages.py             -v -b 30 -l 2021-09-30 -s 0.01
+python3 render.py               -a -v -b 30 -l 2021-09-30 -o rendertest.txt
+python3 upload.py      -v -o User:JPxG/Oracle/2021-09 -i rendertest.txt -n "Create page for September 2021."
+
+
 # test
 
 day=$(date +%d)
@@ -766,35 +801,3 @@ python3 render.py              -a -v -b 31 -l 2009-01-31 -o rendertest.txt
 python3 upload.py      -v -o User:JPxG/Oracle/2009-01 -i rendertest.txt -n "Use improved parsing, and improved error interpretation, for entire month as well as specific re-parse of 2009-01-09"
 
 
-bash render-year.sh 2020
-bash render-year.sh 2019
-bash render-year.sh 2018
-bash render-year.sh 2017
-bash render-year.sh 2016
-bash render-year.sh 2015
-bash render-year.sh 2014
-bash render-year.sh 2013
-bash render-year.sh 2012
-bash render-year.sh 2011
-bash render-year.sh 2010
-bash render-year.sh 2009
-bash render-year.sh 2008
-bash render-year.sh 2007
-bash render-year.sh 2006
-bash render-year.sh 2005
-bash render-year.sh 2004
-
-python3 main.py                 -o -v -b 1 -l 2002-01-09 -s 0.01
-python3 detail.py                  -v -b 1 -l 2002-01-09 -s 0.01
-python3 detailpages.py             -v -b 1 -l 2002-01-09 -s 0.01 -z
-python3 renderarticles.py       -a -v -b 1 -l 2002-01-09 -o rendertest.txt
-python3 upload.py      -v -o User:JPxG/Oracle/Mypages -i rendertest.txt -n "Update."
-
-
-python3 main.py                 -o -v -b 1 -l 2002-01-09 -s 0.01;python3 detail.py                  -v -b 1 -l 2002-01-09 -s 0.01;python3 detailpages.py             -v -b 1 -l 2002-01-09 -s 0.01 -z;python3 renderarticles.py       -a -v -b 1 -l 2002-01-09 -o rendertest.txt;python3 upload.py      -v -o User:JPxG/Oracle/Mypages -i rendertest.txt -n "Update."
-
-python3 main.py                 -o -v -b 30 -l 2021-09-30 -s 0.01
-python3 detail.py                  -v -b 30 -l 2021-09-30 -s 0.01
-python3 detailpages.py             -v -b 30 -l 2021-09-30 -s 0.01
-python3 render.py               -a -v -b 30 -l 2021-09-30 -o rendertest.txt
-python3 upload.py      -v -o User:JPxG/Oracle/2021-09 -i rendertest.txt -n "Create page for September 2021."

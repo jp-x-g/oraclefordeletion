@@ -8,9 +8,11 @@ cfg/*
 # Miscellaneous stuff
 notes.py
 test.py
+test.txt
 
 # Custom scripts that aren't part of the core package
 custom*
 custom*.sh
 custom*.py
 custom.py
+test.sh
