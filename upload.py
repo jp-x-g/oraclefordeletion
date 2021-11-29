@@ -222,6 +222,8 @@ if (args.username == "Didn't specify one." or args.password == "Didn't specify o
 		quit()
 	authName = loginContents[0:loginContents.find("\n")]
 	authPass = loginContents[loginContents.find("\n") + 1:]
+	authPass = authPass.replace("\n","")
+	# No idea if this will do anything, but here's an attempt. 2021 11 29
 else:
 	authName = args.username
 	authPass = args.password
