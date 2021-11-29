@@ -98,7 +98,8 @@ if args.explain:
 useSql = 0
 if args.sql:
 	useSql = 1
-	import toolforge
+	#import toolforge
+	# Commenting this out, 2021 November 29 -- it's not used in the code anyway
 	import pymysql
 	# Required by the toolforge library anyway and allows you to connect without it.
 
@@ -141,7 +142,9 @@ configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
 logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
 outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
 
-sqlLoginPath = Path("/home/x/2k2k/soft/mine/toolforge/replica.my.cnf")
+# sqlLoginPath = Path("/home/x/2k2k/soft/mine/toolforge/replica.my.cnf")
+sqlLoginPath = Path("~/replica.my.cnf")
+
 
 ########################################
 # Make sure those paths exist.
