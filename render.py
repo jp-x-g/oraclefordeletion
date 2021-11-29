@@ -67,7 +67,10 @@ parser.add_argument("-c", "--configure", help="Set up directories and runlog, th
 #parser.add_argument("-s", "--sleep", metavar="S", help="Time, in seconds, to delay before executing the script. Not very useful. Default is 0.5.", default=0.5)
 #parser.add_argument("-s", "--sleep", metavar="SECS", help="Time in seconds to delay between receiving an API response and sending the next request. Default is 0.5.", default=0.5)
 args = parser.parse_args()
-today = datetime.fromisoformat(str(args.latest))
+#today = datetime.fromisoformat(str(args.latest))
+# Commenting out in lieu of Python 3.5 compatible line below.
+today = datetime.strptime(str(args.latest), "%Y-%m-%d")
+
 
 cooldown = 0
 
