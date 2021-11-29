@@ -257,7 +257,7 @@ l = s.post(apiBase, data={
 l = l.text
 l = json.loads(l)
 if ((l['login']['result']) != "Success"):
-	aLog("!!! Login failed: " + l)
+	aLog("!!! Login failed: " + str(l))
 	quit()
 aLog("Login successful. Authenticated as " + l['login']['lgusername'])
 
