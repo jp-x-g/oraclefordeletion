@@ -4,12 +4,67 @@
 
 backby=$1
 
-DAYS=$(cal $(date +"%m %Y") | awk 'NF {DAYS = $NF}; END {print DAYS}')
+#DAYS=$(cal $(date +"%m %Y") | awk 'NF {DAYS = $NF}; END {print DAYS}')
 # Days of the current month. Props to sleeplessbeastie.eu who came up with this
+# Commented out, since this messes up on the last day of the month.
 
 DD=$(date +%d)
 MM=$(date +%m)
 YYYY=$(date +%Y)
+
+if [ "$MM" = "01" ]; then
+	DAYS="31"
+fi
+
+if [ "$MM" = "02" ]; then
+	if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ]
+	# Yeah, I'll be dead by the time anyone gets mad about this.
+	then
+		DAYS="29"
+	else
+		DAYS="28"
+	fi
+fi
+
+if [ "$MM" = "03" ]; then
+	DAYS="31"
+fi
+
+if [ "$MM" = "04" ]; then
+	DAYS="30"
+fi
+
+if [ "$MM" = "05" ]; then
+	DAYS="31"
+fi
+
+if [ "$MM" = "06" ]; then
+	DAYS="30"
+fi
+
+if [ "$MM" = "07" ]; then
+	DAYS="31"
+fi
+
+if [ "$MM" = "08" ]; then
+	DAYS="31"
+fi
+
+if [ "$MM" = "09" ]; then
+	DAYS="30"
+fi
+
+if [ "$MM" = "10" ]; then
+	DAYS="31"
+fi
+
+if [ "$MM" = "11" ]; then
+	DAYS="30"
+fi
+
+if [ "$MM" = "12" ]; then
+	DAYS="31"
+fi
 
 
 daysback=$(($backby-$DD))
