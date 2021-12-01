@@ -88,7 +88,7 @@ goback=$(($DAYS+$daysback))
 cd /data/project/jpxg-test/oraclefordeletion
 
 python3 render.py -a -b $DAYS -l $YYYY-$MM-$DAYS -o render3.txt
-python3 upload.py -i render3.txt -o User:JPxG/Oracle/$YYYY-$MM -n "Updating from Toolforge."
+python3 upload.py -o User:JPxG/Oracle/$YYYY-$MM -i render3.txt -n "Updating last month from Toolforge."
 # Render and upload the monthly page.
 
 rm render3.txt
