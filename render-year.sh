@@ -82,18 +82,64 @@ echo "" >> data/tmp/summary-$year.txt
 # Dragons are over now.
 ################################################################################
 echo "|}</onlyinclude>" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-12|$year-12]] == {{:User:JPxG/Oracle/$year-12}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-11|$year-11]] == {{:User:JPxG/Oracle/$year-11}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-10|$year-10]] == {{:User:JPxG/Oracle/$year-10}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-09|$year-09]] == {{:User:JPxG/Oracle/$year-09}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-08|$year-08]] == {{:User:JPxG/Oracle/$year-08}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-07|$year-07]] == {{:User:JPxG/Oracle/$year-07}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-06|$year-06]] == {{:User:JPxG/Oracle/$year-06}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-05|$year-05]] == {{:User:JPxG/Oracle/$year-05}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-04|$year-04]] == {{:User:JPxG/Oracle/$year-04}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-03|$year-03]] == {{:User:JPxG/Oracle/$year-03}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-02|$year-02]] == {{:User:JPxG/Oracle/$year-02}}" >> data/tmp/summary-$year.txt
-echo "== [[User:JPxG/Oracle/$year-01|$year-01]] == {{:User:JPxG/Oracle/$year-01}}" >> data/tmp/summary-$year.txt
+
+MM=$(date +%m)
+YYYY=$(date +%Y)
+
+# If the year being processed is in the past, we include all of the months.
+if [ $YYYY \> $year ]; then
+	echo "== [[User:JPxG/Oracle/$year-12|$year-12]] == {{:User:JPxG/Oracle/$year-12}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-11|$year-11]] == {{:User:JPxG/Oracle/$year-11}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-10|$year-10]] == {{:User:JPxG/Oracle/$year-10}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-09|$year-09]] == {{:User:JPxG/Oracle/$year-09}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-08|$year-08]] == {{:User:JPxG/Oracle/$year-08}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-07|$year-07]] == {{:User:JPxG/Oracle/$year-07}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-06|$year-06]] == {{:User:JPxG/Oracle/$year-06}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-05|$year-05]] == {{:User:JPxG/Oracle/$year-05}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-04|$year-04]] == {{:User:JPxG/Oracle/$year-04}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-03|$year-03]] == {{:User:JPxG/Oracle/$year-03}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-02|$year-02]] == {{:User:JPxG/Oracle/$year-02}}" >> data/tmp/summary-$year.txt
+	echo "== [[User:JPxG/Oracle/$year-01|$year-01]] == {{:User:JPxG/Oracle/$year-01}}" >> data/tmp/summary-$year.txt
+fi
+
+# If the year being processed is this year, we will only include months if they have existed yet.
+if [ $YYYY = $year ]; then
+	if [ "$MM" \> 11 ]; then
+		echo "== [[User:JPxG/Oracle/$year-12|$year-12]] == {{:User:JPxG/Oracle/$year-12}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 10 ]; then
+		echo "== [[User:JPxG/Oracle/$year-11|$year-11]] == {{:User:JPxG/Oracle/$year-11}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 09 ]; then
+		echo "== [[User:JPxG/Oracle/$year-10|$year-10]] == {{:User:JPxG/Oracle/$year-10}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 08 ]; then
+		echo "== [[User:JPxG/Oracle/$year-09|$year-09]] == {{:User:JPxG/Oracle/$year-09}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 07 ]; then
+		echo "== [[User:JPxG/Oracle/$year-08|$year-08]] == {{:User:JPxG/Oracle/$year-08}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 06 ]; then
+		echo "== [[User:JPxG/Oracle/$year-07|$year-07]] == {{:User:JPxG/Oracle/$year-07}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 05 ]; then
+		echo "== [[User:JPxG/Oracle/$year-06|$year-06]] == {{:User:JPxG/Oracle/$year-06}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 04 ]; then
+		echo "== [[User:JPxG/Oracle/$year-05|$year-05]] == {{:User:JPxG/Oracle/$year-05}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 03 ]; then
+		echo "== [[User:JPxG/Oracle/$year-04|$year-04]] == {{:User:JPxG/Oracle/$year-04}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 02 ]; then
+		echo "== [[User:JPxG/Oracle/$year-03|$year-03]] == {{:User:JPxG/Oracle/$year-03}}" >> data/tmp/summary-$year.txt
+	fi
+	if [ "$MM" \> 01 ]; then
+		echo "== [[User:JPxG/Oracle/$year-02|$year-02]] == {{:User:JPxG/Oracle/$year-02}}" >> data/tmp/summary-$year.txt
+	fi
+	echo "== [[User:JPxG/Oracle/$year-01|$year-01]] == {{:User:JPxG/Oracle/$year-01}}" >> data/tmp/summary-$year.txt
+fi
+
 mv data/tmp/summary-$year.txt data/output/summary-$year.txt
 
 python3 upload.py -o User:JPxG/Oracle/$year -i summary-$year.txt -n "Updating $year."
