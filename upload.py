@@ -76,6 +76,8 @@ parser.add_argument("-d", "--dryrun", help="Run the script without actually edit
 parser.add_argument("-v", "--verbose", help="Spam the terminal AND runlog with insanely detailed information. Wheee!", action="store_true")
 parser.add_argument("-c", "--configure", help="Set up directories and runlog, then show configuration data and exit.", action="store_true")
 parser.add_argument("-x", "--explain", help="Display specific, detailed information about what this program does (including a full list of the fields it gets from the API), then exit.", action="store_true")
+parser.add_argument("-z", "--zero", help="Upload the bare input file (without profiling information, headers or footers).", action="store_true")
+
 
 args = parser.parse_args()
 #today = datetime.fromisoformat(str(args.latest))
@@ -90,6 +92,10 @@ if args.explain:
 	print("      this one cannot work.")
 	print("       Such is life.")
 	quit()
+
+sendBare = 0
+if args.zero:
+	sendBare = 1
 
 verbose = 0
 if args.verbose:
@@ -340,6 +346,11 @@ except:
 	print("Couldn't retrieve execution time.")
 	pro = "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v" + version + " · [[User:JPxG|JPxG]] 2021''</center>"
 #print(profile)
+
+if sendBare == 1:
+	textToSend = payload
+else:
+	textToSend = r + "\n" + payload + pro
 
 if forReal == 1:
 	edit = s.post(apiBase, data={
