@@ -12,7 +12,7 @@ Specifically, this is what its components do:
 - **render.py**: Render a wikitext page in which this information is displayed in interactive, sortable tables.
 - **upload.py**: Authenticate to a bot account and upload the wikitext to a page on the project.
 
-It contains five scripts, intended to be run in sequence (except for detail.py, which lenghtens runtime considerably and can be skipped). There are also shell scripts that run the programs automatically according to user-supplied parameters. Both the shell script and the individual components take numerous command-line arguments, which are explained thoroughly by running them with the -h flag. 
+It contains five scripts, intended to be run in sequence (except for detail.py, which lengthens runtime considerably unless you're using SQL mode, and can therefore be skipped without breaking things). There are also shell scripts that run the programs automatically according to user-supplied parameters. Individual components take numerous command-line arguments, which are explained thoroughly in the following document.
 
 ## Table of contents
 **[Basic usage](#basic-usage)**
@@ -35,7 +35,13 @@ It contains five scripts, intended to be run in sequence (except for detail.py, 
 
 > [run-batch.sh](#run-batchsh)
 
+> [month-and-back-local.sh, month-and-back-toolforge.sh](#month-and-back-localsh-month-and-back-toolforgesh)
+
+> [last-month-toolforge.sh](#last-month-toolforgesh)
+
 > [render-year.sh](#render-yearsh)
+
+> [render-year-from-cron.sh](#render-year-from-cronsh)
 
 ## Basic usage
 > [back to top](#table-of-contents)
@@ -133,9 +139,9 @@ Usage: ``detail.py [-h] [-b DAYS] [-l YYYY-MM-DD] [-s S] [-m MAX] [-d] [-v] [-c]
 -x, --explain                        Display detailed info about what this program does, then exit
                                        (incl. a full list of fields it gets from the API).
 ```
-Be aware that this one takes forever to run (up to 30 minutes for a month of AfDs), unless you are running it from a Toolforge account. XTools doesn't allow batched requests: typical times on JPxG's computer have taken between 0.5 and 1.3 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while.
+Be aware that this one takes forever to run (up to 30 minutes for a month of AfDs), unless you are running it on SQL mode. This either requires you to be running it from Toolforge, or from a local machine with SSH tunneling to a database replica on Toolforge. XTools doesn't allow batched requests: typical times on JPxG's computer for non-SQL-mode operation have been between 0.5 and 1.3 seconds per query. Since AfD log pages can have up to a hundred nominations, and each nomination is two queries, you're going to be here for a while. Unless you use SQL mode. 
 
-These fields are retrieved for both the article at AfD and the AfD nomination page itself.
+These fields are retrieved for both the article at AfD and the AfD nomination page itself, from non-SQL mode. Certain fields (watchers, pageviews, author_editcount, assessment, etc) are not stored when using SQL mode.
 
 ```
 scrapetime           | timestamp | when the data is retrieved (i.e. in a few seconds)
@@ -188,7 +194,7 @@ Usage: ``detailpages.py [-h] [-b DAYS] [-l YYYY-MM-DD] [-s S] [-q N] [-m MAX] [-
                                        the parser on lists of normal pages.
 ```
 
-This uses the "revisions" API endpoint, in its default mode, which supplies a single revision (the latest) of each page specified. The API's maximum batch size is 50; since each article is paired with an AfD page, the maximum batch size for this program is 25.
+This uses the "revisions" API endpoint, in its default mode, which supplies a single revision (the latest) of each page specified. The API's maximum batch size is 50; since each article is paired with an AfD page, the maximum batch size for this program is 25. As a result, this one runs very quickly.
 
 ```
  Page info | NOTE: Feature counts (refs, templates, etc) will probably not be precise
@@ -225,9 +231,6 @@ vus        | number | number of parseable "userfy"s
 vdr        | number | number of parseable "draftify"s
 all        | number | sum of counts for all !vote types above
 ```
-
-
-This one runs very quickly, since the en.wiki API allows batched queries.
 
 ### render.py
 > [back to top](#table-of-contents)
@@ -322,6 +325,22 @@ Note: ``-g``, ``-v``, ``-h``, ``-a``, and ``-c`` **cannot be supplied bare**. Th
 
 Also note that individual components have more flags, which provide finer control, and are not available from this shell script. If you want to specify a password from the command line, for example, running upload.py manually will allow you to do this with '-p'. See the component helps for more information (you can do so by invoking this script with '-a 1').
 
+### month-and-back-local.sh, month-and-back-toolforge.sh
+> [back to top](#table-of-contents)
+
+These will automatically scrape, parse, render and upload appropriately-formatted month pages (and main dashboard pages) based on whatever offset you give them, like this:
+> ``bash month-and-back-toolforge.sh 2``
+
+This will parse AfDs from today and yesterday into the database, then render and upload the dashboard as well as the current month's page.
+
+> ``bash month-and-back-toolforge.sh 69``
+
+This will parse AfDs from today, as well as the previous 68 days, into the database (even if the date goes into previous months or years). It will also render and upload the dashboard and month page for the current month.
+
+### last-month-toolforge.sh
+> [back to top](#table-of-contents)
+
+This will render and upload the monthly index page for the month before this one. For example, if you run it in January 2022, it will upload the index for December 2021. It works well in combination with ``month-and-back-toolforge.sh``.
 
 ### render-year.sh
 > [back to top](#table-of-contents)
@@ -330,9 +349,6 @@ This will render, and upload, a summary page for the year specified. It will not
 > ``bash render-year.sh 2014``
 
 If you're running it for the current year, it will only include section headings and subpage transclusions for months up to the present month. If you're running it for a year in the past, it will include all twelve months.
-
-### month-and-back-local.sh, month-and-back-toolforge.sh
-> [back to top](#table-of-contents)
 
 ### render-year-from-cron.sh
 This will invoke ``render-year`` for the current year; if it's January, it will also invoke it for the previous year. No argument needs to be supplied for this script.
