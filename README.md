@@ -95,6 +95,7 @@ Note that all dates used by this program are in UTC, including timestamps in the
 -v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
 -c, --configure                      Set up directories and runlog, then show config data and exit.
 -x, --explain                        Display detailed info about what this program does, then exit.
+-i, --input                          Use alternate input file for list of articles/AfDs (will disregard other options)
 ```
 
 This will run pretty quickly, even though it doesn't batch its API queries. Take care to specify reasonable dates; AfD was called VfD (and worked
@@ -105,7 +106,7 @@ differently) prior to 2005-08-28, and Wikipedia did not exist prior to January 2
 
 Usage: ``detail.py [-h] [-b DAYS] [-l YYYY-MM-DD] [-s S] [-m MAX] [-d] [-v] [-c] [-x]``
 
-**Page stats detailer (2 of 5).** This will take JSON skeleton created by the previous script, and use XTools to populate them with statistics (like number of revisions, creation date, et cetera) for both the articles (pagestats) and and their deletion discussions (afdstats). Note that all dates used by this program are in UTC, including timestamps in the runlog. After this script, and the other one that handles the actual page content, the renderer can generate a page.
+**Page stats detailer (2 of 5).** This will take JSON skeletons created by the previous script, and use XTools to populate them with statistics (like number of revisions, creation date, et cetera) for both the articles (pagestats) and and their deletion discussions (afdstats). Note that all dates used by this program are in UTC, including timestamps in the runlog. After this script, and the other one that handles the actual page content, the renderer can generate a page.
 
 **Optional arguments:**
 ```
@@ -117,6 +118,9 @@ Usage: ``detail.py [-h] [-b DAYS] [-l YYYY-MM-DD] [-s S] [-m MAX] [-d] [-v] [-c]
 -q, --sql                            Use direct SQL queries instead of the XTools API to get
                                        article information. This will run much faster, but can
                                        only be done when running the software from Toolforge.
+-o, --host                           Host for SQL server (default is 127.0.0.1 for SSH tunnel on
+                                       localhost. Otherwise, it should be set to
+                                       enwiki.analytics.db.svc.wikimedia.cloud).
 -m MAX, --max MAX                    Maximum queries to make before stopping. Default is 0 (parse
                                        all entries in the specified interval). Setting this will
                                        probably cut off execution in the middle of a logpage, so 
@@ -252,6 +256,8 @@ This one runs almost instantaneously, since there are no API queries.
 
 This is an alternate version of ``render.py`` for articles rather than AfDs; it generates tables similar to those created by ``render.py``, but ignores AfDs and instead shows extended information about the articles. This is useful if, say, you have a long list of articles that you want to know more about, and don't want to use analysis tools on each one individually.
 
+Optional arguments are the same as for render.py above.
+
 ### upload.py
 > [back to top](#table-of-contents)
 
@@ -275,6 +281,8 @@ Oracle for Deletion, uploader (5 of 5).
 -v, --verbose                        Spam the terminal AND runlog with insanely detailed info.
 -c, --configure                      Set up directories and runlog, then show config data & exit.
 -x, --explain                        Display detailed info about what this program does & exit.
+-z, --zero                           Upload the bare input file (without profiling information,
+                                       headers or footers).
 ```
 
 ## Batch scripts
@@ -320,3 +328,11 @@ Also note that individual components have more flags, which provide finer contro
 
 This will render, and upload, a summary page for the year specified. It will not fetch anything from the API to get information, so you must have all the AfDs downloaded and detailed prior to running this. To use, just invoke the script with the year as its argument.
 > ``bash render-year.sh 2014``
+
+If you're running it for the current year, it will only include section headings and subpage transclusions for months up to the present month. If you're running it for a year in the past, it will include all twelve months.
+
+### month-and-back-local.sh, month-and-back-toolforge.sh
+> [back to top](#table-of-contents)
+
+### render-year-from-cron.sh
+This will invoke ``render-year`` for the current year; if it's January, it will also invoke it for the previous year. No argument needs to be supplied for this script.
