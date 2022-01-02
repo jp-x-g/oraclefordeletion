@@ -43,6 +43,8 @@ It contains five scripts, intended to be run in sequence (except for detail.py, 
 
 > [render-year-from-cron.sh](#render-year-from-cronsh)
 
+> [update-current.sh](#update-currentsh)
+
 ## Basic usage
 > [back to top](#table-of-contents)
 
@@ -351,4 +353,11 @@ This will render, and upload, a summary page for the year specified. It will not
 If you're running it for the current year, it will only include section headings and subpage transclusions for months up to the present month. If you're running it for a year in the past, it will include all twelve months.
 
 ### render-year-from-cron.sh
+> [back to top](#table-of-contents)
+
 This will invoke ``render-year`` for the current year; if it's January, it will also invoke it for the previous year. No argument needs to be supplied for this script.
+
+### update-current.sh
+> [back to top](#table-of-contents)
+
+Updates the redirect page (Oracle/current) to the current month.

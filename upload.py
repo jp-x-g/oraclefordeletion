@@ -357,7 +357,7 @@ if forReal == 1:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": r + "\n" + payload + pro,
+		"text": textToSend,
 		"summary": args.note + " ([[WP:OFD|Oracle for Deletion]], version " + version + ")",
 		"format": "json"
 		})
@@ -371,7 +371,7 @@ else:
 		"action": "edit",
 		"token": token,
 		"title": pagename,
-		"text": r + "\n" + payload + pro,
+		"text": textToSend,
 		"summary": args.note + " ([[WP:OFD|Oracle for Deletion]], version " + version + ")",
 		"format": "json"
 		}
