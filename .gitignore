@@ -23,3 +23,7 @@ custom*.sh
 custom*.py
 custom.py
 test.sh
+
+# IDE stuff
+
+.idea/*
