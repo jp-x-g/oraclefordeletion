@@ -19,6 +19,44 @@ if [ "$MM" = "0" ]; then
 fi
 # Subtract one from the current month. If it's 0, make it 12.
 
+if [ "$MM" = "1" ]; then
+	MM="01"
+fi
+
+if [ "$MM" = "2" ]; then
+	MM="02"
+fi
+
+if [ "$MM" = "3" ]; then
+	MM="03"
+fi
+
+if [ "$MM" = "4" ]; then
+	MM="04"
+fi
+
+if [ "$MM" = "5" ]; then
+	MM="05"
+fi
+
+if [ "$MM" = "6" ]; then
+	MM="06"
+fi
+
+if [ "$MM" = "7" ]; then
+	MM="07"
+fi
+
+if [ "$MM" = "8" ]; then
+	MM="08"
+fi
+
+if [ "$MM" = "9" ]; then
+	MM="09"
+fi
+
+# Have to do this so it stops routing the output to, like, Oracle/2022-6, with the wrong output.
+
 if [ "$MM" = "01" ]; then
 	DAYS="31"
 fi
