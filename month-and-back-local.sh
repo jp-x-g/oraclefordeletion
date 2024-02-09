@@ -20,12 +20,11 @@ if [ "$MM" = "01" ]; then
 fi
 
 if [ "$MM" = "02" ]; then
-	if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ]
+	DAYS="28"
+	if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ];
 	# Yeah, I'll be dead by the time anyone gets mad about this.
 	then
 		DAYS="29"
-	else
-		DAYS="28"
 	fi
 fi
 
