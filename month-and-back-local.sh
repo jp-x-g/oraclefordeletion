@@ -12,6 +12,9 @@ DD=$(date +%d)
 MM=$(date +%m)
 YYYY=$(date +%Y)
 
+DD=$((10#$DD))
+#Convert, e.g., "09" to "9"
+
 if [ "$MM" = "01" ]; then
 	DAYS="31"
 fi
