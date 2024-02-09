@@ -317,6 +317,8 @@ The flags work the same way here as they do in the individual components (and sp
                                        about one minute instead of thirty)
 -g 1                                 enable aggregate output (one big table, instead of new
                                        sections/tables for different days)
+-q 1                                 use quick mode (SQL connection instead of individual API hits)
+                                       this will run many times faster!
 -v 1                                 enable verbose mode
 -h 1                                 print this help message and exit
 -a 1                                 print every individual component's help message and exit
