@@ -12,6 +12,10 @@ DD=$(date +%d)
 MM=$(date +%m)
 YYYY=$(date +%Y)
 
+DD=$((10#$DD))
+MM=$((10#$MM))
+# Convert, e.g. "09" to "9"
+
 MM=$(($MM-1))
 if [ "$MM" = "0" ]; then
 	YYYY=$(($YYYY-1))
@@ -19,83 +23,46 @@ if [ "$MM" = "0" ]; then
 fi
 # Subtract one from the current month. If it's 0, make it 12.
 
+# Have to do this so it stops routing the output to, like, Oracle/2022-6, with the wrong output.
+
 if [ "$MM" = "1" ]; then
-	MM="01"
+	DAYS="31"
 fi
 
 if [ "$MM" = "2" ]; then
-	MM="02"
-fi
-
-if [ "$MM" = "3" ]; then
-	MM="03"
-fi
-
-if [ "$MM" = "4" ]; then
-	MM="04"
-fi
-
-if [ "$MM" = "5" ]; then
-	MM="05"
-fi
-
-if [ "$MM" = "6" ]; then
-	MM="06"
-fi
-
-if [ "$MM" = "7" ]; then
-	MM="07"
-fi
-
-if [ "$MM" = "8" ]; then
-	MM="08"
-fi
-
-if [ "$MM" = "9" ]; then
-	MM="09"
-fi
-
-# Have to do this so it stops routing the output to, like, Oracle/2022-6, with the wrong output.
-
-if [ "$MM" = "01" ]; then
-	DAYS="31"
-fi
-
-if [ "$MM" = "02" ]; then
-	if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ]
+	DAYS="28"
+	if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ];
 	# Yeah, I'll be dead by the time anyone gets mad about this.
 	then
 		DAYS="29"
-	else
-		DAYS="28"
 	fi
 fi
 
-if [ "$MM" = "03" ]; then
+if [ "$MM" = "3" ]; then
 	DAYS="31"
 fi
 
-if [ "$MM" = "04" ]; then
+if [ "$MM" = "4" ]; then
 	DAYS="30"
 fi
 
-if [ "$MM" = "05" ]; then
+if [ "$MM" = "5" ]; then
 	DAYS="31"
 fi
 
-if [ "$MM" = "06" ]; then
+if [ "$MM" = "6" ]; then
 	DAYS="30"
 fi
 
-if [ "$MM" = "07" ]; then
+if [ "$MM" = "7" ]; then
 	DAYS="31"
 fi
 
-if [ "$MM" = "08" ]; then
+if [ "$MM" = "8" ]; then
 	DAYS="31"
 fi
 
-if [ "$MM" = "09" ]; then
+if [ "$MM" = "9" ]; then
 	DAYS="30"
 fi
 
