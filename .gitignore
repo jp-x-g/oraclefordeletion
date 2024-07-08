@@ -16,6 +16,7 @@ cfg/*.cnf
 notes.py
 test.py
 test.txt
+notes.txt
 
 # Custom scripts that aren't part of the core package
 custom*
