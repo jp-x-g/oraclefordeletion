@@ -164,8 +164,7 @@ python3 main.py        $arst1
 if [ "$fast" ]; then
 	arst2="$arst2"
 else
-	arst2="$arst2 -o enwiki.analytics.db.svc.wikimedia.cloud"
-	python3 detail.py      $arst2
+	python3 detail.py      $arst2 -o enwiki.analytics.db.svc.wikimedia.cloud
 fi
 # Skip that nonsense if you're running it in fast mode.
 
