@@ -159,15 +159,24 @@ fi
 arst4="$arst4 -o render.txt"
 #Specify render.txt as output for render.py if it's being run in the pipeline
 
+echo "FLAGRANT SYSTEM ERROR\n\n<pre>" > render.txt
+
+echo "python3 main.py        $arst1" >> render.txt
 python3 main.py        $arst1
 
 if [ "$fast" ]; then
 	arst2="$arst2"
 else
+	echo "\n\npython3 detail.py      $arst2 -o enwiki.analytics.db.svc.wikimedia.cloud" >> render.txt
 	python3 detail.py      $arst2 -o enwiki.analytics.db.svc.wikimedia.cloud
 fi
 # Skip that nonsense if you're running it in fast mode.
 
+echo "\n\npython3 detailpages.py $arst3" >> render.txt
 python3 detailpages.py $arst3
+echo "\n\npython3 render.py      $arst4" >> render.txt
+echo "\n\npython3 upload.py      $arst5" >> render.txt
+echo "</pre>" >> render.txt
+
 python3 render.py      $arst4
 python3 upload.py      $arst5
