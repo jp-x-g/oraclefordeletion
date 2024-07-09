@@ -203,57 +203,59 @@ def aLog(argument):
 # Function to create a gradient.
 ########################################
 
+# This can just all be done in CSS.
+# JPxG, 2024 July 9
 
-def createGradient(start, end, step):
-    # There's probably a library for this, but whatever.
-    # - JPxG, 2021 August 17
-    st = [
-        int(("0x" + start[1:3]), 16),
-        int(("0x" + start[3:5]), 16),
-        int(("0x" + start[5:7]), 16),
-    ]
-    ed = [
-        int(("0x" + end[1:3]), 16),
-        int(("0x" + end[3:5]), 16),
-        int(("0x" + end[5:7]), 16),
-    ]
-    # Convert from hex string to numbers.
-    st = [float(st[0]), float(st[1]), float(st[2])]
-    ed = [float(ed[0]), float(ed[1]), float(ed[2])]
-    # Convert from ints to floats.
-    output = []
-    # print(st)
-    # print(ed)
-    diff = [(ed[0] - st[0]), (ed[1] - st[1]), (ed[2] - st[2])]
-    # print(diff)
-    for stp in range(0, step):
-        # Loop that runs over every step in the whole.
-        # "stp" is the step we're at in the gradient.
-        # print(stp)
-        s = "#"
-        for v in range(0, 3):
-            # This will only execute for 0, 1, and 2.
-            amountToGoUp = diff[v] / (step - 1)
-            # The total difference between the start and end values,
-            # divided by how many steps we're putting in the gradient.
-            # It's "step - 1" because we want to end at the end value,
-            # not one increment before the end value.
-            val = int(st[v] + (stp * (diff[v] / (step - 1))))
-            # The starting value, plus (current gradient step) many of the increment.
-            # It's an int, because you can't do partial hex values.
-            if len(str(hex(val))[2:5]) == 1:
-                s = s + "0" + str(hex(val))[2:5]
-                # Add a ZERO-PADDED hex number if it's one digit.
-            else:
-                s = s + str(hex(val))[2:5]
-                # Add the hex number if it's normal.
-            # Convert the computed value to a hex, then to a string, then append it to
-            # the string for that step's hex value.
-            s = s.upper()
-            # Convert to uppercase. Not a big deal, but whatever.
-        output.append(s)
-        # Store all three computed hex values as the color for that step.
-    return output
+# def createGradient(start, end, step):
+#     # There's probably a library for this, but whatever.
+#     # - JPxG, 2021 August 17
+#     st = [
+#         int(("0x" + start[1:3]), 16),
+#         int(("0x" + start[3:5]), 16),
+#         int(("0x" + start[5:7]), 16),
+#     ]
+#     ed = [
+#         int(("0x" + end[1:3]), 16),
+#         int(("0x" + end[3:5]), 16),
+#         int(("0x" + end[5:7]), 16),
+#     ]
+#     # Convert from hex string to numbers.
+#     st = [float(st[0]), float(st[1]), float(st[2])]
+#     ed = [float(ed[0]), float(ed[1]), float(ed[2])]
+#     # Convert from ints to floats.
+#     output = []
+#     # print(st)
+#     # print(ed)
+#     diff = [(ed[0] - st[0]), (ed[1] - st[1]), (ed[2] - st[2])]
+#     # print(diff)
+#     for stp in range(0, step):
+#         # Loop that runs over every step in the whole.
+#         # "stp" is the step we're at in the gradient.
+#         # print(stp)
+#         s = "#"
+#         for v in range(0, 3):
+#             # This will only execute for 0, 1, and 2.
+#             amountToGoUp = diff[v] / (step - 1)
+#             # The total difference between the start and end values,
+#             # divided by how many steps we're putting in the gradient.
+#             # It's "step - 1" because we want to end at the end value,
+#             # not one increment before the end value.
+#             val = int(st[v] + (stp * (diff[v] / (step - 1))))
+#             # The starting value, plus (current gradient step) many of the increment.
+#             # It's an int, because you can't do partial hex values.
+#             if len(str(hex(val))[2:5]) == 1:
+#                 s = s + "0" + str(hex(val))[2:5]
+#                 # Add a ZERO-PADDED hex number if it's one digit.
+#             else:
+#                 s = s + str(hex(val))[2:5]
+#                 # Add the hex number if it's normal.
+#             # Convert the computed value to a hex, then to a string, then append it to
+#             # the string for that step's hex value.
+#             s = s.upper()
+#             # Convert to uppercase. Not a big deal, but whatever.
+#         output.append(s)
+#         # Store all three computed hex values as the color for that step.
+#     return output
 
 
 ########################################
@@ -553,15 +555,15 @@ if args.configure == True:
     quit()
     # If we're just showing the config data, we're done with the script. Let's scram.
 
-if numberOfDays > 30:
+if numberOfDays > 60:
     word = "boat"
     # time.sleep(1)
-    if numberOfDays > 60:
-        word = "crap"
     if numberOfDays > 120:
-        word = "shit"
+        word = "crap"
     if numberOfDays > 360:
-        word = "fuck"
+        word = "shit"
+    if numberOfDays > 720:
+        word = "giant shit"
     if ((today - timedelta(days=numberOfDays)).year) < 2001:
         print("DANGER: Wikipedia doesn't go back that far, buddy!")
         aLog(
@@ -624,12 +626,12 @@ for asdf in full:
     if asdf != "op":
         # print(asdf)
         # For every type of close in the index except "op", put the total of how many there were.
-        top = top + '\n!style="background:' + clcol[asdf] + '"|' + m + asdf.upper() + n
+        top = top + '\n!class="' + asdf + '"|' + m + asdf.upper() + n
 # print(top)
 
-# totind = ["<span style=\"display:none\">!!!999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
+# totind = ["<span style=\"display:none\">!!!9999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
 totind = {
-    "date": "<span style=\"display:none\">!!!999</span>'''TOTAL'''",
+    "date": "<span style=\"display:none\">!!!9999</span>'''TOTAL'''",
     "total": 0,
     "uncom": 0,
     "op": 0,
@@ -652,8 +654,8 @@ o = ""
 
 # grad = createGradient("#CCFFDD", "#FFCCDD", 16)
 # 16-step gradient between pale green and pale red.
-midder = createGradient(middest, dellest, 52)[2]
-grad = createGradient(keepest, middest, 50) + createGradient(midder, dellest, 51)
+##midder = createGradient(middest, dellest, 52)[2]
+##grad = createGradient(keepest, middest, 50) + createGradient(midder, dellest, 51)
 # 101-step gradient between pale green, pale yellow, and pale red.
 # The natural midpoint of the gradient is E6E6DD, which I changed to EFEFDD to be a slight bit yellower.
 # I started out with FFFFDD, but this was so yellow it made the midrange of results hard to read.
@@ -709,44 +711,12 @@ for incr in range(0, numberOfDays):
             op = op + "\n!" + m + "Page<br/>eds." + n
             op = op + "\n!" + m + "Page<br/>size" + n
             op = op + "\n!" + m + "Page<br/>made" + n
-            op = (
-                op
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>!v #"
-                + n
-            )
+            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>!v #" + n
             # op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
-            op = (
-                op
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>size"
-                + n
-            )
-            op = (
-                op
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>made"
-                + n
-            )
-            op = (
-                op
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>last"
-                + n
-            )
-            op = op + '\n!style="background:' + afdheaderbg + '"|' + m + "Sorts" + n
+            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>size" + n
+            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>made" + n
+            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>last" + n
+            op = op + '\n!class="afdheaderbg"|' + m + "Sorts" + n
             # Initialize string that will be a table of all open AfDs for that day.
             cl = '\n{| class="wikitable sortable collapsible collapsed" style="width:100%"'
             cl = cl + "\n|-"
@@ -757,44 +727,12 @@ for incr in range(0, numberOfDays):
             cl = cl + "\n!" + m + "Page<br/>eds." + n
             cl = cl + "\n!" + m + "Page<br/>size" + n
             cl = cl + "\n!" + m + "Page<br/>made" + n
-            cl = (
-                cl
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>!v #"
-                + n
-            )
+            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>!v #" + n
             # cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
-            cl = (
-                cl
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>size"
-                + n
-            )
-            cl = (
-                cl
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>made"
-                + n
-            )
-            cl = (
-                cl
-                + '\n!style="background:'
-                + afdheaderbg
-                + '"|'
-                + m
-                + "AfD<br/>last"
-                + n
-            )
-            cl = cl + '\n!style="background:' + afdheaderbg + '"|' + m + "Sorts" + n
+            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>size" + n
+            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>made" + n
+            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>last" + n
+            cl = cl + '\n!class="afdheaderbg"|' + m + "Sorts" + n
             # Initialize string that will be a table of all closed AfDs for that day.
             anchorSetYet = 1
             # We don't want to set anchors at all.
@@ -835,13 +773,13 @@ for incr in range(0, numberOfDays):
                 # print(page)
                 d = dlData["pgs"][page]
                 # print(d)
-                b = 'style="background:' + afdbg + '"|'
-                bnocomments = 'style="background:' + afdnocomments + '"|'
+                b = 'class="afdbg"|'
+                bnocomments = 'class="afdnocomments"|'
                 # Beginning for AfD data cells
                 if verbose:
                     print(page)
                 # Effective, but unbelievably spammy, debug line that prints every page title as it's processed.
-                cellcolor = clcol[d["afdinfo"]["close"]]
+                cellcolor = d["afdinfo"]["close"]
                 # Set cell color by taking the "clcol" entry with the index of the AfD close.
                 dts = sortkey[d["afdinfo"]["close"]]
                 # Do the same for the sortkey.
@@ -875,7 +813,7 @@ for incr in range(0, numberOfDays):
                     # print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
                     if d["afdinfo"]["all"] == 0:
                         ratio = "N/A"
-                        ratiocolor = errorst
+                        ratioclass = "pn-a"
                     else:
                         ratio = (
                             d["afdinfo"]["vdl"]
@@ -888,25 +826,26 @@ for incr in range(0, numberOfDays):
                         # Delete, speedy delete, merge, redirect, draftify, and userfy !votes, out of all !votes.
                         ratio = ratio * 100.0
                         # Creates number (from 0 to 100) expressing ratio of how many !votes are delete-like.
-                        # There's 101 gradient steps, so 0 to 100 will cover them all.
-                        # print(str(ratio)[0:5])
-                        ratiocolor = str(grad[int(ratio)])
+                        ratioclass = "000" + str(int(ratio))
+                        ratioclass = "p" + ratioclass[-3:] # Last three chars
+                        # ratiocolor = str(grad[int(ratio)])
                         ratio = str(100 - ratio)[0:5]
                         # Calculate the actual numbers to display for the ratio (i.e. formulate as keep %, and truncate decimals)
                 except:
                     aLog("Couldn't calculate ratio for " + page)
                     ratio = "?"
-                    ratiocolor = errorst
+                    ratioclass = "?"
                 s = ""
                 # Initialize blank string for this row. Rows for open and closed AfDs are the same,
                 # which means we can use the same code for both, THEN decide which table to put it in.
                 new = "\n|"
                 # Newline string (this just makes the code less ugly)
                 s = s + "\n|-"
-                s = s + '\n|style="background:' + cellcolor + '" |'
+                s = s + '\n|class="' + cellcolor + '" |'
                 if d["afd"]["relist"] > 0:
-                    s = s + "'''"
-                    # Bold it if it's a relist
+                    s = s + "'''∗"
+                    # Bold it and add a U+2217 ASTERISK OPERATOR if it's a relist
+
                 s = (
                     s
                     + "[[Wikipedia:Articles for deletion/"
@@ -917,15 +856,15 @@ for incr in range(0, numberOfDays):
                 )
                 if d["afd"]["relist"] > 0:
                     s = s + "'''"
-                    # Bold it if it's a relist
+                    # Close the bolding if it's a relist
                 if anchorSetYet == 0:
                     s = s + "{{anchor|" + dayDate + "}}"
                     anchorSetYet = 1
                     # Add an anchor and disable the sentry variable.
                 linkscolumn = (
-                    '\n|<span class="plainlinks">'
+                    '\n|'
                     + dts[0]
-                    + "[[:"
+                    + "[["
                     + page
                     + "|a]]"
                     + dts[1]
@@ -933,13 +872,19 @@ for incr in range(0, numberOfDays):
                     + page
                     + "|t]]"
                     + dts[2]
-                    + "[{{fullurl:"
+                    + "[[Special:History/"
                     + page
-                    + "|action=history}} h]"
+                    + "|h]]"
                     + dts[3]
-                    + "</span>"
                 )
-                # Add a colon to the page link, because on January 2, 2008, someone nominated the freaking Xbox logo at AfD and it'll just embed the whole thing otherwise.
+                for asdf in ["File", "Image", "Category"]:
+                    ln = len(asdf)+2
+                    if linkscolumn[0:ln].lower() == ("[[" + asdf.lower()):
+                        linkscolumn.replace("[[", "[[:")
+                        # Add a colon to the page link if warranted,
+                        # because on January 2, 2008, someone nominated
+                        # the freaking Xbox logo at AfD, and it'll just embed the whole thing otherwise.
+
                 # The dts[0] and dts[1] are the sort keys.
                 # Since these colums are the same thing no matter what,
                 # we can use two different Unicode dots to make them sort
@@ -948,91 +893,57 @@ for incr in range(0, numberOfDays):
                 ########################################
                 # Fix namespace errors in link string.
                 ########################################
-                # Article links column
+
+                # Beware of corner cases: below are actual article titles.
+                # Tic Talk: Living with Tourette Syndrome
+                # If a Lion Could Talk: Animal Intelligence and the Evolution of Consciousness
+                # Shop Talk: A Writer and His Colleagues and Their Work
+                # Gadget:Invention, Travel, & Adventure
+                # Gadget: Invention, Travel, and Adventure
+                # Book:A Novel
+                # Book: A Novel
+                # Course: Oblivion (Star Trek: Voyager)
+                # Topic:The Washington & Jefferson College Review
+
                 linkscolumn = linkscolumn.replace("[[Talk:Talk:", "[[Talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Draft:", "[[Draft talk:")
-                # Sometimes people nominate weird namespaces at AfD.
-                linkscolumn = linkscolumn.replace("[[Talk:User:", "[[User talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Wikipedia:", "[[Wikipedia talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Template:", "[[Template talk:"
-                )
-                # Sometimes people nominate REALLY weird namespaces.
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Wikipedia talk:", "[[Wikipedia talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Template talk:", "[[Template talk:"
-                )
-                linkscolumn = linkscolumn.replace("[[Talk:File:", "[[File talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:File talk:", "[[File talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:MediaWiki:", "[[MediaWiki talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:MediaWiki talk:", "[[MediaWiki talk:"
-                )
-                linkscolumn = linkscolumn.replace("[[Talk:Help:", "[[Help talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Help talk:", "[[Help talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Category:", "[[Category talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Category talk:", "[[Category talk:"
-                )
-                linkscolumn = linkscolumn.replace("[[Talk:Portal:", "[[Portal talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Portal talk:", "[[Portal talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:TimedText:", "[[TimedText talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:TimedText talk:", "[[TimedText talk:"
-                )
-                linkscolumn = linkscolumn.replace("[[Talk:Module:", "[[Module talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Module talk:", "[[Module talk:"
-                )
-                # Sometimes it's April Fools' Day.
-                linkscolumn = linkscolumn.replace("[[Talk:Gadget:", "[[Gadget talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Gadget talk:", "[[Gadget talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Gadget definition:", "[[Gadget definition talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Gadget definition talk:", "[[Gadget definition talk:"
-                )
-                # Some editors just want to watch the world burn.
-                linkscolumn = linkscolumn.replace("[[Talk:Special:", "[[Special talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Special talk:", "[[Special talk:"
-                )
-                linkscolumn = linkscolumn.replace("[[Talk:Media:", "[[Media talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Media talk:", "[[Media talk:")
-                # Virtual namespaces.
-                linkscolumn = linkscolumn.replace("[[Talk:Image:", "[[Image talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Image talk:", "[[Image talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:WP:", "[[Wikipedia talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:WPT:", "[[Wikipedia talk:")
-                # Aliases.
-                linkscolumn = linkscolumn.replace("[[Talk:Book:", "[[Book talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Book talk:", "[[Book talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Flow:", "[[Flow talk:")
-                linkscolumn = linkscolumn.replace("[[Talk:Flow talk:", "[[Flow talk:")
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Education Program:", "[[Education Program talk:"
-                )
-                linkscolumn = linkscolumn.replace(
-                    "[[Talk:Education Program talk:", "[[Education Program talk:"
-                )
-                # I don't even think this is possible, but why not.
+                # Special case for mainspace which doesn't actually have a special name
+                nses = ["User",
+                        "Wikipedia",
+                        "File",
+                        "MediaWiki",
+                        "Template",
+                        "Help",
+                        "Category",
+                        "Portal",
+                        "Draft",
+                        "TimedText",
+                        "Module"
+                        ]
+                # There are additional namespaces that no longer exist.
+                # But, since they don't exist, their talk pages don't either.
+                # That is to say, the talk page for "Book:A Novel" really IS "Talk:Book:A Novel".
+                # So these ones do not actually need to be fixed.
+                        #"Book",
+                        #"Course",
+                        #"Institution",
+                        #"Education Program",
+                        #"Flow",
+                        #"Gadget",
+                        #"Gadget definition",
+                        #"Topic",
+                        #"Special",
+                        #"Media"
+
+                for ns in nses:
+                    # Note: We have to do the [[ at the beginning because sometimes articles are...
+                    # well... 
+                    linkscolumn = linkscolumn.replace(("[[Talk:" + ns + " talk:"), (ns + " talk:"))
+                    # "Talk:TimedText talk:" -> "TimedText talk:"
+                    linkscolumn = linkscolumn.replace(("[[Talk:" + ns + ":"), (ns + " talk:"))
+                    # "Talk:TimedText" -> "TimedText talk:"
+
                 s = s + linkscolumn
-                s = s + '\n|style="background:' + ratiocolor + '"|' + ratio
+                s = s + '\n|class="pct ' + ratioclass + '"|' + ratio
                 # Ratio column
                 try:
                     sd = new + str(d["pagestats"]["revisions"])
@@ -1043,7 +954,7 @@ for incr in range(0, numberOfDays):
                     # Add them all to a string and then add that string to s all at once.
                     # This may seem pointless, but it prevents table-breaking.
                     # If it just adds them to s sequentially, and it fails on column 4,
-                    # cause it to add a full five dummy columns IN ADDITION to those four.
+                    # this makes it add a full five dummy columns IN ADDITION to those four.
                     # That is to say, the row will be more than five, and the table will break.
                 except:
                     try:
@@ -1056,17 +967,16 @@ for incr in range(0, numberOfDays):
                         # This is what will render if detail.py wasn't run.
                     except:
                         s = s + new + new + new + new
-                        #   1   2   3   4
+                        #       1     2     3     4
                         # If rendering the light version also failed, dummy out the row.
                         # This will happen if the page was deleted.
                 try:
-                    if d["afdinfo"]["all"] == 0:
-                        sd = new + bnocomments + str(d["afdinfo"]["all"])
-                        # Add the background color for an uncommented AfD to the line.
-                        ind["uncom"] = ind["uncom"] + 1
-                        # Increment the "uncommented" counter.
+                    if int(d["afdinfo"]["all"]) > 100:
+                        countstring = "100"
                     else:
-                        sd = new + b + str(d["afdinfo"]["all"])
+                        countstring = "000" + str(int(d["afdinfo"]["all"]))
+                        countstring = countstring[-3:]
+                    sd = new + '|class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
                         # Add normal background color for commented AfD to the line.
                     # sd = sd + new + str(d['afdstats']['editors'])
                     # Commented out line for AfD editor count.
@@ -1077,13 +987,14 @@ for incr in range(0, numberOfDays):
                     # See above comment for why this is necessary.
                 except:
                     try:
+                        if int(d["afdinfo"]["all"]) > 100:
+                            countstring = "100"
+                        else:
+                            countstring = "000" + str(int(d["afdinfo"]["all"]))
+                            countstring = countstring[-3:]
+                        sd = new + '|class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
                         if d["afdinfo"]["all"] == 0:
                             sd = new + bnocomments + str(d["afdinfo"]["all"])
-                            # Add the background color for an uncommented AfD to the line.
-                            # Don't increment the "uncommented" counter, because we just did it.
-                        else:
-                            sd = new + b + str(d["afdinfo"]["all"])
-                            # Add normal background color for commented AfD to the line.
                         # sd = sd + new + "−"
                         # Commented out line for AfD editor count.
                         sd = sd + new + str(d["afdinfo"]["size"])
@@ -1114,12 +1025,7 @@ for incr in range(0, numberOfDays):
                                     not in already
                                 ):
                                     if len(already) < 6:
-                                        s = (
-                                            s
-                                            + emojis[
-                                                d["afdinfo"]["delsorts"]["top"][asdf]
-                                            ]
-                                        )
+                                        s = s+ emojis[d["afdinfo"]["delsorts"]["top"][asdf]]
                                 already.append(
                                     emojis[d["afdinfo"]["delsorts"]["top"][asdf]]
                                 )
@@ -1132,12 +1038,7 @@ for incr in range(0, numberOfDays):
                                     not in already
                                 ):
                                     if len(already) < 6:
-                                        s = (
-                                            s
-                                            + emojis[
-                                                d["afdinfo"]["delsorts"]["sub"][asdf]
-                                            ]
-                                        )
+                                        s = s+ emojis[d["afdinfo"]["delsorts"]["sub"][asdf]]
                                 already.append(
                                     emojis[d["afdinfo"]["delsorts"]["sub"][asdf]]
                                 )
@@ -1384,14 +1285,17 @@ if aggregate == 1:
                 + redLinkAfds[err]
                 + "|"
                 + err
-                + "]], "
+                + "]]<sup>[[Special:WhatLinksHere/Wikipedia:Articles for deletion/"
+                + redLinkAfds[err]
+                +"|@]]</sup>, "
             )
             # print("[[Wikipedia:Articles for deletion/" + redLinkAfds[err] + "|" + err + "]], ")
         top = top[:-2] + "''"
     if errorList:
         top = top + "\n:''Unknown errors (" + str(allErrorCount) + "): "
         for err in errorList:
-            top = top + "[[Wikipedia:Articles for deletion/" + err + "|" + err + "]], "
+            top = top + "[[Wikipedia:Articles for deletion/" + err + "|" + err + "]]"
+            top = top + "<sup>[[Special:WhatLinksHere/Wikipedia:Articles for deletion/" + err + "|@]]</sup>, "
         top = top[:-2] + "''"
         # Trim that last freakin' comma.
     # Record all the errors in a HTML note.
