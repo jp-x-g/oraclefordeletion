@@ -1055,13 +1055,14 @@ for incr in range(0, numberOfDays):
                 else:
                     cl = cl + s
                     # If the AfD is closed, add it to the closed-AfD table string.
-            except:
-                print(Exception)
+            except KeyboardInterrupt:
+                raise(Exception)
+                exit()
+            except Exception as err:
+                print("Error: ", err)
                 # If there is some bizarre mystery bug that makes no sense.
                 try:
-                    print(Exception)
                     try:
-                        print(Exception)
                         # If it can pull the afdinfo and afdstats, but they're empty (means the AfD was deleted)
                         print("!! AfD info says: " + str(d["afdinfo"]["error"]))
                         print("!! AfD stats say: " + str(d["afdstats"]["error"]))
@@ -1073,15 +1074,16 @@ for incr in range(0, numberOfDays):
                         redLinkAfds[page] = d["afd"]["afdtitle"]
                         # print(redLinkAfds)
                         redLinkCount = redLinkCount + 1
-                    except:
-                        print(Exception)
+                    except Exception as err:
+                        print("Error: ", err)
                         # If it can't pull the stats for the page (likely means the propertizers messed up)
                         errorList.append(page)
                         aLog("Couldn't process " + page)
                         o = o + "<!-- Couldn't process a page: " + page + "-->"
                         # o = o + "<!-- Couldn't process a page: " + str(dlData["pgs"][page])
                         errorCount = errorCount + 1
-                except:
+                except Exception as err:
+                    print("Error: ", err)
                     errorCount = errorCount + 1
                     errorList.append("UNKNOWN")
                     aLog(
