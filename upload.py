@@ -23,7 +23,7 @@ import requests
 ########################################
 # Set all configuration variables.
 ########################################
-version = "2.0"
+version = "2.5"
 userRunning = "JPxG"
 
 today = datetime.utcnow().date()
