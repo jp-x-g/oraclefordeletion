@@ -833,7 +833,7 @@ for incr in range(0, numberOfDays):
                         ratioclass = "p" + ratioclass[-3:] # Last three chars
                         # ratiocolor = str(grad[int(ratio)])
                         # Calculate the actual numbers to display for the ratio (i.e. formulate as keep %, and truncate decimals)
-                        ratio = str(100 - ratio)[0:5]
+                        ratio = str(ratio)[0:5]
                 except:
                     aLog("Couldn't calculate ratio for " + page)
                     ratio = "?"
