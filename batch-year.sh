@@ -301,152 +301,152 @@
 #########################################################################################
 #bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-12-31 -s 0.01 -o User:JPxG/Oracle/2016-12 -q 1
 #bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-11-30 -s 0.01 -o User:JPxG/Oracle/2016-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-10-31 -s 0.01 -o User:JPxG/Oracle/2016-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-09-30 -s 0.01 -o User:JPxG/Oracle/2016-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-08-31 -s 0.01 -o User:JPxG/Oracle/2016-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-07-31 -s 0.01 -o User:JPxG/Oracle/2016-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-06-30 -s 0.01 -o User:JPxG/Oracle/2016-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-05-31 -s 0.01 -o User:JPxG/Oracle/2016-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-04-30 -s 0.01 -o User:JPxG/Oracle/2016-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-03-31 -s 0.01 -o User:JPxG/Oracle/2016-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2016-02-29 -s 0.01 -o User:JPxG/Oracle/2016-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-01-31 -s 0.01 -o User:JPxG/Oracle/2016-01 -q 1
-bash render-year.sh 2016
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-12-31 -s 0.01 -o User:JPxG/Oracle/2015-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-11-30 -s 0.01 -o User:JPxG/Oracle/2015-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-10-31 -s 0.01 -o User:JPxG/Oracle/2015-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-09-30 -s 0.01 -o User:JPxG/Oracle/2015-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-08-31 -s 0.01 -o User:JPxG/Oracle/2015-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-07-31 -s 0.01 -o User:JPxG/Oracle/2015-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-06-30 -s 0.01 -o User:JPxG/Oracle/2015-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-05-31 -s 0.01 -o User:JPxG/Oracle/2015-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-04-30 -s 0.01 -o User:JPxG/Oracle/2015-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-03-31 -s 0.01 -o User:JPxG/Oracle/2015-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2015-02-28 -s 0.01 -o User:JPxG/Oracle/2015-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-01-31 -s 0.01 -o User:JPxG/Oracle/2015-01 -q 1
-bash render-year.sh 2015
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-12-31 -s 0.01 -o User:JPxG/Oracle/2014-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-11-30 -s 0.01 -o User:JPxG/Oracle/2014-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-10-31 -s 0.01 -o User:JPxG/Oracle/2014-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-09-30 -s 0.01 -o User:JPxG/Oracle/2014-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-08-31 -s 0.01 -o User:JPxG/Oracle/2014-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-07-31 -s 0.01 -o User:JPxG/Oracle/2014-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-06-30 -s 0.01 -o User:JPxG/Oracle/2014-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-05-31 -s 0.01 -o User:JPxG/Oracle/2014-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-04-30 -s 0.01 -o User:JPxG/Oracle/2014-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-03-31 -s 0.01 -o User:JPxG/Oracle/2014-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2014-02-28 -s 0.01 -o User:JPxG/Oracle/2014-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-01-31 -s 0.01 -o User:JPxG/Oracle/2014-01 -q 1
-bash render-year.sh 2014
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-12-31 -s 0.01 -o User:JPxG/Oracle/2013-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-11-30 -s 0.01 -o User:JPxG/Oracle/2013-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-10-31 -s 0.01 -o User:JPxG/Oracle/2013-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-09-30 -s 0.01 -o User:JPxG/Oracle/2013-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-08-31 -s 0.01 -o User:JPxG/Oracle/2013-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-07-31 -s 0.01 -o User:JPxG/Oracle/2013-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-06-30 -s 0.01 -o User:JPxG/Oracle/2013-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-05-31 -s 0.01 -o User:JPxG/Oracle/2013-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-04-30 -s 0.01 -o User:JPxG/Oracle/2013-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-03-31 -s 0.01 -o User:JPxG/Oracle/2013-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2013-02-28 -s 0.01 -o User:JPxG/Oracle/2013-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-01-31 -s 0.01 -o User:JPxG/Oracle/2013-01 -q 1
-bash render-year.sh 2013
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-12-31 -s 0.01 -o User:JPxG/Oracle/2012-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-11-30 -s 0.01 -o User:JPxG/Oracle/2012-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-10-31 -s 0.01 -o User:JPxG/Oracle/2012-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-09-30 -s 0.01 -o User:JPxG/Oracle/2012-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-08-31 -s 0.01 -o User:JPxG/Oracle/2012-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-07-31 -s 0.01 -o User:JPxG/Oracle/2012-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-06-30 -s 0.01 -o User:JPxG/Oracle/2012-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-05-31 -s 0.01 -o User:JPxG/Oracle/2012-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-04-30 -s 0.01 -o User:JPxG/Oracle/2012-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-03-31 -s 0.01 -o User:JPxG/Oracle/2012-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2012-02-29 -s 0.01 -o User:JPxG/Oracle/2012-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-01-31 -s 0.01 -o User:JPxG/Oracle/2012-01 -q 1
-bash render-year.sh 2012
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-12-31 -s 0.01 -o User:JPxG/Oracle/2011-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-11-30 -s 0.01 -o User:JPxG/Oracle/2011-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-10-31 -s 0.01 -o User:JPxG/Oracle/2011-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-09-30 -s 0.01 -o User:JPxG/Oracle/2011-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-08-31 -s 0.01 -o User:JPxG/Oracle/2011-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-07-31 -s 0.01 -o User:JPxG/Oracle/2011-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-06-30 -s 0.01 -o User:JPxG/Oracle/2011-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-05-31 -s 0.01 -o User:JPxG/Oracle/2011-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-04-30 -s 0.01 -o User:JPxG/Oracle/2011-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-03-31 -s 0.01 -o User:JPxG/Oracle/2011-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2011-02-28 -s 0.01 -o User:JPxG/Oracle/2011-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-01-31 -s 0.01 -o User:JPxG/Oracle/2011-01 -q 1
-bash render-year.sh 2011
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-12-31 -s 0.01 -o User:JPxG/Oracle/2010-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-11-30 -s 0.01 -o User:JPxG/Oracle/2010-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-10-31 -s 0.01 -o User:JPxG/Oracle/2010-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-09-30 -s 0.01 -o User:JPxG/Oracle/2010-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-08-31 -s 0.01 -o User:JPxG/Oracle/2010-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-07-31 -s 0.01 -o User:JPxG/Oracle/2010-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-06-30 -s 0.01 -o User:JPxG/Oracle/2010-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-05-31 -s 0.01 -o User:JPxG/Oracle/2010-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-04-30 -s 0.01 -o User:JPxG/Oracle/2010-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-03-31 -s 0.01 -o User:JPxG/Oracle/2010-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2010-02-28 -s 0.01 -o User:JPxG/Oracle/2010-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-01-31 -s 0.01 -o User:JPxG/Oracle/2010-01 -q 1
-bash render-year.sh 2010
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-12-31 -s 0.01 -o User:JPxG/Oracle/2009-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-11-30 -s 0.01 -o User:JPxG/Oracle/2009-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-10-31 -s 0.01 -o User:JPxG/Oracle/2009-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-09-30 -s 0.01 -o User:JPxG/Oracle/2009-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-08-31 -s 0.01 -o User:JPxG/Oracle/2009-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-07-31 -s 0.01 -o User:JPxG/Oracle/2009-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-06-30 -s 0.01 -o User:JPxG/Oracle/2009-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-05-31 -s 0.01 -o User:JPxG/Oracle/2009-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-04-30 -s 0.01 -o User:JPxG/Oracle/2009-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-03-31 -s 0.01 -o User:JPxG/Oracle/2009-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2009-02-28 -s 0.01 -o User:JPxG/Oracle/2009-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-01-31 -s 0.01 -o User:JPxG/Oracle/2009-01 -q 1
-bash render-year.sh 2009
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-12-31 -s 0.01 -o User:JPxG/Oracle/2008-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-11-30 -s 0.01 -o User:JPxG/Oracle/2008-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-10-31 -s 0.01 -o User:JPxG/Oracle/2008-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-09-30 -s 0.01 -o User:JPxG/Oracle/2008-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-08-31 -s 0.01 -o User:JPxG/Oracle/2008-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-07-31 -s 0.01 -o User:JPxG/Oracle/2008-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-06-30 -s 0.01 -o User:JPxG/Oracle/2008-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-05-31 -s 0.01 -o User:JPxG/Oracle/2008-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-04-30 -s 0.01 -o User:JPxG/Oracle/2008-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-03-31 -s 0.01 -o User:JPxG/Oracle/2008-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2008-02-29 -s 0.01 -o User:JPxG/Oracle/2008-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-01-31 -s 0.01 -o User:JPxG/Oracle/2008-01 -q 1
-bash render-year.sh 2008
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-12-31 -s 0.01 -o User:JPxG/Oracle/2007-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-11-30 -s 0.01 -o User:JPxG/Oracle/2007-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-10-31 -s 0.01 -o User:JPxG/Oracle/2007-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-09-30 -s 0.01 -o User:JPxG/Oracle/2007-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-08-31 -s 0.01 -o User:JPxG/Oracle/2007-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-07-31 -s 0.01 -o User:JPxG/Oracle/2007-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-06-30 -s 0.01 -o User:JPxG/Oracle/2007-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-05-31 -s 0.01 -o User:JPxG/Oracle/2007-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-04-30 -s 0.01 -o User:JPxG/Oracle/2007-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-03-31 -s 0.01 -o User:JPxG/Oracle/2007-03 -q 1
-bash run-batch.sh -w 1 -g 1 -b 28 -l 2007-02-28 -s 0.01 -o User:JPxG/Oracle/2007-02 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-01-31 -s 0.01 -o User:JPxG/Oracle/2007-01 -q 1
-bash render-year.sh 2007
-########################################################################################
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-12-31 -s 0.01 -o User:JPxG/Oracle/2006-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-11-30 -s 0.01 -o User:JPxG/Oracle/2006-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-10-31 -s 0.01 -o User:JPxG/Oracle/2006-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-09-30 -s 0.01 -o User:JPxG/Oracle/2006-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-08-31 -s 0.01 -o User:JPxG/Oracle/2006-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-07-31 -s 0.01 -o User:JPxG/Oracle/2006-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-06-30 -s 0.01 -o User:JPxG/Oracle/2006-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-05-31 -s 0.01 -o User:JPxG/Oracle/2006-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-10-31 -s 0.01 -o User:JPxG/Oracle/2016-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-09-30 -s 0.01 -o User:JPxG/Oracle/2016-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-08-31 -s 0.01 -o User:JPxG/Oracle/2016-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-07-31 -s 0.01 -o User:JPxG/Oracle/2016-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-06-30 -s 0.01 -o User:JPxG/Oracle/2016-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-05-31 -s 0.01 -o User:JPxG/Oracle/2016-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2016-04-30 -s 0.01 -o User:JPxG/Oracle/2016-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-03-31 -s 0.01 -o User:JPxG/Oracle/2016-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2016-02-29 -s 0.01 -o User:JPxG/Oracle/2016-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2016-01-31 -s 0.01 -o User:JPxG/Oracle/2016-01 -q 1
+#bash render-year.sh 2016
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-12-31 -s 0.01 -o User:JPxG/Oracle/2015-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-11-30 -s 0.01 -o User:JPxG/Oracle/2015-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-10-31 -s 0.01 -o User:JPxG/Oracle/2015-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-09-30 -s 0.01 -o User:JPxG/Oracle/2015-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-08-31 -s 0.01 -o User:JPxG/Oracle/2015-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-07-31 -s 0.01 -o User:JPxG/Oracle/2015-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-06-30 -s 0.01 -o User:JPxG/Oracle/2015-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-05-31 -s 0.01 -o User:JPxG/Oracle/2015-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2015-04-30 -s 0.01 -o User:JPxG/Oracle/2015-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-03-31 -s 0.01 -o User:JPxG/Oracle/2015-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2015-02-28 -s 0.01 -o User:JPxG/Oracle/2015-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2015-01-31 -s 0.01 -o User:JPxG/Oracle/2015-01 -q 1
+#bash render-year.sh 2015
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-12-31 -s 0.01 -o User:JPxG/Oracle/2014-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-11-30 -s 0.01 -o User:JPxG/Oracle/2014-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-10-31 -s 0.01 -o User:JPxG/Oracle/2014-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-09-30 -s 0.01 -o User:JPxG/Oracle/2014-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-08-31 -s 0.01 -o User:JPxG/Oracle/2014-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-07-31 -s 0.01 -o User:JPxG/Oracle/2014-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-06-30 -s 0.01 -o User:JPxG/Oracle/2014-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-05-31 -s 0.01 -o User:JPxG/Oracle/2014-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2014-04-30 -s 0.01 -o User:JPxG/Oracle/2014-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-03-31 -s 0.01 -o User:JPxG/Oracle/2014-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2014-02-28 -s 0.01 -o User:JPxG/Oracle/2014-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2014-01-31 -s 0.01 -o User:JPxG/Oracle/2014-01 -q 1
+#bash render-year.sh 2014
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-12-31 -s 0.01 -o User:JPxG/Oracle/2013-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-11-30 -s 0.01 -o User:JPxG/Oracle/2013-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-10-31 -s 0.01 -o User:JPxG/Oracle/2013-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-09-30 -s 0.01 -o User:JPxG/Oracle/2013-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-08-31 -s 0.01 -o User:JPxG/Oracle/2013-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-07-31 -s 0.01 -o User:JPxG/Oracle/2013-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-06-30 -s 0.01 -o User:JPxG/Oracle/2013-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-05-31 -s 0.01 -o User:JPxG/Oracle/2013-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2013-04-30 -s 0.01 -o User:JPxG/Oracle/2013-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-03-31 -s 0.01 -o User:JPxG/Oracle/2013-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2013-02-28 -s 0.01 -o User:JPxG/Oracle/2013-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2013-01-31 -s 0.01 -o User:JPxG/Oracle/2013-01 -q 1
+#bash render-year.sh 2013
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-12-31 -s 0.01 -o User:JPxG/Oracle/2012-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-11-30 -s 0.01 -o User:JPxG/Oracle/2012-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-10-31 -s 0.01 -o User:JPxG/Oracle/2012-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-09-30 -s 0.01 -o User:JPxG/Oracle/2012-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-08-31 -s 0.01 -o User:JPxG/Oracle/2012-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-07-31 -s 0.01 -o User:JPxG/Oracle/2012-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-06-30 -s 0.01 -o User:JPxG/Oracle/2012-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-05-31 -s 0.01 -o User:JPxG/Oracle/2012-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2012-04-30 -s 0.01 -o User:JPxG/Oracle/2012-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-03-31 -s 0.01 -o User:JPxG/Oracle/2012-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2012-02-29 -s 0.01 -o User:JPxG/Oracle/2012-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2012-01-31 -s 0.01 -o User:JPxG/Oracle/2012-01 -q 1
+#bash render-year.sh 2012
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-12-31 -s 0.01 -o User:JPxG/Oracle/2011-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-11-30 -s 0.01 -o User:JPxG/Oracle/2011-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-10-31 -s 0.01 -o User:JPxG/Oracle/2011-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-09-30 -s 0.01 -o User:JPxG/Oracle/2011-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-08-31 -s 0.01 -o User:JPxG/Oracle/2011-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-07-31 -s 0.01 -o User:JPxG/Oracle/2011-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-06-30 -s 0.01 -o User:JPxG/Oracle/2011-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-05-31 -s 0.01 -o User:JPxG/Oracle/2011-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2011-04-30 -s 0.01 -o User:JPxG/Oracle/2011-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-03-31 -s 0.01 -o User:JPxG/Oracle/2011-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2011-02-28 -s 0.01 -o User:JPxG/Oracle/2011-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2011-01-31 -s 0.01 -o User:JPxG/Oracle/2011-01 -q 1
+#bash render-year.sh 2011
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-12-31 -s 0.01 -o User:JPxG/Oracle/2010-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-11-30 -s 0.01 -o User:JPxG/Oracle/2010-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-10-31 -s 0.01 -o User:JPxG/Oracle/2010-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-09-30 -s 0.01 -o User:JPxG/Oracle/2010-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-08-31 -s 0.01 -o User:JPxG/Oracle/2010-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-07-31 -s 0.01 -o User:JPxG/Oracle/2010-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-06-30 -s 0.01 -o User:JPxG/Oracle/2010-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-05-31 -s 0.01 -o User:JPxG/Oracle/2010-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2010-04-30 -s 0.01 -o User:JPxG/Oracle/2010-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-03-31 -s 0.01 -o User:JPxG/Oracle/2010-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2010-02-28 -s 0.01 -o User:JPxG/Oracle/2010-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2010-01-31 -s 0.01 -o User:JPxG/Oracle/2010-01 -q 1
+#bash render-year.sh 2010
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-12-31 -s 0.01 -o User:JPxG/Oracle/2009-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-11-30 -s 0.01 -o User:JPxG/Oracle/2009-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-10-31 -s 0.01 -o User:JPxG/Oracle/2009-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-09-30 -s 0.01 -o User:JPxG/Oracle/2009-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-08-31 -s 0.01 -o User:JPxG/Oracle/2009-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-07-31 -s 0.01 -o User:JPxG/Oracle/2009-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-06-30 -s 0.01 -o User:JPxG/Oracle/2009-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-05-31 -s 0.01 -o User:JPxG/Oracle/2009-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2009-04-30 -s 0.01 -o User:JPxG/Oracle/2009-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-03-31 -s 0.01 -o User:JPxG/Oracle/2009-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2009-02-28 -s 0.01 -o User:JPxG/Oracle/2009-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2009-01-31 -s 0.01 -o User:JPxG/Oracle/2009-01 -q 1
+#bash render-year.sh 2009
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-12-31 -s 0.01 -o User:JPxG/Oracle/2008-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-11-30 -s 0.01 -o User:JPxG/Oracle/2008-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-10-31 -s 0.01 -o User:JPxG/Oracle/2008-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-09-30 -s 0.01 -o User:JPxG/Oracle/2008-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-08-31 -s 0.01 -o User:JPxG/Oracle/2008-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-07-31 -s 0.01 -o User:JPxG/Oracle/2008-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-06-30 -s 0.01 -o User:JPxG/Oracle/2008-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-05-31 -s 0.01 -o User:JPxG/Oracle/2008-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2008-04-30 -s 0.01 -o User:JPxG/Oracle/2008-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-03-31 -s 0.01 -o User:JPxG/Oracle/2008-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2008-02-29 -s 0.01 -o User:JPxG/Oracle/2008-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2008-01-31 -s 0.01 -o User:JPxG/Oracle/2008-01 -q 1
+#bash render-year.sh 2008
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-12-31 -s 0.01 -o User:JPxG/Oracle/2007-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-11-30 -s 0.01 -o User:JPxG/Oracle/2007-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-10-31 -s 0.01 -o User:JPxG/Oracle/2007-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-09-30 -s 0.01 -o User:JPxG/Oracle/2007-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-08-31 -s 0.01 -o User:JPxG/Oracle/2007-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-07-31 -s 0.01 -o User:JPxG/Oracle/2007-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-06-30 -s 0.01 -o User:JPxG/Oracle/2007-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-05-31 -s 0.01 -o User:JPxG/Oracle/2007-05 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2007-04-30 -s 0.01 -o User:JPxG/Oracle/2007-04 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-03-31 -s 0.01 -o User:JPxG/Oracle/2007-03 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 28 -l 2007-02-28 -s 0.01 -o User:JPxG/Oracle/2007-02 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2007-01-31 -s 0.01 -o User:JPxG/Oracle/2007-01 -q 1
+#bash render-year.sh 2007
+#########################################################################################
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-12-31 -s 0.01 -o User:JPxG/Oracle/2006-12 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-11-30 -s 0.01 -o User:JPxG/Oracle/2006-11 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-10-31 -s 0.01 -o User:JPxG/Oracle/2006-10 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-09-30 -s 0.01 -o User:JPxG/Oracle/2006-09 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-08-31 -s 0.01 -o User:JPxG/Oracle/2006-08 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-07-31 -s 0.01 -o User:JPxG/Oracle/2006-07 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-06-30 -s 0.01 -o User:JPxG/Oracle/2006-06 -q 1
+#bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-05-31 -s 0.01 -o User:JPxG/Oracle/2006-05 -q 1
 bash run-batch.sh -w 1 -g 1 -b 30 -l 2006-04-30 -s 0.01 -o User:JPxG/Oracle/2006-04 -q 1
 bash run-batch.sh -w 1 -g 1 -b 31 -l 2006-03-31 -s 0.01 -o User:JPxG/Oracle/2006-03 -q 1
 bash run-batch.sh -w 1 -g 1 -b 28 -l 2006-02-28 -s 0.01 -o User:JPxG/Oracle/2006-02 -q 1
