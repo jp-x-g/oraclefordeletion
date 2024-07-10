@@ -843,17 +843,14 @@ for incr in range(0, numberOfDays):
                 s = s + "\n|-"
                 s = s + '\n|class="' + cellcolor + '" |'
                 if d["afd"]["relist"] > 0:
-                    s = s + "'''∗"
-                    # Bold it and add a U+2217 ASTERISK OPERATOR if it's a relist
+                    s = s + "'''"
+                    # Bold it and if it's a relist
 
-                s = (
-                    s
-                    + "[[Wikipedia:Articles for deletion/"
-                    + d["afd"]["afdtitle"]
-                    + "|"
-                    + page
-                    + "]]"
-                )
+                for asdf in ["st nom", "nd nom", "rd nom", "th nom"]:
+                    if d["afd"]["title"].lower().count(asdf) != 0:
+                        s = s + "∗"
+                        # add a U+2217 ASTERISK OPERATOR if it's an nth nom
+                s = s + "[[Wikipedia:Articles for deletion/" + d["afd"]["afdtitle"] + "|" + page + "]]"
                 if d["afd"]["relist"] > 0:
                     s = s + "'''"
                     # Close the bolding if it's a relist
