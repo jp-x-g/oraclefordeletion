@@ -27,23 +27,23 @@ import requests
 ########################################
 # Set all configuration variables.
 ########################################
-version = "2.0"
-userRunning = "JPxG"
+version        = "2.5"
+userRunning    = "JPxG"
 
 # File system stuff below.
-dataname = "data"
-pagesname = "pages"
-configname = "cfg"
-tempname = "tmp"
+dataname       = "data"
+pagesname      = "pages"
+configname     = "cfg"
+tempname       = "tmp"
 configfilename = "config.txt"
-logfilename = "run3.log"
-outfilename = "output.html"
-jsonprefix = "AfD-log-"
-tmpfilename = "tmp.txt"
+logfilename    = "run3.log"
+outfilename    = "output.html"
+jsonprefix     = "AfD-log-"
+tmpfilename    = "tmp.txt"
 
-apiBase = "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=*&rvprop=content&formatversion=2&format=json&titles="
-apiBare = "https://en.wikipedia.org/w/api.php"
-today = datetime.utcnow().date()
+apiBase        = "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvslots=*&rvprop=content&formatversion=2&format=json&titles="
+apiBare        = "https://en.wikipedia.org/w/api.php"
+today          = datetime.utcnow().date()
 
 ########################################
 # Parse arguments from command line.
@@ -238,19 +238,19 @@ totalQueriesMade = 0
 ########################################
 
 # This is the directory where all program-generated data should live.
-data = Path(os.getcwd() + "/" + dataname)
+data           = Path(os.getcwd() + "/" + dataname)
 # This is the directory that JSON encodings of AfD log pages will be parsed to.
-pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
+pages          = Path(os.getcwd() + "/" + dataname   + "/" + pagesname)
 # Config files live here.
-config = Path(os.getcwd() + "/" + configname)
+config         = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
-tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
-pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
+tmp            = Path(os.getcwd() + "/" + dataname   + "/" + tempname)
+tmpfile        = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/" + tmpfilename)
+pagePath       = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
-logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
-outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
-jsonPath = Path(os.getcwd() + "/" + configname + "/delsort.json")
+logFilePath    = Path(os.getcwd() + "/" + dataname   + "/" + logfilename)
+outputPath     = Path(os.getcwd() + "/" + dataname   + "/" + outfilename)
+jsonPath       = Path(os.getcwd() + "/" + configname + "/delsort.json")
 
 ########################################
 # Make sure those paths exist.

@@ -23,35 +23,35 @@ import requests
 ########################################
 # Set all configuration variables.
 ########################################
-version = "2.5"
-userRunning = "JPxG"
+version          = "2.5"
+userRunning      = "JPxG"
 
-today = datetime.utcnow().date()
+today            = datetime.utcnow().date()
 totalQueriesMade = 0
 
 # File system stuff below.
-dataname = "data"
-pagesname = "pages"
-configname = "cfg"
-tempname = "tmp"
-outputname = "output"
-configfilename = "config.txt"
-logfilename = "run5.log"
-outfilename = "output.html"
-outprefix = "AfD-render-"
-jsonprefix = "AfD-log-"
-logindeets = "login.txt"
-tmpfilename = "tmp.txt"
+dataname         = "data"
+pagesname        = "pages"
+configname       = "cfg"
+tempname         = "tmp"
+outputname       = "output"
+configfilename   = "config.txt"
+logfilename      = "run5.log"
+outfilename      = "output.html"
+outprefix        = "AfD-render-"
+jsonprefix       = "AfD-log-"
+logindeets       = "login.txt"
+tmpfilename      = "tmp.txt"
 
 # Page names below.
-inputPage = "render.txt"
-pagename = "User:JPxG/Oracle"
-apiBase = "https://en.wikipedia.org/w/api.php"
+inputPage        = "render.txt"
+pagename         = "User:JPxG/Oracle"
+apiBase          = "https://en.wikipedia.org/w/api.php"
 
-dividerStart = "<!-- Everything below"
+dividerStart     = "<!-- Everything below"
 # This is what the bot will interpret as the last line of header text on the page.
 
-divider = "<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->\n{{User:JPxG/Oracle/top}}"
+divider          = "<!-- Everything below here will be replaced by the bot when the page is next updated. Do not edit or remove this HTML note. -->\n{{User:JPxG/Oracle/top}}"
 # All this does is put a bunch of blank lines in the terminal.
 # clearScreen = 0
 # if clearScreen:
@@ -208,20 +208,20 @@ if args.input:
 ########################################
 
 # This is the directory where all program-generated data should live.
-data = Path(os.getcwd() + "/" + dataname)
+data           = Path(os.getcwd() + "/" + dataname)
 # This is the directory that JSON encodings of AfD log pages will be parsed to.
-pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
+pages          = Path(os.getcwd() + "/" + dataname   + "/" + pagesname)
 # Config files live here.
-config = Path(os.getcwd() + "/" + configname)
+config         = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
-tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
-pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
+tmp            = Path(os.getcwd() + "/" + dataname   + "/" + tempname)
+tmpfile        = Path(os.getcwd() + "/" + dataname   + "/" + tempname   + "/" + tmpfilename)
+pagePath       = Path(os.getcwd() + "/" + dataname   + "/" + tempname   + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
-logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
-outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
-loginPath = Path(os.getcwd() + "/" + configname + "/" + logindeets)
-inputPath = Path(os.getcwd() + "/" + dataname + "/" + outputname + "/" + inputPage)
+logFilePath    = Path(os.getcwd() + "/" + dataname   + "/" + logfilename)
+outputPath     = Path(os.getcwd() + "/" + dataname   + "/" + outfilename)
+loginPath      = Path(os.getcwd() + "/" + configname + "/" + logindeets)
+inputPath      = Path(os.getcwd() + "/" + dataname   + "/" + outputname + "/" + inputPage)
 
 ########################################
 # Make sure those paths exist.

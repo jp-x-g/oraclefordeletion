@@ -27,26 +27,26 @@ import requests
 ########################################
 # Set all configuration variables.
 ########################################
-version = "2.0"
-userRunning = "JPxG"
+version          = "2.5"
+userRunning      = "JPxG"
 
 # File system stuff below.
-dataname = "data"
-pagesname = "pages"
-configname = "cfg"
-tempname = "tmp"
-outputname = "output"
-configfilename = "config.txt"
-logfilename = "run2.log"
-outfilename = "output.html"
-outprefix = "AfD-render-"
-jsonprefix = "AfD-log-"
-tmpfilename = "tmp.txt"
+dataname         = "data"
+pagesname        = "pages"
+configname       = "cfg"
+tempname         = "tmp"
+outputname       = "output"
+configfilename   = "config.txt"
+logfilename      = "run2.log"
+outfilename      = "output.html"
+outprefix        = "AfD-render-"
+jsonprefix       = "AfD-log-"
+tmpfilename      = "tmp.txt"
 
-apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
-today = datetime.utcnow().date()
+apiBase          = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
+today            = datetime.utcnow().date()
 totalQueriesMade = 0
-sqlHost = "127.0.0.1"
+sqlHost          = "127.0.0.1"
 
 ########################################
 # Parse arguments from command line.
@@ -200,21 +200,21 @@ sleepTime = float(args.sleep)
 ########################################
 
 # This is the directory where all program-generated data should live.
-data = Path(os.getcwd() + "/" + dataname)
+data           = Path(os.getcwd() + "/" + dataname)
 # This is the directory that JSON encodings of AfD log pages will be parsed to.
-pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
+pages          = Path(os.getcwd() + "/" + dataname   + "/" + pagesname)
 # Config files live here.
-config = Path(os.getcwd() + "/" + configname)
+config         = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
-tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
-pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
+tmp            = Path(os.getcwd() + "/" + dataname   + "/" + tempname)
+tmpfile        = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/" + tmpfilename)
+pagePath       = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
-logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
-outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
+logFilePath    = Path(os.getcwd() + "/" + dataname   + "/" + logfilename)
+outputPath     = Path(os.getcwd() + "/" + dataname   + "/" + outfilename)
 
 # sqlLoginPath = Path("/home/x/2k2k/soft/mine/toolforge/replica.my.cnf")
-sqlLoginPath = Path(os.getcwd() + "/cfg/replica.my.cnf")
+sqlLoginPath   = Path(os.getcwd() + "/" + configname + "/replica.my.cnf")
 
 
 ########################################

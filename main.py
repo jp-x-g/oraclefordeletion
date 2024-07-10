@@ -23,24 +23,24 @@ import requests
 ########################################
 # Set all configuration variables.
 ########################################
-version = "2.0"
-userRunning = "JPxG"
+version        = "2.5"
+userRunning    = "JPxG"
 
 # File system stuff
-dataname = "data"
-pagesname = "pages"
-configname = "cfg"
-tempname = "tmp"
+dataname       = "data"
+pagesname      = "pages"
+configname     = "cfg"
+tempname       = "tmp"
 configfilename = "config.txt"
-logfilename = "run1.log"
-outfilename = "output.html"
-jsonprefix = "AfD-log-"
-tmpfilename = "tmp.txt"
+logfilename    = "run1.log"
+outfilename    = "output.html"
+jsonprefix     = "AfD-log-"
+tmpfilename    = "tmp.txt"
 
-stupidKludge = 0
+stupidKludge   = 0
 # Set this to 1 if you want to do the dumbest, most lazy hack nonsense in history.
 
-today = datetime.utcnow().date()
+today          = datetime.utcnow().date()
 # This SHOULD be fine in 3.5. May have to change later.
 
 ########################################
@@ -202,19 +202,19 @@ if args.input != "Don't use one, doofus.":
 ########################################
 
 # This is the directory where all program-generated data should live.
-data = Path(os.getcwd() + "/" + dataname)
+data           = Path(os.getcwd() + "/" + dataname)
 # This is the directory that JSON encodings of AfD log pages will be parsed to.
-pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
+pages          = Path(os.getcwd() + "/" + dataname   + "/" + pagesname)
 # Config files live here.
-config = Path(os.getcwd() + "/" + configname)
+config         = Path(os.getcwd() + "/" + configname)
 # Temporary file directory (doesn't need to persist between sessions)
-tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
+tmp            = Path(os.getcwd() + "/" + dataname   + "/" + tempname)
+tmpfile        = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/" + tmpfilename)
 # Stupid kludge.
-pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
+pagePath       = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/page.html")
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
-logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
-outputPath = Path(os.getcwd() + "/" + dataname + "/" + outfilename)
+logFilePath    = Path(os.getcwd() + "/" + dataname   + "/" + logfilename)
+outputPath     = Path(os.getcwd() + "/" + dataname   + "/" + outfilename)
 
 ########################################
 # Make sure those paths exist.
@@ -305,7 +305,7 @@ if verbose:
     try:
         aLog("Running as : " + os.getlogin())
     except:
-        aLog("Running as : well, somebody")
+        aLog("Running as : [couldn't retrieve login]")
     aLog("Cooldown   : " + str(sleepTime))
 aLog(
     "Running script for "

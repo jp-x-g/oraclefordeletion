@@ -23,25 +23,25 @@ from pathlib import Path
 ########################################
 # Set default configuration variables.
 ########################################
-version = "2.0"
-userRunning = "JPxG"
+version          = "2.5"
+userRunning      = "JPxG"
 
 # File system stuff below.
-dataname = "data"
-pagesname = "pages"
-configname = "cfg"
-tempname = "tmp"
-outputname = "output"
-configfilename = "config.txt"
-logfilename = "run4.log"
-outfilename = "output.html"
-outprefix = "AfD-render-"
-jsonprefix = "AfD-log-"
-tmpfilename = "tmp.txt"
-summaryfilename = "summary.txt"
+dataname         = "data"
+pagesname        = "pages"
+configname       = "cfg"
+tempname         = "tmp"
+outputname       = "output"
+configfilename   = "config.txt"
+logfilename      = "run4.log"
+outfilename      = "output.html"
+outprefix        = "AfD-render-"
+jsonprefix       = "AfD-log-"
+tmpfilename      = "tmp.txt"
+summaryfilename  = "summary.txt"
 
-apiBase = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
-today = datetime.utcnow().date()
+apiBase          = "https://xtools.wmflabs.org/api/page/articleinfo/en.wikipedia.org/"
+today            = datetime.utcnow().date()
 totalQueriesMade = 0
 
 
@@ -142,26 +142,24 @@ if args.aggregate:
 # Here be file system stuff.
 ########################################
 
-data = Path(os.getcwd() + "/" + dataname)
+data           = Path(os.getcwd() + "/" + dataname)
 # This is the directory where all program-generated data should live.
-pages = Path(os.getcwd() + "/" + dataname + "/" + pagesname)
+pages          = Path(os.getcwd() + "/" + dataname   + "/" + pagesname)
 # This is the directory that JSON encodings of AfD log pages will be parsed to.
-config = Path(os.getcwd() + "/" + configname)
+config         = Path(os.getcwd() + "/" + configname)
 # Config files live here.
-tmp = Path(os.getcwd() + "/" + dataname + "/" + tempname)
-tmpfile = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/" + tmpfilename)
+tmp            = Path(os.getcwd() + "/" + dataname   + "/" + tempname)
+tmpfile        = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/" + tmpfilename)
 # Temporary file directory (doesn't need to persist between runs of the stack)
-pagePath = Path(os.getcwd() + "/" + dataname + "/" + tempname + "/page.html")
+pagePath       = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/page.html")
 # Stupid kludge.
 configFilePath = Path(os.getcwd() + "/" + configname + "/" + configfilename)
-logFilePath = Path(os.getcwd() + "/" + dataname + "/" + logfilename)
-out = Path(os.getcwd() + "/" + dataname + "/" + outputname)
-outputPath = Path(os.getcwd() + "/" + dataname + "/" + outputname + "/" + outfilename)
-jsonPath = Path(os.getcwd() + "/" + configname + "/delsort.json")
-emojisPath = Path(os.getcwd() + "/" + configname + "/emojis.json")
-summaryPath = Path(
-    os.getcwd() + "/" + dataname + "/" + tempname + "/" + summaryfilename
-)
+logFilePath    = Path(os.getcwd() + "/" + dataname   + "/" + logfilename)
+out            = Path(os.getcwd() + "/" + dataname   + "/" + outputname)
+outputPath     = Path(os.getcwd() + "/" + dataname   + "/" + outputname + "/" + outfilename)
+jsonPath       = Path(os.getcwd() + "/" + configname + "/delsort.json")
+emojisPath     = Path(os.getcwd() + "/" + configname + "/emojis.json")
+summaryPath    = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/" + summaryfilename)
 
 ########################################
 # Make sure those paths exist.
