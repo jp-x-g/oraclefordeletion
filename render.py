@@ -827,13 +827,13 @@ for incr in range(0, numberOfDays):
                             + d["afdinfo"]["vus"]
                         ) / d["afdinfo"]["all"]
                         # Delete, speedy delete, merge, redirect, draftify, and userfy !votes, out of all !votes.
-                        ratio = ratio * 100.0
+                        ratio = 100 - (ratio * 100.0)
                         # Creates number (from 0 to 100) expressing ratio of how many !votes are delete-like.
                         ratioclass = "000" + str(int(ratio))
                         ratioclass = "p" + ratioclass[-3:] # Last three chars
                         # ratiocolor = str(grad[int(ratio)])
-                        ratio = str(100 - ratio)[0:5]
                         # Calculate the actual numbers to display for the ratio (i.e. formulate as keep %, and truncate decimals)
+                        ratio = str(100 - ratio)[0:5]
                 except:
                     aLog("Couldn't calculate ratio for " + page)
                     ratio = "?"
