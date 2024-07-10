@@ -842,14 +842,13 @@ for incr in range(0, numberOfDays):
                 # Newline string (this just makes the code less ugly)
                 s = s + "\n|-"
                 s = s + '\n|class="' + cellcolor + '" |'
-                if d["afd"]["relist"] > 0:
-                    s = s + "'''"
-                    # Bold it and if it's a relist
-
                 for asdf in ["st nom", "nd nom", "rd nom", "th nom"]:
                     if d["afd"]["title"].lower().count(asdf) != 0:
                         s = s + "∗"
                         # add a U+2217 ASTERISK OPERATOR if it's an nth nom
+                if d["afd"]["relist"] > 0:
+                    s = s + "'''"
+                    # Bold it and if it's a relist
                 s = s + "[[Wikipedia:Articles for deletion/" + d["afd"]["afdtitle"] + "|" + page + "]]"
                 if d["afd"]["relist"] > 0:
                     s = s + "'''"
@@ -1057,9 +1056,12 @@ for incr in range(0, numberOfDays):
                     cl = cl + s
                     # If the AfD is closed, add it to the closed-AfD table string.
             except:
+                print(exception)
                 # If there is some bizarre mystery bug that makes no sense.
                 try:
+                    print(exception)
                     try:
+                        print(exception)
                         # If it can pull the afdinfo and afdstats, but they're empty (means the AfD was deleted)
                         print("!! AfD info says: " + str(d["afdinfo"]["error"]))
                         print("!! AfD stats say: " + str(d["afdstats"]["error"]))
@@ -1072,6 +1074,7 @@ for incr in range(0, numberOfDays):
                         # print(redLinkAfds)
                         redLinkCount = redLinkCount + 1
                     except:
+                        print(exception)
                         # If it can't pull the stats for the page (likely means the propertizers messed up)
                         errorList.append(page)
                         aLog("Couldn't process " + page)
@@ -1107,19 +1110,13 @@ for incr in range(0, numberOfDays):
         closed = ind["total"] - ind["op"]
         top = top + "\n| " + str(ind["total"])
         if ind["op"] == 0:
-            top = top + '\n| style="background:' + indGrayed + " | 0"
+            top = top + '\n|class="indGrayed"| 0'
         else:
             top = top + "\n| " + str(ind["op"])
         if ind["uncom"] == 0:
             top = top + "\n| 0"
         else:
-            top = (
-                top
-                + '\n| style="background:'
-                + afdnocomments
-                + " | "
-                + str(ind["uncom"])
-            )
+            top = top + '\n|class="afdnocomments"|' + str(ind["uncom"])
         top = top + "\n| " + str(closed)
         for asdf in full:
             ## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
@@ -1174,7 +1171,7 @@ sumup = sumup + "\n| " + sort + str(totind["total"])
 summed = sumup
 # What we store in the summary file should be the same as the page output, up to this point.
 if ind["op"] == 0:
-    sumup = sumup + '\n| style="background:' + indGrayed + " |" + sort + "0"
+    sumup = sumup + '\n|class="indGrayed"|' + sort + "0"
     # Col 3: Number of open AfDs (zero, grayed out)
 else:
     sumup = sumup + "\n|" + sort + str(totind["op"])
@@ -1183,23 +1180,16 @@ if ind["uncom"] == 0:
     sumup = sumup + "\n|" + sort + "0"
     # Col 4: Number of uncommented AfDs (zero)
 else:
-    sumup = (
-        sumup
-        + '\n| style="background:'
-        + afdnocomments
-        + '"|'
-        + sort
-        + str(totind["uncom"])
-    )
+    sumup = sumup + '\n|class="afdnocomments"|' + sort + str(totind["uncom"])
     # Col 4: Number of uncommented AfDs (nonzero, special background)
-sumup = sumup + "\n|" + sort + str(closed)
+sumup  = sumup  + "\n|" + sort + str(closed)
 summed = summed + "\n|" + sort + str(closed)
 # Col 5: number of closed AfDs
 for asdf in full:
     ## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
     if asdf != "op":
         # For every type of close in the index aside from "op", put the total of how many there were.
-        sumup = sumup + "\n|" + sort + str(totind[asdf])
+        sumup  = sumup  + "\n|" + sort + str(totind[asdf])
         summed = summed + "\n|" + sort + str(totind[asdf])
         # Cols 6 - 16: totals for each close type.
 pageLink = "[[User:JPxG/Oracle/" + str(dayDate)[0:7] + "|" + str(dayDate)[0:7] + "]]"
@@ -1218,20 +1208,13 @@ top = top + "\n| " + sort + "'''Average'''"
 closed = totind["total"] - totind["op"]
 top = top + "\n| " + sort + str(totind["total"] / numberOfDays)[0:5]
 if ind["op"] == 0:
-    top = top + '\n| style="background:' + indGrayed + " |" + sort + "0"
+    top = top + '\n|class="indGrayed"|' + sort + "0"
 else:
     top = top + "\n|" + sort + str(totind["op"] / numberOfDays)[0:5]
 if ind["uncom"] == 0:
     top = top + "\n|" + sort + "0"
 else:
-    top = (
-        top
-        + '\n| style="background:'
-        + afdnocomments
-        + " |"
-        + sort
-        + str(totind["uncom"] / numberOfDays)[0:5]
-    )
+    top = top + '\n|class="afdnocomments"|' + sort + str(totind["uncom"] / numberOfDays)[0:5]
 top = top + "\n|" + sort + str(closed / numberOfDays)[0:5]
 for asdf in full:
     ## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
@@ -1306,12 +1289,12 @@ if aggregate == 1:
     top = top + "\n!" + m + "Page<br/>eds."
     top = top + "\n!" + m + "Page<br/>size"
     top = top + "\n!" + m + "Page<br/>made"
-    top = top + '\n!!style="background:' + afdheaderbg + '"|' + m + "AfD<br/>!v #"
+    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>!v #"
     # top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
-    top = top + '\n!!style="background:' + afdheaderbg + '"|' + m + "AfD<br/>size"
-    top = top + '\n!!style="background:' + afdheaderbg + '"|' + m + "AfD<br/>made"
-    top = top + '\n!!style="background:' + afdheaderbg + '"|' + m + "AfD<br/>last"
-    top = top + '\n!!style="background:' + afdheaderbg + '"|' + m + "Sorts" + n
+    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>size"
+    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>made"
+    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>last"
+    top = top + '\n!!class="afdheaderbg"|' + m + "Sorts" + n
     # Create start, and headers, for big aggregate column.
     o = o + "\n|}"
     # Terminate output string for AfD table.
