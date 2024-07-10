@@ -1056,12 +1056,12 @@ for incr in range(0, numberOfDays):
                     cl = cl + s
                     # If the AfD is closed, add it to the closed-AfD table string.
             except:
-                print(exception)
+                print(Exception)
                 # If there is some bizarre mystery bug that makes no sense.
                 try:
-                    print(exception)
+                    print(Exception)
                     try:
-                        print(exception)
+                        print(Exception)
                         # If it can pull the afdinfo and afdstats, but they're empty (means the AfD was deleted)
                         print("!! AfD info says: " + str(d["afdinfo"]["error"]))
                         print("!! AfD stats say: " + str(d["afdstats"]["error"]))
@@ -1074,7 +1074,7 @@ for incr in range(0, numberOfDays):
                         # print(redLinkAfds)
                         redLinkCount = redLinkCount + 1
                     except:
-                        print(exception)
+                        print(Exception)
                         # If it can't pull the stats for the page (likely means the propertizers messed up)
                         errorList.append(page)
                         aLog("Couldn't process " + page)
