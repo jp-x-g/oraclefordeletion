@@ -304,7 +304,10 @@ if verbose:
     aLog("Auth file  : " + str(loginPath))
     aLog("Input file : " + str(inputPath))
     aLog("Log file   : " + str(logFilePath))
-    aLog("Running as : " + os.getlogin())
+    try:
+        aLog("Running as : " + os.getlogin())
+    except:
+        aLog("Running as : [couldn't retrieve login]")
     aLog("Cooldown   : " + str(sleepTime))
 aLog("Running script for " + userRunning)
 # ".\nProcessing " + str(numberOfDays) + " days: " + today.strftime("%Y %B %d") + " back to " + (today - timedelta(days=numberOfDays)).strftime("%Y %B %d") + ".")

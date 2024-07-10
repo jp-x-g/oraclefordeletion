@@ -512,7 +512,10 @@ if verbose:
     aLog("Config file: " + str(configFilePath))
     aLog("Output file: " + str(outputPath))
     aLog("Log file   : " + str(logFilePath))
-    aLog("Running as : " + os.getlogin())
+    try:
+        aLog("Running as : " + os.getlogin())
+    except:
+        aLog("Running as : [couldn't retrieve login]")
     aLog("Cooldown   : " + str(sleepTime))
 print(
     "Running script for "
