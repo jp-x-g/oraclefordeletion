@@ -937,9 +937,9 @@ for incr in range(0, numberOfDays):
                 for ns in nses:
                     # Note: We have to do the [[ at the beginning because sometimes articles are...
                     # well... 
-                    linkscolumn = linkscolumn.replace(("[[Talk:" + ns + " talk:"), (ns + " talk:"))
+                    linkscolumn = linkscolumn.replace(("[[Talk:" + ns + " talk:"), ("[[" + ns + " talk:"))
                     # "Talk:TimedText talk:" -> "TimedText talk:"
-                    linkscolumn = linkscolumn.replace(("[[Talk:" + ns + ":"), (ns + " talk:"))
+                    linkscolumn = linkscolumn.replace(("[[Talk:" + ns + ":"), ("[[" + ns + " talk:"))
                     # "Talk:TimedText" -> "TimedText talk:"
 
                 s = s + linkscolumn
@@ -976,7 +976,7 @@ for incr in range(0, numberOfDays):
                     else:
                         countstring = "000" + str(int(d["afdinfo"]["all"]))
                         countstring = countstring[-3:]
-                    sd = new + '|class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
+                    sd = new + 'class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
                         # Add normal background color for commented AfD to the line.
                     # sd = sd + new + str(d['afdstats']['editors'])
                     # Commented out line for AfD editor count.
@@ -992,7 +992,7 @@ for incr in range(0, numberOfDays):
                         else:
                             countstring = "000" + str(int(d["afdinfo"]["all"]))
                             countstring = countstring[-3:]
-                        sd = new + '|class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
+                        sd = new + 'class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
                         if d["afdinfo"]["all"] == 0:
                             sd = new + bnocomments + str(d["afdinfo"]["all"])
                         # sd = sd + new + "−"
