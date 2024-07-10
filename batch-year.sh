@@ -469,19 +469,19 @@ bash run-batch.sh -w 1 -g 1 -b 28 -l 2005-02-28 -s 0.01 -o User:JPxG/Oracle/2005
 bash run-batch.sh -w 1 -g 1 -b 31 -l 2005-01-31 -s 0.01 -o User:JPxG/Oracle/2005-01 -q 1
 bash render-year.sh 2005
 #########################################################################################
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-12-31 -s 0.01 -o User:JPxG/Oracle/2004-12 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-11-30 -s 0.01 -o User:JPxG/Oracle/2004-11 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-10-31 -s 0.01 -o User:JPxG/Oracle/2004-10 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-09-30 -s 0.01 -o User:JPxG/Oracle/2004-09 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-08-31 -s 0.01 -o User:JPxG/Oracle/2004-08 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-07-31 -s 0.01 -o User:JPxG/Oracle/2004-07 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-06-30 -s 0.01 -o User:JPxG/Oracle/2004-06 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-05-31 -s 0.01 -o User:JPxG/Oracle/2004-05 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-04-30 -s 0.01 -o User:JPxG/Oracle/2004-04 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-03-31 -s 0.01 -o User:JPxG/Oracle/2004-03 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 28 -l 2004-02-29 -s 0.01 -o User:JPxG/Oracle/2004-02 -q 1
-#bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-01-31 -s 0.01 -o User:JPxG/Oracle/2004-01 -q 1
-#bash render-year.sh 2004
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-12-31 -s 0.01 -o User:JPxG/Oracle/2004-12 -q 1
+bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-11-30 -s 0.01 -o User:JPxG/Oracle/2004-11 -q 1
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-10-31 -s 0.01 -o User:JPxG/Oracle/2004-10 -q 1
+bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-09-30 -s 0.01 -o User:JPxG/Oracle/2004-09 -q 1
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-08-31 -s 0.01 -o User:JPxG/Oracle/2004-08 -q 1
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-07-31 -s 0.01 -o User:JPxG/Oracle/2004-07 -q 1
+bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-06-30 -s 0.01 -o User:JPxG/Oracle/2004-06 -q 1
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-05-31 -s 0.01 -o User:JPxG/Oracle/2004-05 -q 1
+bash run-batch.sh -w 1 -g 1 -b 30 -l 2004-04-30 -s 0.01 -o User:JPxG/Oracle/2004-04 -q 1
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-03-31 -s 0.01 -o User:JPxG/Oracle/2004-03 -q 1
+bash run-batch.sh -w 1 -g 1 -b 28 -l 2004-02-29 -s 0.01 -o User:JPxG/Oracle/2004-02 -q 1
+bash run-batch.sh -w 1 -g 1 -b 31 -l 2004-01-31 -s 0.01 -o User:JPxG/Oracle/2004-01 -q 1
+bash render-year.sh 2004
 #########################################################################################
 #bash run-batch.sh -w 1 -g 1 -b 31 -l 2003-12-31 -s 0.01 -o User:JPxG/Oracle/2003-12 -q 1
 #bash run-batch.sh -w 1 -g 1 -b 30 -l 2003-11-30 -s 0.01 -o User:JPxG/Oracle/2003-11 -q 1
