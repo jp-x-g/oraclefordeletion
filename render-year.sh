@@ -30,29 +30,28 @@ fi
 
 python3 render.py              -a -b 31 -l $year-01-31 -o temp-renderyear.txt
 
-echo "" > data/tmp/summary-$year.txt
+echo "<templatestyles src=\"User:JPxG/Oracle/styles.css\"/>" > data/tmp/summary-$year.txt
 echo "This is a summary of all monthly deletion logpages for $year. This page only shows the total for each month; to see individual day logs, click the link to the month page." >> data/tmp/summarynow.txt
 #echo "{{User:JPxG/Oracle/top}}" >> data/tmp/summary-$year.txt
 echo "__NOTOC__" >> data/tmp/summary-$year.txt
-echo '<onlyinclude>{|class="wikitable sortable collapsible"' >> data/tmp/summary-$year.txt
+echo '{|class="wikitable sortable collapsible"' >> data/tmp/summary-$year.txt
 echo "|-" >> data/tmp/summary-$year.txt
 echo "!'''[[User:JPxG/Oracle/$year|$year]]'''" >> data/tmp/summary-$year.txt
 echo "!<sup><sub>Total</sub></sup>" >> data/tmp/summary-$year.txt
 echo "!<sup><sub>Parsed</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#CEF2CE\"|<sup><sub>KP</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#F2CECE\"|<sup><sub>DL</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#F2E0CE\"|<sup><sub>RD</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#F2F2CE\"|<sup><sub>MG</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#F2F2A9\"|<sup><sub>NC</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#A9F2A9\"|<sup><sub>SK</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#F2A9A9\"|<sup><sub>SD</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#CEF2F2\"|<sup><sub>TW</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#CECEF2\"|<sup><sub>US</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#D1D3D7\"|<sup><sub>WD</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!style=\"background:#F3AAF3\"|<sup><sub>UD</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"kp\"|<sup><sub>KP</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"dl\"|<sup><sub>DL</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"rd\"|<sup><sub>RD</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"mg\"|<sup><sub>MG</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"nc\"|<sup><sub>NC</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"sk\"|<sup><sub>SK</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"sd\"|<sup><sub>SD</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"tw\"|<sup><sub>TW</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"us\"|<sup><sub>US</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"wd\"|<sup><sub>WD</sub></sup>" >> data/tmp/summary-$year.txt
+echo "!class=\"ud\"|<sup><sub>UD</sub></sup><onlyinclude>" >> data/tmp/summary-$year.txt
 summ=`cat data/tmp/summary.txt`
 echo "$summ" >> data/tmp/summary-$year.txt
-echo "" >> data/tmp/summary-$year.txt
 ################################################################################
 # Here be dragons: code that actually totals up and averages the monthly totals.
 ################################################################################
@@ -81,7 +80,8 @@ echo "" >> data/tmp/summary-$year.txt
 ################################################################################
 # Dragons are over now.
 ################################################################################
-echo "|}</onlyinclude>" >> data/tmp/summary-$year.txt
+echo "</onlyinclude>" >> data/tmp/summary-$year.txt
+echo "|}" >> data/tmp/summary-$year.txt
 
 MM=$(date +%m)
 YYYY=$(date +%Y)
