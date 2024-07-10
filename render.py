@@ -843,7 +843,7 @@ for incr in range(0, numberOfDays):
                 s = s + "\n|-"
                 s = s + '\n|class="' + cellcolor + '" |'
                 for asdf in ["st nom", "nd nom", "rd nom", "th nom"]:
-                    if d["afd"]["title"].lower().count(asdf) != 0:
+                    if d["afd"]["afdtitle"].lower().count(asdf) != 0:
                         s = s + "∗"
                         # add a U+2217 ASTERISK OPERATOR if it's an nth nom
                 if d["afd"]["relist"] > 0:
