@@ -302,7 +302,10 @@ if verbose:
     aLog("Config file: " + str(configFilePath))
     aLog("Output file: " + str(outputPath))
     aLog("Log file   : " + str(logFilePath))
-    aLog("Running as : " + os.getlogin())
+    try:
+        aLog("Running as : " + os.getlogin())
+    except:
+        aLog("Running as : well, somebody")
     aLog("Cooldown   : " + str(sleepTime))
 aLog(
     "Running script for "
