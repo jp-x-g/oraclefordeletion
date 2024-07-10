@@ -975,7 +975,7 @@ for incr in range(0, numberOfDays):
                     else:
                         countstring = "000" + str(int(d["afdinfo"]["all"]))
                         countstring = countstring[-3:]
-                    sd = new + 'class="vct p' + countstring + '|' + str(d["afdinfo"]["all"])
+                    sd = new + 'class="vct p' + countstring + '"|' + str(d["afdinfo"]["all"])
                         # Add normal background color for commented AfD to the line.
                     # sd = sd + new + str(d['afdstats']['editors'])
                     # Commented out line for AfD editor count.
