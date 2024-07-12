@@ -7,28 +7,28 @@ year=$1
 echo "Rendering and uploading AfDs for: $year"
 
 echo "" > data/tmp/summary.txt
-python3 render.py              -a -b 31 -l $year-12-31 -o temp-renderyear.txt
-python3 render.py              -a -b 30 -l $year-11-30 -o temp-renderyear.txt
-python3 render.py              -a -b 31 -l $year-10-31 -o temp-renderyear.txt
-python3 render.py              -a -b 30 -l $year-09-30 -o temp-renderyear.txt
-python3 render.py              -a -b 31 -l $year-08-31 -o temp-renderyear.txt
-python3 render.py              -a -b 31 -l $year-07-31 -o temp-renderyear.txt
-python3 render.py              -a -b 30 -l $year-06-30 -o temp-renderyear.txt
-python3 render.py              -a -b 31 -l $year-05-31 -o temp-renderyear.txt
-python3 render.py              -a -b 30 -l $year-04-30 -o temp-renderyear.txt
-python3 render.py              -a -b 31 -l $year-03-31 -o temp-renderyear.txt
+python3 render.py     -a -b 31 -l $year-12-31 -o temp-renderyear12.txt
+python3 render.py     -a -b 30 -l $year-11-30 -o temp-renderyear11.txt
+python3 render.py     -a -b 31 -l $year-10-31 -o temp-renderyear10.txt
+python3 render.py     -a -b 30 -l $year-09-30 -o temp-renderyear09.txt
+python3 render.py     -a -b 31 -l $year-08-31 -o temp-renderyear08.txt
+python3 render.py     -a -b 31 -l $year-07-31 -o temp-renderyear07.txt
+python3 render.py     -a -b 30 -l $year-06-30 -o temp-renderyear06.txt
+python3 render.py     -a -b 31 -l $year-05-31 -o temp-renderyear05.txt
+python3 render.py     -a -b 30 -l $year-04-30 -o temp-renderyear04.txt
+python3 render.py     -a -b 31 -l $year-03-31 -o temp-renderyear03.txt
 
 if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ]
 	# Yeah, I'll be dead by the time anyone gets mad about this.
 then
-	python3 render.py              -a -b 29 -l $year-02-29 -o temp-renderyear.txt
+	python3 render.py -a -b 29 -l $year-02-29 -o temp-renderyear02.txt
 	# Leap year. February is a longboy.
 else
-	python3 render.py              -a -b 28 -l $year-02-28 -o temp-renderyear.txt
+	python3 render.py -a -b 28 -l $year-02-28 -o temp-renderyear02.txt
 	# Not a leap year. Normal February.
 fi
 
-python3 render.py              -a -b 31 -l $year-01-31 -o temp-renderyear.txt
+python3 render.py     -a -b 31 -l $year-01-31 -o temp-renderyear01.txt
 
 echo "<templatestyles src=\"User:JPxG/Oracle/styles.css\"/>" > data/tmp/summary-$year.txt
 echo "This is a summary of all monthly deletion logpages for $year. This page only shows the total for each month; to see individual day logs, click the link to the month page." >> data/tmp/summarynow.txt
