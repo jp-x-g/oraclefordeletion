@@ -165,11 +165,11 @@ summaryPath    = Path(os.getcwd() + "/" + dataname   + "/" + tempname + "/" + su
 # Make sure those paths exist.
 ########################################
 
-data.mkdir(mode=0o777, exist_ok=True)
-pages.mkdir(mode=0o777, exist_ok=True)
+data.mkdir(  mode=0o777, exist_ok=True)
+pages.mkdir( mode=0o777, exist_ok=True)
 config.mkdir(mode=0o777, exist_ok=True)
-tmp.mkdir(mode=0o777, exist_ok=True)
-out.mkdir(mode=0o777, exist_ok=True)
+tmp.mkdir(   mode=0o777, exist_ok=True)
+out.mkdir(   mode=0o777, exist_ok=True)
 
 ########################################
 # Function to log to the logfile.
@@ -286,10 +286,10 @@ def closeOut():
         print("Couldn't log execution time.")
         try:
             profile = {
-                "main1": 0.01,
-                "main2": 0.01,
-                "detail1": 0.01,
-                "detail2": 0.01,
+                "main1":    0.01,
+                "main2":    0.01,
+                "detail1":  0.01,
+                "detail2":  0.01,
                 "detailp1": 0.01,
                 "detailp2": 0.01,
                 "render": execTime,
@@ -329,34 +329,6 @@ def summarize(arg):
 ########################################
 # Set colors.
 ########################################
-""
-########## Normal colors.
-keepest = "#CCFFDD"
-# Color for the highest "keep" ratios. Conventionally pale green.
-dellest = "#FFCCDD"
-# Color for the highest "delete" ratios. Conventionally pale red.
-middest = "#EFEFDD"
-# Color for the midpoint of keepest and dellest (the natural midpoint is too murky, and yellow is too yellow).
-errorst = "#EAECF0"
-# Color for ratios that couldn't be determined (or no !votes have been cast)
-defaultcl = "#EAECF0"
-# Color for closes that couldn't be determined, or AfDs which are still open.
-keepcl = "#CEF2CE"
-# Convention is pale green.
-delecl = "#F2CECE"
-# Convention is pale red.
-elsecl = "#F2F2CE"
-# Convention is straw.
-afdheaderbg = "#F2F2CE"
-# Background for AfD column headers.
-afdbg = "#FFFFE6"
-# Background for AfD columns.
-afdnocomments = "#FFFF73"
-# Background for AfD comment cells with no comments on them yet.
-indGrayed = "#EAECF0"
-# Background for table-of-contents cells that are irrelevant.
-# Default is the default Wikitable header color, EAECF0.
-
 
 dots = ["·", "⋅"]
 
@@ -380,39 +352,6 @@ full = {
     "ud": "undefined",
 }
 
-
-# full = {
-# 	"op": "open",
-# 	"sk": "speedy keep",
-# 	"kp": "keep",
-# 	"nc": "no consensus",
-# 	"mg": "merge",
-# 	"rd": "redirect",
-# 	"dl": "delete",
-# 	"sd": "speedy delete",
-# 	"tw": "transwiki",
-# 	"us": "userfy",
-# 	"wd": "withdrawn",
-# 	"ud": "undefined"
-# }
-# Default ordering (makes the table look goofy)
-
-clcol = {
-    "op": "#EAECF0",
-    "sk": "#A9F2A9",
-    "kp": "#CEF2CE",
-    "nc": "#F2F2A9",
-    "mg": "#F2F2CE",
-    "rd": "#F2E0CE",
-    "dl": "#F2CECE",
-    "sd": "#F2A9A9",
-    "tw": "#CEF2F2",
-    "us": "#CECEF2",
-    "wd": "#D1D3D7",
-    "ud": "#F3AAF3",
-}
-# Sets close colors.
-
 sortkey = {
     "op": [dots[0], dots[0], dots[0], dots[1]],
     "sk": [dots[0], dots[0], dots[1], dots[0]],
@@ -431,41 +370,10 @@ sortkey = {
 #               8       4       2       1
 # Counting up with binary numbers to give a sort key, lol.
 
-
-########## Solarize that shizz.
-# These are Solarized colors, mixed with #f8f9fa (Wikitable default cell background)
-"""
-keepest = "#BEC97D"
-# Color for the highest "keep" ratios. Conventionally pale green.
-dellest = "#EA9594"
-# Color for the highest "delete" ratios. Conventionally pale red.
-middest = "#D6C17D"
-# Color for the midpoint of keepest and dellest (the natural midpoint is too murky, and yellow is too yellow).
-midder = createGradient(middest, dellest, 8)[2]
-# Color for one step past the midpoint.
-errorst = "#B2B5DF"
-# Color for ratios that couldn't be determined.
-defaultcl = "#D5D7EC"
-# Color for closes that couldn't be determined.
-keepcl = "#DBE1BB"
-# Convention is pale green.
-delecl = "#F1C7C7"
-# Convention is pale red.
-elsecl = "#E7DDBB"
-# Convention is straw.
-afdheaderbg = "#E597BE"
-# Background for AfD column headers.
-afdbg = "#EEC8DC"
-# Background for AfD columns.
-afdnocomments = "#E597BE"
-# Background for AfD comment cells with no comments on them yet.
-"""
-
 ########################################
 # This is very, very, very, very stupid.
 # Gives a lookup table for 1-deep jsons.
 ########################################
-
 
 def reverseUpAJson(json):
     rev = {}
@@ -473,7 +381,6 @@ def reverseUpAJson(json):
         for qwer in json[asdf]:
             rev[qwer] = asdf
     return rev
-
 
 ########################################
 # Try to load a delsort json.
@@ -589,10 +496,10 @@ if numberOfDays > 60:
 # Let's jam.
 ########################################
 
-m = "<sup><sub>"
-n = "</sub></sup>"
+#m = "<sup><sub>"
+#n = "</sub></sup>"
 # These are used for formatting table headers.
-
+# But they shouldn't be because they're incredibly stupid.
 
 dayLogPath = (
     str(out)
@@ -615,19 +522,19 @@ outputstring = (
 )
 top = ""
 # Create blank template for output text of top index.
-top = top + '{|class="wikitable sortable collapsible"'
-top = top + "\n|-"
-top = top + "\n!'''Contents'''"
-top = top + "\n!" + m + "Total" + n
-top = top + "\n!" + m + "Open" + n
-top = top + "\n!" + m + "Uncom-<br/>mented" + n
-top = top + "\n!" + m + "Closed" + n
+top = top + """{|class="wikitable sortable collapsible\""""
+top = top + """\n|-"""
+top = top + """\n!'''Contents'''"""
+top = top + """\n!class="sml"|Total"""
+top = top + """\n!class="sml"|Open"""
+top = top + """\n!class="sml"|Uncom-<br/>mented"""
+top = top + """\n!class="sml"|Closed"""
 for asdf in full:
     ## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
     if asdf != "op":
         # print(asdf)
         # For every type of close in the index except "op", put the total of how many there were.
-        top = top + '\n!class="' + asdf + '"|' + m + asdf.upper() + n
+        top = top + '\n!class="' + asdf + ' sml"|' + asdf.upper()
 # print(top)
 
 # totind = ["<span style=\"display:none\">!!!9999</span>'''TOTAL'''",  0,  0,  0,  0,  0,  0,  0]
@@ -696,45 +603,28 @@ for incr in range(0, numberOfDays):
         except:
             aLog("!!! FAILED TO OPEN: " + processingPath)
         # Take the existing string, and add a new section header for each new day being processed.
-        m = "<sup><sub>"
-        n = "</sub></sup>"
         # These are used for formatting table headers.
         op = ""
         cl = ""
         if aggregate == 0:
-            o = o + "\n===" + dayDate + "==="
-            op = '\n{| class="wikitable sortable collapsible" style="width:100%"'
-            op = op + "\n|-"
-            op = op + "\n!'''Open AfDs (relists bolded)'''"
-            op = op + "\n!"
-            op = op + "\n!" + m + "Keep<br/>%" + n
-            op = op + "\n!" + m + "Page<br/>revs" + n
-            op = op + "\n!" + m + "Page<br/>eds." + n
-            op = op + "\n!" + m + "Page<br/>size" + n
-            op = op + "\n!" + m + "Page<br/>made" + n
-            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>!v #" + n
-            # op = op + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
-            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>size" + n
-            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>made" + n
-            op = op + '\n!class="afdheaderbg"|' + m + "AfD<br/>last" + n
-            op = op + '\n!class="afdheaderbg"|' + m + "Sorts" + n
+            o = o +   "\n===" + dayDate + "==="
+            op =      """\n{| class="wikitable sortable collapsible" style="width:100%\""""
+            op = op + """\n|-"""
+            op = op + """\n!'''Closed AfDs (relists bolded)'''"""
+            op = op + """\n!"""
+            op = op + """\n!class="sml"|Keep<br/>%"""
+            op = op + """\n!class="sml"|Page<br/>revs"""
+            op = op + """\n!class="sml"|Page<br/>eds."""
+            op = op + """\n!class="sml"|Page<br/>size"""
+            op = op + """\n!class="sml"|Page<br/>made"""
+            op = op + """\n!class="sml afdheaderbg"|AfD<br/>!v #"""
+            op = op + """\n!class="sml afdheaderbg"|AfD<br/>size"""
+            op = op + """\n!class="sml afdheaderbg"|AfD<br/>made"""
+            op = op + """\n!class="sml afdheaderbg"|AfD<br/>last"""
+            op = op + """\n!class="sml afdheaderbg"|Sorts"""
             # Initialize string that will be a table of all open AfDs for that day.
-            cl = '\n{| class="wikitable sortable collapsible collapsed" style="width:100%"'
-            cl = cl + "\n|-"
-            cl = cl + "\n!'''Closed AfDs (relists bolded)'''"
-            cl = cl + "\n!"
-            cl = cl + "\n!" + m + "Keep<br/>%" + n
-            cl = cl + "\n!" + m + "Page<br/>revs" + n
-            cl = cl + "\n!" + m + "Page<br/>eds." + n
-            cl = cl + "\n!" + m + "Page<br/>size" + n
-            cl = cl + "\n!" + m + "Page<br/>made" + n
-            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>!v #" + n
-            # cl = cl + "\n!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."+n
-            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>size" + n
-            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>made" + n
-            cl = cl + '\n!class="afdheaderbg"|' + m + "AfD<br/>last" + n
-            cl = cl + '\n!class="afdheaderbg"|' + m + "Sorts" + n
-            # Initialize string that will be a table of all closed AfDs for that day.
+            cl = op.replace("sortable collapsible", "sortable collapsible collapsed")
+            # Initialize string that will be a table of all closed AfDs for that day (same but autocollapsed)
             anchorSetYet = 1
             # We don't want to set anchors at all.
         else:
@@ -746,25 +636,11 @@ for incr in range(0, numberOfDays):
         # Initialize count for open AfDs
         # Initialize count for closed AfDs
         # ind = [dayDate,  0,  0,  0,  0,  0,  0,  0]
-        #         0      1   2   3   4   5   6   7
-        #               /   /   /     \   \   \   \
-        # 	      total open uncom closed  %k  %d  %m
-        ind = {
-            "date": dayDate,
-            "total": 0,
-            "uncom": 0,
-            "op": 0,
-            "sk": 0,
-            "kp": 0,
-            "nc": 0,
-            "mg": 0,
-            "rd": 0,
-            "dl": 0,
-            "sd": 0,
-            "tw": 0,
-            "us": 0,
-            "wd": 0,
-            "ud": 0,
+        #         0        1   2   3   4   5   6   7
+        #                 /   /   /     \   \   \   \
+        # 	        total open uncom closed  %k  %d  %m
+        ind = { "date": dayDate, "total": 0, "uncom": 0, "op": 0, "sk": 0, "kp": 0, "nc": 0,
+                "mg": 0, "rd": 0, "dl": 0, "sd": 0, "tw": 0, "us": 0, "wd": 0, "ud": 0
         }
         # print(ind)
         # print(dlData["pgs"])
@@ -772,22 +648,22 @@ for incr in range(0, numberOfDays):
             try:
                 # This iterates over every page in that day's AfD.
                 # print(page)
-                d = dlData["pgs"][page]
+                d                             = dlData["pgs"][page]
                 # print(d)
-                b = 'class="afdbg"|'
-                bnocomments = 'class="afdnocomments"|'
+                b                             = 'class="afdbg"|'
+                bnocomments                   = 'class="afdnocomments"|'
                 # Beginning for AfD data cells
                 if verbose:
                     print(page)
                 # Effective, but unbelievably spammy, debug line that prints every page title as it's processed.
-                cellcolor = d["afdinfo"]["close"]
+                cellcolor                     = d["afdinfo"]["close"]
                 # Set cell color by taking the "clcol" entry with the index of the AfD close.
-                dts = sortkey[d["afdinfo"]["close"]]
+                dts                           = sortkey[d["afdinfo"]["close"]]
                 # Do the same for the sortkey.
-                ind[d["afdinfo"]["close"]] = ind[d["afdinfo"]["close"]] + 1
+                ind[d["afdinfo"]["close"]]    = ind[d["afdinfo"]["close"]] + 1
                 totind[d["afdinfo"]["close"]] = totind[d["afdinfo"]["close"]] + 1
-                ind["total"] = ind["total"] + 1
-                totind["total"] = totind["total"] + 1
+                ind["total"]                  = ind["total"] + 1
+                totind["total"]               = totind["total"] + 1
                 # if (d['afdinfo']['open'] != 1):
                 # if (d['pageinfo']['error'] != "0"):
                 # ind[6] = ind[6] + 1
@@ -813,7 +689,7 @@ for incr in range(0, numberOfDays):
                 try:
                     # print("D: " + str(d['afdinfo']['vdl'] + d['afdinfo']['vsd'] + d['afdinfo']['vmg'] + d['afdinfo']['vrd'] + d['afdinfo']['vdr'] + d['afdinfo']['vus']) + " / K: " + str(d['afdinfo']['vkp'] + d['afdinfo']['vsk']) + " / T: " + str(d['afdinfo']['all']))
                     if d["afdinfo"]["all"] == 0:
-                        ratio = "N/A"
+                        ratio      = "N/A"
                         ratioclass = "pn-a"
                     else:
                         ratio = (
@@ -825,31 +701,32 @@ for incr in range(0, numberOfDays):
                             + d["afdinfo"]["vus"]
                         ) / d["afdinfo"]["all"]
                         # Delete, speedy delete, merge, redirect, draftify, and userfy !votes, out of all !votes.
-                        ratio = 100 - (ratio * 100.0)
+                        ratio      = 100 - (ratio * 100.0)
                         # Creates number (from 0 to 100) expressing ratio of how many !votes are delete-like.
                         ratioclass = "000" + str(int(ratio))
                         ratioclass = "p" + ratioclass[-3:] # Last three chars
                         # ratiocolor = str(grad[int(ratio)])
                         # Calculate the actual numbers to display for the ratio (i.e. formulate as keep %, and truncate decimals)
-                        ratio = str(ratio)[0:5]
+                        ratio      = str(ratio)[0:5]
                 except:
                     aLog("Couldn't calculate ratio for " + page)
-                    ratio = "?"
+                    ratio      = "?"
                     ratioclass = "?"
                 s = ""
                 # Initialize blank string for this row. Rows for open and closed AfDs are the same,
                 # which means we can use the same code for both, THEN decide which table to put it in.
-                new = "\n|"
+                new   = """\n|"""
+                #                                                    [dubious - discuss] Date: July 2024
                 # Newline string (this just makes the code less ugly)
-                s = s + "\n|-"
-                s = s + '\n|class="' + cellcolor + '" |'
+                s = s + """\n|-"""
+                s = s + """\n|class=\"""" + cellcolor + """" |"""
                 for asdf in ["st nom", "nd nom", "rd nom", "th nom"]:
                     if d["afd"]["afdtitle"].lower().count(asdf) != 0:
                         s = s + "∗"
                         # add a U+2217 ASTERISK OPERATOR if it's an nth nom
                 if d["afd"]["relist"] > 0:
                     s = s + "'''"
-                    # Bold it and if it's a relist
+                    # Bold it if it's a relist
                 s = s + "[[Wikipedia:Articles for deletion/" + d["afd"]["afdtitle"] + "|" + page + "]]"
                 if d["afd"]["relist"] > 0:
                     s = s + "'''"
@@ -883,7 +760,7 @@ for incr in range(0, numberOfDays):
                         # the freaking Xbox logo at AfD, and it'll just embed the whole thing otherwise.
 
                 # The dts[0] and dts[1] are the sort keys.
-                # Since these colums are the same thing no matter what,
+                # Since these columns are the same thing no matter what,
                 # we can use two different Unicode dots to make them sort
                 # without throwing things off.
                 # To understand this, go way up and look at where dots was assigned.

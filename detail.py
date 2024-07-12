@@ -367,14 +367,14 @@ if args.configure == True:
 # Okay -- three, two, one...
 ########################################
 
-if numberOfDays > 30:
+if numberOfDays > 60:
     word = "boat"
-    if numberOfDays > 60:
-        word = "crap"
     if numberOfDays > 120:
-        word = "shit"
+        word = "crap"
     if numberOfDays > 360:
-        word = "fuck"
+        word = "shit"
+    if numberOfDays > 720:
+        word = "giant shit"
     if ((today - timedelta(days=numberOfDays)).year) < 2001:
         print("DANGER: Wikipedia doesn't go back that far, buddy!")
         aLog(
