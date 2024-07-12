@@ -664,9 +664,9 @@ for incr in range(0, numberOfDays):
                 totind[d["afdinfo"]["close"]] = totind[d["afdinfo"]["close"]] + 1
                 ind["total"]                  = ind["total"] + 1
                 totind["total"]               = totind["total"] + 1
-                # if (d['afdinfo']['open'] != 1):
-                # if (d['pageinfo']['error'] != "0"):
-                # ind[6] = ind[6] + 1
+                #if (d['afdinfo']['open'] != 1):
+                ##    if (d['pageinfo']['error'] != "0"):
+                ##        ind[6] = ind[6] + 1
                 ## Increment the "delete" counter in the day's index row.
                 # cellcolor = delecl
                 ## Dark red for closed AfDs where the article doesn't exist.
@@ -754,7 +754,7 @@ for incr in range(0, numberOfDays):
                 for asdf in ["File", "Image", "Category"]:
                     ln = len(asdf)+2
                     if linkscolumn[0:ln].lower() == ("[[" + asdf.lower()):
-                        linkscolumn.replace("[[", "[[:")
+                        linkscolumn = linkscolumn.replace("[[", "[[:")
                         # Add a colon to the page link if warranted,
                         # because on January 2, 2008, someone nominated
                         # the freaking Xbox logo at AfD, and it'll just embed the whole thing otherwise.

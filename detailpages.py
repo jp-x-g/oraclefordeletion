@@ -2,27 +2,17 @@
 # JPxG, 2021 August 14
 # Haven't written any software in a long time. This will be extremely painful. For me.
 
-# Required to parse json. Parse parse!
 import argparse
-
-# Required to use time. Tick tock!
 import json
 import os
-
-# Required to parse arguments. Parse parse...!!
 import re
 import time
-
-# For scraping webpages. Scrape scrape!
 from datetime import datetime, timedelta, timezone
-
-# This is used so that happy programs can sleep warmly. Snooze snooze!
 from pathlib import Path
-
-# For filesystem interactions. Read read! Write write!
 import requests
 
-# Required to parse regex. Parse parse... !!!!!
+# Happy programs sleep warmly. Snooze snooze!
+# Parse parse... !!!!!
 
 ########################################
 # Set all configuration variables.
