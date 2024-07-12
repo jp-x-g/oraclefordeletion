@@ -822,44 +822,28 @@ for incr in range(0, numberOfDays):
                                             # Superseded by findresults(), 2021 08 22
                                             # delsorts = ptext.count("<small class=\"delsort-notice\">")
                                             # Superseded by findsorts(), 2021 08 23
-                                            sigs = ptext.count("[[User")
+                                            sigs  = ptext.count("[[User") + ptext.count("[[user")
                                             lines = ptext.count("\n")
-                                            vkp = (
-                                                ptextl.count("keep'''")
-                                                + ptextl.count("oppose'''")
-                                                + ptextl.count("keep all'''")
-                                            )
-                                            vdl = ptextl.count(
-                                                "delete'''"
-                                            ) + ptextl.count("delete all'''")
-                                            vsk = ptextl.count("speedy keep'''")
-                                            vsd = ptextl.count("speedy delete'''")
-                                            vkp = vkp - vsk
-                                            vdl = vdl - vsd
+                                            vkp   = ptextl.count("keep'''")
+                                                    + ptextl.count("oppose'''")
+                                                    + ptextl.count("keep all'''")
+                                            vdl   = ptextl.count("delete'''")
+                                                    + ptextl.count("delete all'''")
+                                            vsk   = ptextl.count("speedy keep'''")
+                                            vsd   = ptextl.count("speedy delete'''")
+                                            vkp   = vkp - vsk
+                                            vdl   = vdl - vsd
                                             # Don't doublecount speedy keeps/deletes
-                                            vmg = ptextl.count(
-                                                "merge'''"
-                                            ) + ptextl.count("merge all'''")
-                                            vrd = ptextl.count(
-                                                "redirect'''"
-                                            ) + ptextl.count("redirect all'''")
-                                            vtw = ptextl.count("transwiki'''")
-                                            vus = ptextl.count("userfy'''")
-                                            vdr = ptextl.count("draftify'''")
-                                            vmv = ptextl.count(
-                                                "move'''"
-                                            ) + ptextl.count("rename'''")
-                                            vall = (
-                                                vkp
-                                                + vdl
-                                                + vsk
-                                                + vsd
-                                                + vmg
-                                                + vrd
-                                                + vtw
-                                                + vus
-                                                + vdr
-                                            )
+                                            vmg   = ptextl.count("merge'''")
+                                                    + ptextl.count("merge all'''")
+                                            vrd   = ptextl.count("redirect'''")
+                                                    + ptextl.count("redirect all'''")
+                                            vtw   = ptextl.count("transwiki'''")
+                                            vus   = ptextl.count("userfy'''")
+                                            vdr   = ptextl.count("draftify'''")
+                                            vmv   = ptextl.count("move'''")
+                                                    + ptextl.count("rename'''")
+                                            vall  = vkp + vdl + vsk + vsd + vmg + vrd + vtw + vus + vdr 
                                             # print("Delsorts: " + str(delsorts) + " Sigs: " + str(sigs))
                                             ### Debug v
                                             # print(dlData["pgs"][ptitle])

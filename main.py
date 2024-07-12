@@ -220,10 +220,10 @@ outputPath     = Path(os.getcwd() + "/" + dataname   + "/" + outfilename)
 # Make sure those paths exist.
 ########################################
 
-data.mkdir(mode=0o777, exist_ok=True)
-pages.mkdir(mode=0o777, exist_ok=True)
+data.mkdir(  mode=0o777, exist_ok=True)
+pages.mkdir( mode=0o777, exist_ok=True)
 config.mkdir(mode=0o777, exist_ok=True)
-tmp.mkdir(mode=0o777, exist_ok=True)
+tmp.mkdir(   mode=0o777, exist_ok=True)
 
 ########################################
 # Function to read from the input file (if we're doing that)
@@ -233,17 +233,10 @@ def openInputFile(name):
     inputContents = inputPath.read().decode()
     inputPath.close()
     inputContents = inputContents.split("\n")
-    # Read the stuff out of the file.
 
     stringystrangy = "\n\n"
-    # Initialize blank sequence.
-
     for i in range(0, len(inputContents)):
-        stringystrangy += (
-            "\n{{Wikipedia:Articles for deletion/" + str(inputContents[i]) + "}}"
-        )
-    # Add each line of the file to stringystrangy
-    # print(stringystrangy)
+        stringystrangy += "\n{{Wikipedia:Articles for deletion/" + str(inputContents[i]) + "}}"
     return stringystrangy
 
 
@@ -263,11 +256,8 @@ def aLog(argument):
         print(argument)
     except (FileNotFoundError):
         daLog = open(str(logFilePath), "w")
-        daLog.write(
-            "\nSetting up runtime log for  "
-            + str(datetime.now(timezone.utc))
-            + "\n"
-            + argument
+        daLog.write("\nSetting up runtime log for  " +
+                    str(datetime.now(timezone.utc)) + "\n" + argument
         )
         daLog.close()
         print(argument)
@@ -586,10 +576,7 @@ for incr in range(0, numberOfDays):
                     for ordinal in range(0, 21):
                         # There are 21 items in the list, so we want 0 to 20 as indices.
                         # print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
-                        if (
-                            theSlice.find(" (" + ordsText[ordinal] + " nomination)")
-                            != -1
-                        ):
+                        if theSlice.find(" (" + ordsText[ordinal] + " nomination)") != -1:
                             # Trim the ordinal, i.e. "2nd" -> "2".
                             # print("FOUND A WEIRD NOMINATION ORDINAL!!!!!!!!!!!!")
                             # print(theSlice)
