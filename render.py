@@ -751,18 +751,6 @@ for incr in range(0, numberOfDays):
                     + "|h]]"
                     + dts[3]
                 )
-                for asdf in ["File", "Image", "Category"]:
-                    ln = len(asdf)+2
-                    if linkscolumn.lower().count("[[" + asdf.lower()) != 0:
-                        linkscolumn = linkscolumn.replace("[[", "[[:")
-                        print("This one works")
-                    if linkscolumn[0:ln].lower().count("[[" + asdf.lower()) != 0:
-                        linkscolumn = linkscolumn.replace("[[", "[[:")
-                        print("Waow!!!!")
-                        # Add a colon to the page link if warranted,
-                        # because on January 2, 2008, someone nominated
-                        # the freaking Xbox logo at AfD, and it'll just embed the whole thing otherwise.
-
                 # The dts[0] and dts[1] are the sort keys.
                 # Since these columns are the same thing no matter what,
                 # we can use two different Unicode dots to make them sort
@@ -820,6 +808,14 @@ for incr in range(0, numberOfDays):
                     linkscolumn = linkscolumn.replace(("[[Talk:" + ns + ":"), ("[[" + ns + " talk:"))
                     # "Talk:TimedText" -> "TimedText talk:"
 
+                for asdf in ["File", "Image", "Category"]:
+                    ln = len(asdf)+2
+                    if linkscolumn.lower().count("[[" + asdf.lower()) != 0:
+                        linkscolumn = linkscolumn.replace("[[", "[[:")
+                        # Add a colon to the page link if warranted,
+                        # because on January 2, 2008, someone nominated
+                        # the freaking Xbox logo at AfD, and it'll just embed the whole thing otherwise.
+                        
                 s = s + linkscolumn
                 s = s + '\n|class="pct ' + ratioclass + '"|' + ratio
                 # Ratio column
