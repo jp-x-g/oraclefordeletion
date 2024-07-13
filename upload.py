@@ -439,7 +439,7 @@ try:
     )
     totalQueries = profile["main2"] + profile["detail2"] + profile["detailp2"] + 5
     pro = (
-        "\n----\n<center>''Completed in "
+        "\n----\n{{center|''Completed in "
         + str(round(totalTime, 3))
         + "s ("
         + str(int(totalQueries))
@@ -447,7 +447,7 @@ try:
         + str(round((totalTime / totalQueries), 5))
         + "s per query) · Oracle for Deletion v"
         + version
-        + " · [[User:JPxG|JPxG]] 2021''</center>"
+        + " · [[User:JPxG|JPxG]] 2021''}}"
     )
     # print(pro)
     pro = pro + "\n<!-- Detailed profiling information:"
@@ -469,9 +469,9 @@ try:
 except:
     print("Couldn't retrieve execution time.")
     pro = (
-        "\n----\n<center>''Completed in some amount of time · Oracle for Deletion v"
+        "\n----\n{{center|''Completed in some amount of time · Oracle for Deletion v"
         + version
-        + " · [[User:JPxG|JPxG]] 2021''</center>"
+        + " · [[User:JPxG|JPxG]] 2021''}}"
     )
 # print(profile)
 
