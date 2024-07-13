@@ -287,13 +287,13 @@ def closeOut():
         print("Couldn't log execution time.")
         try:
             profile = {
-                "main1": 0.01,
-                "main2": 0.01,
-                "detail1": 0.01,
-                "detail2": 0.01,
+                "main1"   : 0.01,
+                "main2"   : 0.01,
+                "detail1" : 0.01,
+                "detail2" : 0.01,
                 "detailp1": 0.01,
                 "detailp2": 0.01,
-                "render": execTime,
+                "render"  : execTime,
             }
             # Set zeroed params.
             tmphandle = open(str(tmpfile), "w")

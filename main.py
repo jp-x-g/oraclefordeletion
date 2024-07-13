@@ -1,24 +1,16 @@
 # JPxG, 2021 August 09
-# Haven't written any software in a long time. This will be extremely painful. For me.
-
-# Required to parse json. Parse parse!
 import argparse
 
-# Required to use time. Tick tock!
 import json
 import os
 import time
-
-# For scraping webpages. Scrape scrape!
 from datetime import datetime, timedelta, timezone
 
-# This is used so that happy programs can sleep warmly. Snooze snooze!
 from pathlib import Path
-
-# For filesystem interactions. Read read! Write write!
 import requests
 
-# Required to parse arguments. Parse parse...!!
+# happy programs sleep warmly. Snooze snooze!
+# Parse parse...!!
 
 ########################################
 # Set all configuration variables.
@@ -165,7 +157,7 @@ else:
 
 if args.earliest == "1420-06-09":
     useAltStartDate = False
-    earliestDay = today - timedelta(days=(numberOfDays - 1))
+    earliestDay     = today - timedelta(days=(numberOfDays - 1))
     # If it's still the default value, and hasn't been specified.
 else:
     if args.back != 69420:
@@ -173,7 +165,7 @@ else:
         print("!!! Ignoring supplied interval, going by earliest and latest !!!")
         print("!!!  Double-check and make sure this is what you want to do  !!!")
     # 	earliestDay = datetime.fromisoformat(str(args.earliest))
-    earliestDay = datetime.strptime(str(args.earliest), "%Y-%m-%d")
+    earliestDay  = datetime.strptime(str(args.earliest), "%Y-%m-%d")
     numberOfDays = (today - earliestDay).days + 1
     # If we've specified an earliest and latest day, we'll compute numberOfDays from them.
 
@@ -182,15 +174,15 @@ daysDelta = timedelta(days=numberOfDays)
 useInputFile = 0
 if args.input != "Don't use one, doofus.":
     inputFileName = args.input
-    useInputFile = 1
-    numberOfDays = 1
+    useInputFile  = 1
+    numberOfDays  = 1
     # earliestDay  = datetime.fromisoformat("2001-01-01")
     # today        = datetime.fromisoformat("2001-01-01")
     # earliest     = datetime.fromisoformat("2001-01-01")
     # Comment these out for 3.5 compatibility. Replacing with lines below.
-    earliestDay = datetime.strptime("2001-01-01", "%Y-%m-%d")
-    today = datetime.strptime("2001-01-01", "%Y-%m-%d")
-    earliest = datetime.strptime("2001-01-01", "%Y-%m-%d")
+    earliestDay   = datetime.strptime("2001-01-01", "%Y-%m-%d")
+    today         = datetime.strptime("2001-01-01", "%Y-%m-%d")
+    earliest      = datetime.strptime("2001-01-01", "%Y-%m-%d")
     # If we're using an input file, then just like, whatever, man.
 
 
@@ -247,18 +239,16 @@ def openInputFile(name):
 
 def aLog(argument):
     try:
-        dalogPath = open(str(logFilePath), "rb")
+        dalogPath     = open(str(logFilePath), "rb")
         dalogContents = dalogPath.read().decode()
         dalogPath.close()
-        dalog = open(str(logFilePath), "w")
+        dalog         = open(str(logFilePath), "w")
         dalog.write("\n" + dalogContents + argument)
         dalog.close()
         print(argument)
     except (FileNotFoundError):
-        daLog = open(str(logFilePath), "w")
-        daLog.write("\nSetting up runtime log for  " +
-                    str(datetime.now(timezone.utc)) + "\n" + argument
-        )
+        daLog         = open(str(logFilePath), "w")
+        daLog.write("\nSetting up runtime log for  " + str(datetime.now(timezone.utc)) + "\n" + argument)
         daLog.close()
         print(argument)
 
@@ -331,21 +321,12 @@ if numberOfDays > 60:
         word = "giant shit"
     if ((today - timedelta(days=numberOfDays)).year) < 2001:
         print("DANGER: Wikipedia doesn't go back that far, buddy!")
-        aLog(
-            "ABORTING EXECUTION: invalid start date ("
-            + (today - timedelta(days=numberOfDays)).isoformat()
-            + ")"
-        )
+        aLog( "ABORTING EXECUTION: invalid start date (" + (today - timedelta(days=numberOfDays)).isoformat() + ")" )
         quit()
     if ((today - timedelta(days=numberOfDays)).year) < 2006:
         print("CAUTION: AfDs back then were formatted differently.")
         print("This probably isn't going to work the way you want.")
-    print(
-        "!!!!!  WARNING: This is a "
-        + word
-        + "load of pages.  !!!!!\n"
-        + "!!!!! I sure hope you know what you're doing. !!!!!"
-    )
+    print("!!!!!  WARNING: This is a " + word + "load of pages.  !!!!!\n" + "!!!!! I sure hope you know what you're doing. !!!!!")
     # if numberOfDays > 60:
     # time.sleep(5)
 
@@ -365,10 +346,7 @@ for incr in range(0, numberOfDays):
         # the url for that day is, formatted like Wikipedia would choose:
         # note that it's %-d and not %d, because the AfD urls don't have zero-padded days
         dayText = theDay.strftime("%Y_%B_%-d")
-        theDayUrl = (
-            "http://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion/Log/"
-            + dayText
-        )
+        theDayUrl = ("http://en.wikipedia.org/wiki/Wikipedia:Articles_for_deletion/Log/" + dayText)
         theWikitextUrl = (
             "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&titles=Wikipedia%3AArticles_for_deletion%2FLog%2F"
             + dayText
@@ -382,14 +360,7 @@ for incr in range(0, numberOfDays):
             "count": 0,
         }
         if verbose:
-            aLog(
-                "Fetching page "
-                + str(incr + 1)
-                + " of "
-                + str(numberOfDays)
-                + ": "
-                + theWikitextUrl
-            )
+            aLog("Fetching page " + str(incr + 1) + " of " + str(numberOfDays) + ": " + theWikitextUrl)
         # if forReal:
         # print("Doing it for real.")
         # time.sleep(sleepTime)
@@ -438,33 +409,33 @@ for incr in range(0, numberOfDays):
                 afdDay["content"] = pageContent
                 # Store the content of the page as 'content' for that day's entry.
                 # Also, replace underscores with spaces.
-                afdDay["pgs"] = {}
+                afdDay["pgs"]     = {}
                 # Create empty array for the list of pages that day.
-                searchStr = "\n{{Wikipedia:Articles for deletion/"
+                searchStr         = "\n{{Wikipedia:Articles for deletion/"
                 # The search string for each entry.
-                afdCount = afdDay["content"].count(searchStr)
+                afdCount          = afdDay["content"].count(searchStr)
                 # Count number of AfDs.
                 # if verbose:
                 # 	print("Found " + str(afdCount) + " AfDs.")
-                location = 0
+                location          = 0
                 # Start our cursor at the beginning of the string.
-                afdCounter = 1
+                afdCounter        = 1
                 # How many have been done (this starts at 1 to be correct)
                 # print(pageContent)
                 while location < len(pageContent):
                     # Make the last place of the cursor the beginning of what we want to slice out.
                     lastLocation = location
                     # Find the search string in the string.
-                    location = pageContent.find(searchStr, lastLocation + 1)
+                    location     = pageContent.find(searchStr, lastLocation + 1)
                     # If there's no more, get outta here.
                     if location == -1:
                         location = len(pageContent)
                     theSlice = pageContent[lastLocation:location]
                     # if verbose:
                     # 	print("Slice " + str(afdCounter) + ", from " + str(lastLocation) + " to " + str(location) + ": " + theSlice)
-                    nom = 1
-                    relist = 0
-                    article = ""
+                    nom          = 1
+                    relist       = 0
+                    article      = ""
                     ########################################
                     # Store entries in json with attributes.
                     # This is a big, ugly, nasty thing.
@@ -482,7 +453,7 @@ for incr in range(0, numberOfDays):
                         relist = 1
 
                     # Chop off the beginning and end of the string, getting the actual link to the AfD page.
-                    theSlice = theSlice[len(searchStr) : theSlice.find("}}")]
+                    theSlice     = theSlice[len(searchStr) : theSlice.find("}}")]
                     # Initialize article title to the same as the AfD title (will be true unless it's a renom)
                     # print(article)
                     # if verbose:
@@ -492,13 +463,15 @@ for incr in range(0, numberOfDays):
                     # Remove naughty characters et cetera.
                     ########################################
 
-                    theSlice = theSlice.replace("‎", "")
+                    theSlice     = theSlice.replace("‎", "")
                     # This looks like it doesn't do anything, but it does!!
                     # It is removing U+200E LEFT-TO-RIGHT MARK.
                     if theSlice.count("  ") != 0:
                         while theSlice.count("  ") != 0:
                             print("Trimming")
-                            theSlice = theSlice.replace("  ", " ")
+                            theSlice = theSlice.replace("    ", " ").replace("    ", " ").replace("    ", " ")
+                            theSlice = theSlice.replace("    ", " ").replace("    ", " ").replace("    ", " ")
+                            theSlice = theSlice.replace("  ", " ").replace("  ", " ").replace("  ", " ").replace("  ", " ")
                             # Eliminate double, multiple spaces in the title string. These don't exist to MediaWiki:
                             # that is to say, {{Wikipedia:Articles for deletion/Dog  (2nd nomination)}} in the source
                             # will just load  [[Wikipedia:Articles for deletion/Dog (2nd nomination)]] as the page.
@@ -544,10 +517,8 @@ for incr in range(0, numberOfDays):
                         # print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
                         if theSlice.find(" (" + ordinal + " nomination)") != -1:
                             # Trim the ordinal, i.e. "2nd" -> "2".
-                            nom = int(ordinal[0 : len(ordinal) - 2])
-                            article = theSlice[
-                                0 : theSlice.find(" (" + ordinal + " nomination)")
-                            ]
+                            nom     = int(ordinal[0 : len(ordinal) - 2])
+                            article = theSlice[0 : theSlice.find(" (" + ordinal + " nomination)")]
                             # print("Nomination: " + str(nom))
                     ordsText = [
                         "zeroth",
@@ -581,12 +552,8 @@ for incr in range(0, numberOfDays):
                             # print("FOUND A WEIRD NOMINATION ORDINAL!!!!!!!!!!!!")
                             # print(theSlice)
                             # print(str(ordinal))
-                            nom = int(ordinal)
-                            article = theSlice[
-                                0 : theSlice.find(
-                                    " (" + ordsText[ordinal] + " nomination)"
-                                )
-                            ]
+                            nom     = int(ordinal)
+                            article = theSlice[0 : theSlice.find(" (" + ordsText[ordinal] + " nomination)")]
                             # print(str(article))
                             # print("Nomination: " + str(nom))
                     # articleJson = {article: {"afd": {"relist": relist, "nom": nom, "afdtitle": theSlice}}
@@ -597,6 +564,7 @@ for incr in range(0, numberOfDays):
                         and (article.find("boilerplate metadata vfd") == -1)
                         and (article.find("{{Imbox") == -1)
                         and (article.find("\n") == -1)
+                        and (article.find("{{about|") == -1)
                         and (theSlice.find("{{about|") == -1)
                     ):
                         # Eliminate bug where large chunks of text at the beginning of the page would be stored as an AfD
@@ -625,30 +593,16 @@ for incr in range(0, numberOfDays):
                     ##########
                 afdDay["count"] = afdCounter - 1
                 if verbose:
-                    aLog(
-                        "Loaded AfDs for "
-                        + dayDate
-                        + ". Count: "
-                        + str(afdCounter)
-                        + ". Attempting to save..."
-                    )
+                    aLog("Loaded AfDs for " + dayDate + ". Count: " + str(afdCounter) + ". Attempting to save...")
                 dayLogPath = str(pages) + "/" + str(jsonprefix) + dayDate + ".json"
                 # if verbose:
                 # 	aLog("Attempting to save parsed log to " + dayLogPath)
                 if overwrite == 1:
                     try:
                         dayLogFile = open(dayLogPath, "w")
-                        dayLogFile.write(
-                            json.dumps(afdDay, indent=2, ensure_ascii=False)
-                        )
+                        dayLogFile.write(json.dumps(afdDay, indent=2, ensure_ascii=False))
                         dayLogFile.close()
-                        aLog(
-                            "Successfully created: "
-                            + dayLogPath
-                            + " ("
-                            + str(afdCounter)
-                            + ")"
-                        )
+                        aLog("Successfully created: " + dayLogPath + " (" + str(afdCounter) + ")")
                     except:
                         aLog("!!! FAILED TO SAVE: " + dayLogPath)
                 else:

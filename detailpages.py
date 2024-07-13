@@ -605,14 +605,7 @@ for incr in range(0, numberOfDays):
                     # urls = [apiBase + page, apiBase + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"]]
                     # queries.append(page)
                     # queries.append("Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"])
-                    query = (
-                        query
-                        + page
-                        + "|"
-                        + "Wikipedia:Articles for deletion/"
-                        + key["afd"]["afdtitle"]
-                        + "|"
-                    )
+                    query = query + page + "|" + "Wikipedia:Articles for deletion/" + key["afd"]["afdtitle"] + "|"
                     # Add another argument for the article and also for its AfD.
                     # print(query)
                     if (querylength >= queryBatchSize) or (cursor >= len(dlData["pgs"])):
@@ -649,13 +642,13 @@ for incr in range(0, numberOfDays):
                             r = requests.get(
                                 apiBare,
                                 params={
-                                    "action": "query",
-                                    "prop": "revisions",
-                                    "rvslots": "*",
-                                    "rvprop": "content",
+                                    "action"       : "query",
+                                    "prop"         : "revisions",
+                                    "rvslots"      : "*",
+                                    "rvprop"       : "content",
                                     "formatversion": "2",
-                                    "format": "json",
-                                    "titles": query,
+                                    "format"       : "json",
+                                    "titles"       : query,
                                 },
                             )
                             # Actually hit the URL in this line, and get a page, which will be of type "Response"
