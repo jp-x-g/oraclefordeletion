@@ -753,7 +753,7 @@ for incr in range(0, numberOfDays):
                 )
                 for asdf in ["File", "Image", "Category"]:
                     ln = len(asdf)+2
-                    if linkscolumn[0:ln].lower() == ("[[" + asdf.lower()):
+                    if linkscolumn[0:ln].lower().count("[[" + asdf.lower()) != 0:
                         linkscolumn = linkscolumn.replace("[[", "[[:")
                         # Add a colon to the page link if warranted,
                         # because on January 2, 2008, someone nominated

@@ -597,9 +597,11 @@ for incr in range(0, numberOfDays):
                         and (article.find("boilerplate metadata vfd") == -1)
                         and (article.find("{{Imbox") == -1)
                         and (article.find("\n") == -1)
+                        and (theSlice.find("{{about|") == -1)
                     ):
                         # Eliminate bug where large chunks of text at the beginning of the page would be stored as an AfD
                         article = article.strip()
+                        # article = article.replace("  ", " ")
                         # Spent a while tracking this one down... it was "Chinese Language Institute  (2nd nomination)."
                         # Note the two spaces! So it was being put into the json as "Chinese Language Institute ". Trail my neko spaces...
                         # afdDay['pgs'].append(articleJson)
