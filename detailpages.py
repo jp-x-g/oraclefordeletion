@@ -758,14 +758,7 @@ for incr in range(0, numberOfDays):
                                         # There are 21 items in the list, so we want 0 to 20 as indices.
                                         # , "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th"]:
                                         # print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
-                                        if (
-                                            ptitle.find(
-                                                " ("
-                                                + ordsText[ordinal]
-                                                + " nomination)"
-                                            )
-                                            != -1
-                                        ):
+                                        if (ptitle.find(" ("+ ordsText[ordinal]+ " nomination)") != -1):
                                             # Trim the ordinal, i.e. "2nd" -> "2".
                                             # print("FOUND A WEIRD NOMINATION ORDINAL!!!!!!!!!!!!")
                                             # print(theSlice)
@@ -825,24 +818,24 @@ for incr in range(0, numberOfDays):
                                             sigs  = ptext.count("[[User") + ptext.count("[[user")
                                             lines = ptext.count("\n")
                                             vkp   = ptextl.count("keep'''")
-                                                    + ptextl.count("oppose'''")
-                                                    + ptextl.count("keep all'''")
+                                                  + ptextl.count("oppose'''")
+                                                  + ptextl.count("keep all'''")
                                             vdl   = ptextl.count("delete'''")
-                                                    + ptextl.count("delete all'''")
+                                                  + ptextl.count("delete all'''")
                                             vsk   = ptextl.count("speedy keep'''")
                                             vsd   = ptextl.count("speedy delete'''")
                                             vkp   = vkp - vsk
                                             vdl   = vdl - vsd
                                             # Don't doublecount speedy keeps/deletes
                                             vmg   = ptextl.count("merge'''")
-                                                    + ptextl.count("merge all'''")
+                                                  + ptextl.count("merge all'''")
                                             vrd   = ptextl.count("redirect'''")
-                                                    + ptextl.count("redirect all'''")
+                                                  + ptextl.count("redirect all'''")
                                             vtw   = ptextl.count("transwiki'''")
                                             vus   = ptextl.count("userfy'''")
                                             vdr   = ptextl.count("draftify'''")
                                             vmv   = ptextl.count("move'''")
-                                                    + ptextl.count("rename'''")
+                                                  + ptextl.count("rename'''")
                                             vall  = vkp + vdl + vsk + vsd + vmg + vrd + vtw + vus + vdr 
                                             # print("Delsorts: " + str(delsorts) + " Sigs: " + str(sigs))
                                             ### Debug v
