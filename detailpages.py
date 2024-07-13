@@ -817,25 +817,25 @@ for incr in range(0, numberOfDays):
                                             # Superseded by findsorts(), 2021 08 23
                                             sigs  = ptext.count("[[User") + ptext.count("[[user")
                                             lines = ptext.count("\n")
-                                            vkp   = ptextl.count("keep'''")
-                                                  + ptextl.count("oppose'''")
-                                            + ptextl.count("keep all'''")
-                                            vdl   = ptextl.count("delete'''")
-                                            + ptextl.count("delete all'''")
+                                            vkp   = ptextl.count("keep'''") + 
+                                                    ptextl.count("oppose'''") +
+                                                    ptextl.count("keep all'''")
+                                            vdl   = ptextl.count("delete'''") +
+                                                    ptextl.count("delete all'''")
                                             vsk   = ptextl.count("speedy keep'''")
                                             vsd   = ptextl.count("speedy delete'''")
                                             vkp   = vkp - vsk
                                             vdl   = vdl - vsd
                                             # Don't doublecount speedy keeps/deletes
-                                            vmg   = ptextl.count("merge'''")
-                                            + ptextl.count("merge all'''")
-                                            vrd   = ptextl.count("redirect'''")
-                                            + ptextl.count("redirect all'''")
+                                            vmg   = ptextl.count("merge'''") +
+                                                    ptextl.count("merge all'''")
+                                            vrd   = ptextl.count("redirect'''") +
+                                                    ptextl.count("redirect all'''")
                                             vtw   = ptextl.count("transwiki'''")
                                             vus   = ptextl.count("userfy'''")
                                             vdr   = ptextl.count("draftify'''")
-                                            vmv   = ptextl.count("move'''")
-                                            + ptextl.count("rename'''")
+                                            vmv   = ptextl.count("move'''") +
+                                                    ptextl.count("rename'''")
                                             vall  = vkp + vdl + vsk + vsd + vmg + vrd + vtw + vus + vdr 
                                             # print("Delsorts: " + str(delsorts) + " Sigs: " + str(sigs))
                                             ### Debug v
@@ -955,17 +955,15 @@ for incr in range(0, numberOfDays):
                                             ptext = rp["revisions"][0]["slots"]["main"][
                                                 "content"
                                             ]
-                                            ptextl = ptext.lower()
-                                            lines = ptext.count("\n")
-                                            redirect = ptextl.count("#redirect [[")
-                                            refs = ptextl.count("</ref>")
-                                            sections = ptextl.count("\n==")
+                                            ptextl    = ptext.lower()
+                                            lines     = ptext.count("\n")
+                                            redirect  = ptextl.count("#redirect [[")
+                                            refs      = ptextl.count("</ref>")
+                                            sections  = ptextl.count("\n==")
                                             templates = ptextl.count("{{")
-                                            files = ptextl.count(
-                                                "[[file:"
-                                            ) + ptextl.count("[[image:")
-                                            cats = ptextl.count("[[category:")
-                                            links = ptextl.count("[[") - (files + cats)
+                                            files     = ptextl.count("[[file:") + ptextl.count("[[image:")
+                                            cats      = ptextl.count("[[category:")
+                                            links     = ptextl.count("[[") - (files + cats)
                                             dlData["pgs"][ptitle]["pageinfo"] = {
                                                 "scrapetime": datetime.now(
                                                     timezone.utc
