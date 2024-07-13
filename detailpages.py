@@ -615,9 +615,7 @@ for incr in range(0, numberOfDays):
                     )
                     # Add another argument for the article and also for its AfD.
                     # print(query)
-                    if (querylength >= queryBatchSize) or (
-                        cursor >= len(dlData["pgs"])
-                    ):
+                    if (querylength >= queryBatchSize) or (cursor >= len(dlData["pgs"])):
                         query = query[:-1]
                         # Trim that damn "|" from the end of the string.
                         # query = query.replace("%", "%25")
@@ -638,12 +636,7 @@ for incr in range(0, numberOfDays):
                         # query = apiBase + query
                         # Prepend API base URL to send it out.
                         if verbose:
-                            print(
-                                "Requesting "
-                                + str(querylength)
-                                + " pages, query #"
-                                + str(totalQueriesMade + 1)
-                            )
+                            print( "Requesting " + str(querylength) + " pages, query #" + str(totalQueriesMade + 1))
                         print(query)
                         # Way down below, we reset the query and query length for next run.
                         if forReal:
@@ -686,10 +679,7 @@ for incr in range(0, numberOfDays):
                                 # These work in theory, but not in practice.
                                 if debug:
                                     print("Fixed title: " + str(ptitle))
-                                if (
-                                    rp["title"].find("Wikipedia:Articles for deletion/")
-                                    != -1
-                                ):
+                                if (rp["title"].find("Wikipedia:Articles for deletion/") != -1 ):
                                     if debug:
                                         print("AfD found: " + ptitle)
                                         # print(rp)
@@ -719,15 +709,8 @@ for incr in range(0, numberOfDays):
                                         # Couldn't find any article with more than 17 nominations, so not including these.
                                         # , "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th"]:
                                         # print("Checking for " + ordinal + ": " + ordinal[0:len(ordinal) - 2])
-                                        if (
-                                            ptitle.find(" (" + ordinal + " nomination)")
-                                            != -1
-                                        ):
-                                            ptitle = ptitle[
-                                                0 : ptitle.find(
-                                                    " (" + ordinal + " nomination)"
-                                                )
-                                            ]
+                                        if (ptitle.find(" (" + ordinal + " nomination)") != -1):
+                                            ptitle = ptitle[0 : ptitle.find(" (" + ordinal + " nomination)")]
                                             # Trim the "(2nd nomination)" crap.
                                         # This whole block just trims out the nomination parts.
                                     ordsText = [
@@ -751,7 +734,7 @@ for incr in range(0, numberOfDays):
                                         "seventeenth",
                                         "eighteenth",
                                         "nineteenth",
-                                        "twentieth",
+                                        "twentieth"
                                     ]
                                     # Yes, people actually did this sometimes.
                                     for ordinal in range(0, 21):
@@ -763,51 +746,39 @@ for incr in range(0, numberOfDays):
                                             # print("FOUND A WEIRD NOMINATION ORDINAL!!!!!!!!!!!!")
                                             # print(theSlice)
                                             # print(str(ordinal))
-                                            ptitle = ptitle[
-                                                0 : ptitle.find(
-                                                    " ("
-                                                    + ordsText[ordinal]
-                                                    + " nomination)"
-                                                )
-                                            ]
+                                            ptitle = ptitle[0 : ptitle.find(" (" + ordsText[ordinal] + " nomination)")]
                                     try:
                                         if "missing" in rp.keys():
                                             # print("AFD'S A LION GET IN THE CAR")
                                             dlData["pgs"][ptitle]["afdinfo"] = {
-                                                "scrapetime": datetime.now(
-                                                    timezone.utc
-                                                ).isoformat(),
-                                                "error": "missing",
+                                                "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                "error"     : "missing",
                                             }
                                             if dummy == 1:
                                                 dlData["pgs"][ptitle]["afdinfo"] = {
-                                                    "scrapetime": datetime.now(
-                                                        timezone.utc
-                                                    ).isoformat(),
-                                                    "error": "0",
-                                                    "pageid": 1,
-                                                    "size": 1,
-                                                    "lines": 1,
-                                                    "delsorts": findsorts(ptext),
-                                                    "open": 1,
-                                                    "close": "ud",
-                                                    "vkp": 1,
-                                                    "vdl": 1,
-                                                    "vsk": 1,
-                                                    "vsd": 1,
-                                                    "vmg": 1,
-                                                    "vrd": 1,
-                                                    "vtw": 1,
-                                                    "vus": 1,
-                                                    "vdr": 1,
-                                                    "vmv": 1,
-                                                    "all": 10,
+                                                    "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                    "error"     : "0",
+                                                    "pageid"    : 1,
+                                                    "size"      : 1,
+                                                    "lines"     : 1,
+                                                    "delsorts"  : findsorts(ptext),
+                                                    "open"      : 1,
+                                                    "close"     : "ud",
+                                                    "vkp"       : 1,
+                                                    "vdl"       : 1,
+                                                    "vsk"       : 1,
+                                                    "vsd"       : 1,
+                                                    "vmg"       : 1,
+                                                    "vrd"       : 1,
+                                                    "vtw"       : 1,
+                                                    "vus"       : 1,
+                                                    "vdr"       : 1,
+                                                    "vmv"       : 1,
+                                                    "all"       : 10,
                                                 }
                                         else:
                                             # print(rp)
-                                            ptext = rp["revisions"][0]["slots"]["main"][
-                                                "content"
-                                            ]
+                                            ptext  = rp["revisions"][0]["slots"]["main"]["content"]
                                             ptextl = ptext.lower()
                                             isopen = 1
                                             # if (ptext.find("<div class=\"") != -1) and (ptext.find("xfd-closed\"") != -1):
@@ -817,25 +788,19 @@ for incr in range(0, numberOfDays):
                                             # Superseded by findsorts(), 2021 08 23
                                             sigs  = ptext.count("[[User") + ptext.count("[[user")
                                             lines = ptext.count("\n")
-                                            vkp   = ptextl.count("keep'''") + 
-                                                    ptextl.count("oppose'''") +
-                                                    ptextl.count("keep all'''")
-                                            vdl   = ptextl.count("delete'''") +
-                                                    ptextl.count("delete all'''")
+                                            vkp   = ptextl.count("keep'''") +  ptextl.count("oppose'''") + ptextl.count("keep all'''")
+                                            vdl   = ptextl.count("delete'''") + ptextl.count("delete all'''")
                                             vsk   = ptextl.count("speedy keep'''")
                                             vsd   = ptextl.count("speedy delete'''")
                                             vkp   = vkp - vsk
                                             vdl   = vdl - vsd
                                             # Don't doublecount speedy keeps/deletes
-                                            vmg   = ptextl.count("merge'''") +
-                                                    ptextl.count("merge all'''")
-                                            vrd   = ptextl.count("redirect'''") +
-                                                    ptextl.count("redirect all'''")
+                                            vmg   = ptextl.count("merge'''") + ptextl.count("merge all'''")
+                                            vrd   = ptextl.count("redirect'''") + ptextl.count("redirect all'''")
                                             vtw   = ptextl.count("transwiki'''")
                                             vus   = ptextl.count("userfy'''")
                                             vdr   = ptextl.count("draftify'''")
-                                            vmv   = ptextl.count("move'''") +
-                                                    ptextl.count("rename'''")
+                                            vmv   = ptextl.count("move'''") + ptextl.count("rename'''")
                                             vall  = vkp + vdl + vsk + vsd + vmg + vrd + vtw + vus + vdr 
                                             # print("Delsorts: " + str(delsorts) + " Sigs: " + str(sigs))
                                             ### Debug v
@@ -844,36 +809,30 @@ for incr in range(0, numberOfDays):
                                             ### Debug ^
                                             if dummy == 0:
                                                 dlData["pgs"][ptitle]["afdinfo"] = {
-                                                    "scrapetime": datetime.now(
-                                                        timezone.utc
-                                                    ).isoformat(),
-                                                    "error": "0",
-                                                    "pageid": rp["pageid"],
-                                                    "size": len(ptext),
-                                                    "lines": lines,
-                                                    "delsorts": findsorts(ptext),
-                                                    "open": isopen,
-                                                    "close": "ud",
-                                                    "vkp": vkp,
-                                                    "vdl": vdl,
-                                                    "vsk": vsk,
-                                                    "vsd": vsd,
-                                                    "vmg": vmg,
-                                                    "vrd": vrd,
-                                                    "vtw": vtw,
-                                                    "vus": vus,
-                                                    "vdr": vdr,
-                                                    "vmv": vmv,
-                                                    "all": vall,
+                                                    "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                    "error"     : "0",
+                                                    "pageid"    : rp["pageid"],
+                                                    "size"      : len(ptext),
+                                                    "lines"     : lines,
+                                                    "delsorts"  : findsorts(ptext),
+                                                    "open"      : isopen,
+                                                    "close"     : "ud",
+                                                    "vkp"       : vkp,
+                                                    "vdl"       : vdl,
+                                                    "vsk"       : vsk,
+                                                    "vsd"       : vsd,
+                                                    "vmg"       : vmg,
+                                                    "vrd"       : vrd,
+                                                    "vtw"       : vtw,
+                                                    "vus"       : vus,
+                                                    "vdr"       : vdr,
+                                                    "vmv"       : vmv,
+                                                    "all"       : vall,
                                                 }
                                                 # print(dlData["pgs"][ptitle]['afdinfo'])
-                                                dlData["pgs"][ptitle]["afdinfo"][
-                                                    "close"
-                                                ] = findresults(ptext)
+                                                dlData["pgs"][ptitle]["afdinfo"]["close"] = findresults(ptext)
                                                 if findresults(ptext) == "op":
-                                                    dlData["pgs"][ptitle]["afdinfo"][
-                                                        "open"
-                                                    ] = 1
+                                                    dlData["pgs"][ptitle]["afdinfo"]["open"] = 1
                                             # Returns one of these:
                                             # "op", "mg", "rd", "sk", "sd", "kp", "dl", "tw", "us", or "wd".
                                             # If it can't detect anything, it returns "ud".
@@ -881,60 +840,53 @@ for incr in range(0, numberOfDays):
                                             # This whole block above handles AfDs in the response.
                                             if dummy == 1:
                                                 dlData["pgs"][ptitle]["afdinfo"] = {
-                                                    "scrapetime": datetime.now(
-                                                        timezone.utc
-                                                    ).isoformat(),
-                                                    "error": "0",
-                                                    "pageid": 1,
-                                                    "size": 1,
-                                                    "lines": 1,
-                                                    "delsorts": findsorts(ptext),
-                                                    "open": 1,
-                                                    "close": "ud",
-                                                    "vkp": 1,
-                                                    "vdl": 1,
-                                                    "vsk": 1,
-                                                    "vsd": 1,
-                                                    "vmg": 1,
-                                                    "vrd": 1,
-                                                    "vtw": 1,
-                                                    "vus": 1,
-                                                    "vdr": 1,
-                                                    "vmv": 1,
-                                                    "all": 10,
+                                                    "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                    "error"     : "0",
+                                                    "pageid"    : 1,
+                                                    "size"      : 1,
+                                                    "lines"     : 1,
+                                                    "delsorts"  : findsorts(ptext),
+                                                    "open"      : 1,
+                                                    "close"     : "ud",
+                                                    "vkp"       : 1,
+                                                    "vdl"       : 1,
+                                                    "vsk"       : 1,
+                                                    "vsd"       : 1,
+                                                    "vmg"       : 1,
+                                                    "vrd"       : 1,
+                                                    "vtw"       : 1,
+                                                    "vus"       : 1,
+                                                    "vdr"       : 1,
+                                                    "vmv"       : 1,
+                                                    "all"       : 10,
                                                 }
                                     except:
-                                        aLog(
-                                            "!!!!!!!!!! Serious error in storing AfD info for: "
-                                            + ptitle
-                                        )
+                                        aLog("!!!!!!!!!! Serious error in storing AfD info for: " + ptitle)
                                         # print(rp)
                                         # print(ptext)
                                         # This isn't a "page was deleted, oopsie".
                                         # This shouldn't be happening at all! If this trips, it's a bug.
                                         if dummy == 1:
                                             dlData["pgs"][ptitle]["afdinfo"] = {
-                                                "scrapetime": datetime.now(
-                                                    timezone.utc
-                                                ).isoformat(),
-                                                "error": "0",
-                                                "pageid": 1,
-                                                "size": 1,
-                                                "lines": 1,
-                                                "delsorts": findsorts("meow"),
-                                                "open": 1,
-                                                "close": "ud",
-                                                "vkp": 1,
-                                                "vdl": 1,
-                                                "vsk": 1,
-                                                "vsd": 1,
-                                                "vmg": 1,
-                                                "vrd": 1,
-                                                "vtw": 1,
-                                                "vus": 1,
-                                                "vdr": 1,
-                                                "vmv": 1,
-                                                "all": 10,
+                                                "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                "error"     : "0",
+                                                "pageid"    : 1,
+                                                "size"      : 1,
+                                                "lines"     : 1,
+                                                "delsorts"  : findsorts("meow"),
+                                                "open"      : 1,
+                                                "close"     : "ud",
+                                                "vkp"       : 1,
+                                                "vdl"       : 1,
+                                                "vsk"       : 1,
+                                                "vsd"       : 1,
+                                                "vmg"       : 1,
+                                                "vrd"       : 1,
+                                                "vtw"       : 1,
+                                                "vus"       : 1,
+                                                "vdr"       : 1,
+                                                "vmv"       : 1,
+                                                "all"       : 10,
                                             }
                                 else:
                                     if debug:
@@ -946,15 +898,11 @@ for incr in range(0, numberOfDays):
                                             # if verbose:
                                             # 	print(str(rp.keys()) + " / " + ptitle)
                                             dlData["pgs"][ptitle]["pageinfo"] = {
-                                                "scrapetime": datetime.now(
-                                                    timezone.utc
-                                                ).isoformat(),
-                                                "error": "missing",
+                                                "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                "error"     : "missing",
                                             }
                                         else:
-                                            ptext = rp["revisions"][0]["slots"]["main"][
-                                                "content"
-                                            ]
+                                            ptext     = rp["revisions"][0]["slots"]["main"]["content"]
                                             ptextl    = ptext.lower()
                                             lines     = ptext.count("\n")
                                             redirect  = ptextl.count("#redirect [[")
@@ -965,31 +913,24 @@ for incr in range(0, numberOfDays):
                                             cats      = ptextl.count("[[category:")
                                             links     = ptextl.count("[[") - (files + cats)
                                             dlData["pgs"][ptitle]["pageinfo"] = {
-                                                "scrapetime": datetime.now(
-                                                    timezone.utc
-                                                ).isoformat(),
-                                                "error": "0",
-                                                "pageid": rp["pageid"],
-                                                "redirect": redirect,
-                                                "size": len(ptext),
-                                                "lines": lines,
-                                                "refs": refs,
-                                                "sections": sections,
-                                                "templates": templates,
-                                                "files": files,
-                                                "cats": cats,
-                                                "links": links,
+                                                "scrapetime": datetime.now(timezone.utc).isoformat(),
+                                                "error"     : "0",
+                                                "pageid"    : rp["pageid"],
+                                                "redirect"  : redirect,
+                                                "size"      : len(ptext),
+                                                "lines"     : lines,
+                                                "refs"      : refs,
+                                                "sections"  : sections,
+                                                "templates" : templates,
+                                                "files"     : files,
+                                                "cats"      : cats,
+                                                "links"     : links,
                                             }
                                     except:
                                         # cursor = cursor + 1
-                                        aLog(
-                                            "!!!!!!!!!! Serious error in storing pageinfo for: "
-                                            + ptitle
-                                        )
+                                        aLog("!!!!!!!!!! Serious error in storing pageinfo for: " + ptitle)
                                     # print("Article found: " + ptitle)
-
                                     # This whole block above handles articles in the response.
-
                                 # print("Title: " + ptitle + " / page title: " + rp['title'])
                                 # Spammy debug statement.
                         query = ""
