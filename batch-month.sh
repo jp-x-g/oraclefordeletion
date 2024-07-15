@@ -1,34 +1,72 @@
 # JPxG, 2021 August 31
 # This isn't a very beautiful script. All it does is concatenate the freakin' months into a year total.
 # You use it like this:
-# bash render-year.sh 2014
+# bash render-year.sh 2014 01
 
 year=$1
-echo "Scraping, rendering, and uploading AfDs for: $year"
+month=$2
+echo "Scraping, rendering, and uploading AfDs for: $year-$month"
 
 echo "" > data/tmp/summary.txt
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-12-31 -s 0.01 -o User:JPxG/Oracle/$year-12 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l $year-11-30 -s 0.01 -o User:JPxG/Oracle/$year-11 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-10-31 -s 0.01 -o User:JPxG/Oracle/$year-10 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l $year-09-30 -s 0.01 -o User:JPxG/Oracle/$year-09 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-08-31 -s 0.01 -o User:JPxG/Oracle/$year-08 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-07-31 -s 0.01 -o User:JPxG/Oracle/$year-07 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l $year-06-30 -s 0.01 -o User:JPxG/Oracle/$year-06 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-05-31 -s 0.01 -o User:JPxG/Oracle/$year-05 -q 1
-bash run-batch.sh -w 1 -g 1 -b 30 -l $year-04-30 -s 0.01 -o User:JPxG/Oracle/$year-04 -q 1
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-03-31 -s 0.01 -o User:JPxG/Oracle/$year-03 -q 1
 
-if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ]
-	# Yeah, I'll be dead by the time anyone gets mad about this.
+if [ "$month" = 12 ]
 then
-	bash run-batch.sh -w 1 -g 1 -b 29 -l $year-02-29 -s 0.01 -o User:JPxG/Oracle/$year-02 -q 1
-	# Leap year. February is a longboy.
-else
-	bash run-batch.sh -w 1 -g 1 -b 28 -l $year-02-28 -s 0.01 -o User:JPxG/Oracle/$year-02 -q 1
-	# Not a leap year. Normal February.
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-12-31 -s 0.01 -o User:JPxG/Oracle/$year-12 -q 1
+fi
+if [ "$month" = 11 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 30 -l $year-11-30 -s 0.01 -o User:JPxG/Oracle/$year-11 -q 1
+fi
+if [ "$month" = 10 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-10-31 -s 0.01 -o User:JPxG/Oracle/$year-10 -q 1
+fi
+if [ "$month" = 09 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 30 -l $year-09-30 -s 0.01 -o User:JPxG/Oracle/$year-09 -q 1
+fi
+if [ "$month" = 08 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-08-31 -s 0.01 -o User:JPxG/Oracle/$year-08 -q 1
+fi
+if [ "$month" = 07 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-07-31 -s 0.01 -o User:JPxG/Oracle/$year-07 -q 1
+fi
+if [ "$month" = 06 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 30 -l $year-06-30 -s 0.01 -o User:JPxG/Oracle/$year-06 -q 1
+fi
+if [ "$month" = 05 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-05-31 -s 0.01 -o User:JPxG/Oracle/$year-05 -q 1
+fi
+if [ "$month" = 04 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 30 -l $year-04-30 -s 0.01 -o User:JPxG/Oracle/$year-04 -q 1
+fi
+if [ "$month" = 03 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-03-31 -s 0.01 -o User:JPxG/Oracle/$year-03 -q 1
 fi
 
-bash run-batch.sh -w 1 -g 1 -b 31 -l $year-01-31 -s 0.01 -o User:JPxG/Oracle/$year-01 -q 1
+if [ "$month" = 02 ]
+then
+	if [ "$year" = 2112 ] || [ "$year" = 2108 ] || [ "$year" = 2104 ] || [ "$year" = 2096 ] || [ "$year" = 2092 ] || [ "$year" = 2088 ] || [ "$year" = 2084 ] || [ "$year" = 2080 ] || [ "$year" = 2076 ] || [ "$year" = 2072 ] || [ "$year" = 2068 ] || [ "$year" = 2064 ] || [ "$year" = 2060 ] || [ "$year" = 2056 ] || [ "$year" = 2052 ] || [ "$year" = 2048 ] || [ "$year" = 2044 ] || [ "$year" = 2040 ] || [ "$year" = 2036 ] || [ "$year" = 2032 ] || [ "$year" = 2028 ] || [ "$year" = 2024 ] || [ "$year" = 2020 ] || [ "$year" = 2016 ] || [ "$year" = 2012 ] || [ "$year" = 2008 ] || [ "$year" = 2004 ] || [ "$year" = 2000 ]
+		# Yeah, I'll be dead by the time anyone gets mad about this.
+	then
+		bash run-batch.sh -w 1 -g 1 -b 29 -l $year-02-29 -s 0.01 -o User:JPxG/Oracle/$year-02 -q 1
+		# Leap year. February is a longboy.
+	else
+		bash run-batch.sh -w 1 -g 1 -b 28 -l $year-02-28 -s 0.01 -o User:JPxG/Oracle/$year-02 -q 1
+		# Not a leap year. Normal February.
+	fi
+fi
+
+if [ "$month" = 01 ]
+then
+	bash run-batch.sh -w 1 -g 1 -b 31 -l $year-01-31 -s 0.01 -o User:JPxG/Oracle/$year-01 -q 1
+fi
 
 bash render-year.sh $year
 
