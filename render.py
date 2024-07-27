@@ -1162,7 +1162,7 @@ if aggregate == 1:
     top = top + '\n!!class="sml"            | Page<br/>eds.'
     top = top + '\n!!class="sml"            | Page<br/>size'
     top = top + '\n!!class="sml"            | Page<br/>made'
-    top = top + '\n!!class="sml afdheaderbg"| AfD<br/>!v #'
+    top = top + '\n!!class="sml afdheaderbg"| AfD<br/>!v&nbsp;#'
     # top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
     top = top + '\n!!class="sml afdheaderbg"| AfD<br/>size'
     top = top + '\n!!class="sml afdheaderbg"| AfD<br/>made'
