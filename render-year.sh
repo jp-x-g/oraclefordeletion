@@ -37,19 +37,19 @@ echo "__NOTOC__" >> data/tmp/summary-$year.txt
 echo '{|class="wikitable sortable collapsible"' >> data/tmp/summary-$year.txt
 echo "|-" >> data/tmp/summary-$year.txt
 echo "!'''[[User:JPxG/Oracle/$year|$year]]'''" >> data/tmp/summary-$year.txt
-echo "!<sup><sub>Total</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!<sup><sub>Parsed</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"kp\"|<sup><sub>KP</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"dl\"|<sup><sub>DL</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"rd\"|<sup><sub>RD</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"mg\"|<sup><sub>MG</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"nc\"|<sup><sub>NC</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"sk\"|<sup><sub>SK</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"sd\"|<sup><sub>SD</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"tw\"|<sup><sub>TW</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"us\"|<sup><sub>US</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"wd\"|<sup><sub>WD</sub></sup>" >> data/tmp/summary-$year.txt
-echo "!class=\"ud\"|<sup><sub>UD</sub></sup><onlyinclude>" >> data/tmp/summary-$year.txt
+echo "!class=\"sml\"   |Total" >> data/tmp/summary-$year.txt
+echo "!class=\"sml\"   |Parsed" >> data/tmp/summary-$year.txt
+echo "!class=\"kp sml\"|KP" >> data/tmp/summary-$year.txt
+echo "!class=\"dl sml\"|DL" >> data/tmp/summary-$year.txt
+echo "!class=\"rd sml\"|RD" >> data/tmp/summary-$year.txt
+echo "!class=\"mg sml\"|MG" >> data/tmp/summary-$year.txt
+echo "!class=\"nc sml\"|NC" >> data/tmp/summary-$year.txt
+echo "!class=\"sk sml\"|SK" >> data/tmp/summary-$year.txt
+echo "!class=\"sd sml\"|SD" >> data/tmp/summary-$year.txt
+echo "!class=\"tw sml\"|TW" >> data/tmp/summary-$year.txt
+echo "!class=\"us sml\"|US" >> data/tmp/summary-$year.txt
+echo "!class=\"wd sml\"|WD" >> data/tmp/summary-$year.txt
+echo "!class=\"ud sml\"|UD<onlyinclude>" >> data/tmp/summary-$year.txt
 summ=`cat data/tmp/summary.txt`
 echo "$summ" >> data/tmp/summary-$year.txt
 ################################################################################

@@ -1080,40 +1080,33 @@ top = top + sumup
 ################################################################################
 # Render a row for the month's averages.
 ################################################################################
-m = "<sup><sub>"
-n = "</sub></sup>"
-top = top + "\n|-"
-sort = '<span style="display:none">' + dots[1] + "</span>"
-top = top + "\n| " + sort + "'''Average'''"
+#m = "<sup><sub>"
+#n = "</sub></sup>"
+top = top         + '\n|-'
+sort = '<span style="display:none">' + dots[1] + '</span>'
+top = top         + '\n| ' + sort + '<b>Average</b>'
 closed = totind["total"] - totind["op"]
-top = top + "\n| " + sort + str(totind["total"] / numberOfDays)[0:5]
+top = top         + '\n| ' + sort + str(totind["total"] / numberOfDays)[0:5]
 if ind["op"] == 0:
-    top = top + '\n|class="indGrayed"|' + sort + "0"
+    top = top     + '\n|class="indGrayed"    |' + sort + "0"
 else:
-    top = top + "\n|" + sort + str(totind["op"] / numberOfDays)[0:5]
+    top = top     + '\n|' + sort + str(totind["op"] / numberOfDays)[0:5]
 if ind["uncom"] == 0:
-    top = top + "\n|" + sort + "0"
+    top = top     + '\n|' + sort + "0"
 else:
-    top = top + '\n|class="afdnocomments"|' + sort + str(totind["uncom"] / numberOfDays)[0:5]
-top = top + "\n|" + sort + str(closed / numberOfDays)[0:5]
+    top = top     + '\n|class="afdnocomments"|' + sort + str(totind["uncom"] / numberOfDays)[0:5]
+top = top         + '\n|' + sort + str(closed / numberOfDays)[0:5]
 for asdf in full:
     ## The iterations of this loop will have asdf as "op", "sk", "kp", etc.
     if asdf != "op":
         if closed == 0:
             closed = 0.1
         # For every type of close in the index aside from "op", put the total of how many there were.
-        top = (
-            top
-            + "\n|"
-            + sort
-            + m
-            + str(float(100.0 * (totind[asdf] / closed)))[0:4]
-            + "%"
-            + n
-        )
+        paasento = str(float(100.0 * (totind[asdf] / closed)))[0:4]
+        top = top + '\n|class="sml"          |' + sort + paasento + '%'
 # Add all the stuff to the index table for the top.
 ################################################################################
-top = top + "\n|}\n"
+top = top         + '\n|}\n'
 # Close the table for the index at the top.
 
 
@@ -1159,26 +1152,26 @@ if aggregate == 1:
         top = top[:-2] + "''"
         # Trim that last freakin' comma.
     # Record all the errors in a HTML note.
-    top = top + "\n</onlyinclude>"
+    top = top + '\n</onlyinclude>'
     top = top + '\n{| class="wikitable sortable collapsible" style="width:100%"'
-    top = top + "\n|-"
-    top = top + "\n!'''AfDs (relists bolded)'''"
-    top = top + "\n!"
-    top = top + "\n!" + m + "Keep<br/>%"
-    top = top + "\n!" + m + "Page<br/>revs"
-    top = top + "\n!" + m + "Page<br/>eds."
-    top = top + "\n!" + m + "Page<br/>size"
-    top = top + "\n!" + m + "Page<br/>made"
-    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>!v #"
+    top = top + '\n|-'
+    top = top + '\n!<b>AfDs (relists bolded)</b>'
+    top = top + '\n!'
+    top = top + '\n!!class="sml"            | Keep<br/>%'
+    top = top + '\n!!class="sml"            | Page<br/>revs'
+    top = top + '\n!!class="sml"            | Page<br/>eds.'
+    top = top + '\n!!class="sml"            | Page<br/>size'
+    top = top + '\n!!class="sml"            | Page<br/>made'
+    top = top + '\n!!class="sml afdheaderbg"| AfD<br/>!v #'
     # top = top + "\n!!style=\"background:" + afdheaderbg + "\"|"+m+"AfD<br/>eds."
-    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>size"
-    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>made"
-    top = top + '\n!!class="afdheaderbg"|' + m + "AfD<br/>last"
-    top = top + '\n!!class="afdheaderbg"|' + m + "Sorts" + n
+    top = top + '\n!!class="sml afdheaderbg"| AfD<br/>size'
+    top = top + '\n!!class="sml afdheaderbg"| AfD<br/>made'
+    top = top + '\n!!class="sml afdheaderbg"| AfD<br/>last'
+    top = top + '\n!!class="sml afdheaderbg"| Sorts'
     # Create start, and headers, for big aggregate column.
-    o = o + "\n|}"
+    o = o + '\n|}'
     # Terminate output string for AfD table.
-outputstring = outputstring + "__NOTOC__\n" + top + o
+outputstring = outputstring + '__NOTOC__\n' + top + o
 # Composite output string from beginning section, top index table, and day tables.
 try:
     dayLogFile = open(dayLogPath, "w")
